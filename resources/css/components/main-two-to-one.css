@@ -1,0 +1,16 @@
+main {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-areas: 
+    "content options";
+}
+
+.main-content, .main-options {
+    grid-area: content;
+    background-color: green;
+    width: 100%;
+}
+.main-options  {
+    grid-area: options;
+    background-color: blue;
+}

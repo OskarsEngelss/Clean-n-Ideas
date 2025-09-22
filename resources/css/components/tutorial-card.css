@@ -1,0 +1,59 @@
+.tutorial-card-link {
+    text-decoration: none;
+}
+
+.tutorial-card {
+    background-color: red;
+    display: grid;
+    grid-template-rows: min-content auto;
+    width: 350px;
+    height: 305px;
+    border-radius: 8px;
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--text-color);
+    background-color: var(--navbar-color);
+}
+.tutorial-card > img {
+    width: 100%;
+}
+
+.tutorial-card-text-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 
+    "title title"
+    "user-info user-info"
+    "favourites upload-time";
+    padding: 3px 10px;
+    row-gap: 2px;
+}
+
+.tutorial-card-title {
+    grid-area: title;
+}
+.tutorial-card-user-info-container {
+    grid-area: user-info;
+    display: flex;
+    align-items: center;
+}
+.tutorial-card-profile-picture {
+    width: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.tutorial-card-username {
+    width: auto;
+}
+.tutorial-card-favourites {
+    grid-area: favourites;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+.tutorial-card-upload-time {
+    grid-area: upload-time;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}

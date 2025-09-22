@@ -1,0 +1,94 @@
+.followers {
+    grid-area: content;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 0.8em;
+}
+.follower-card {
+    height: 100px;
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: 
+    "name picture"
+    "description picture";
+    width: min(650px, 90%);
+    border-radius: 8px;
+    margin-bottom: 0.4em;
+    padding: 0.8em 1em;
+    cursor: pointer;
+    transition: 0.15s;
+    text-decoration: none;
+    color: var(--text-color);
+}
+.follower-card:hover {
+    box-shadow: 12px 12px 12px var(--indent-boxshadow-dark) inset,
+    -10px -10px 10px var(--indent-boxshadow-light) inset;
+}
+
+.follower-card-icon-container {
+    grid-area: picture;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.follower-card-icon-container > img {
+    width: min(90px, 80%);
+    border-radius: 50%;
+}
+.follower-card > h3 {
+    padding-left: 10px;
+    font-size: 1.4em;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.follower-card > p {
+    padding-left: 10px;
+    font-size: 0.8em;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;   
+}
+
+.options {
+    grid-area: options;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content auto;
+    grid-template-areas: 
+    "title-following"
+    "filters";
+    box-shadow: 12px 12px 12px var(--indent-boxshadow-dark) inset,
+    -10px -10px 10px var(--indent-boxshadow-light) inset;
+    padding-top: 0.8em;
+}
+.options > h2 {
+    grid-area: "title-following";
+    font-size: 2em;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media(max-width:1250px) {
+    .two-to-one-grid {
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+        "options"
+        "content";
+    }
+}

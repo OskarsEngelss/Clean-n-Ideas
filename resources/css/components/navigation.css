@@ -1,0 +1,191 @@
+nav {
+    height: 52.79px;
+    top: 0;
+    position: sticky;
+    grid-area: navbar;
+    background-color: var(--navbar-color);
+    box-shadow: 0 5px 6px -1px rgba(0, 0, 0, 0.2);
+    padding: 0.4em;
+    z-index: 100;
+    box-sizing: border-box;
+
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-areas: 
+    "logo search profile";
+}
+.nav-logo-container {
+    grid-area: logo;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+.nav-logo-container > a {
+    text-decoration: none;
+    width: fit-content;
+    color: inherit;
+}
+
+#search-form {
+    grid-area: search;
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#search-form-input {
+    width: 400px;
+    height: 35px;
+
+    box-sizing: border-box;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border: none;
+    padding: 0.5em;
+    font-size: 1.05em;
+}
+#search-form-input:focus {
+    outline: none;
+}
+#search-form-button {
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    box-sizing: border-box;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border: none;
+    padding: 0.5em;
+    cursor: pointer;
+    background-color: var(--navbar-color-hover);
+}
+#search-form-button > svg {
+    transition: 0.3s;
+}
+#search-form-button:hover > svg {
+    transform: rotate(15deg);
+}
+.small-search-button-container {
+    display: none;
+}
+#search-toggle-off-button {
+    display: none;
+}
+
+.nav-profile {
+    grid-area: profile;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    padding: 0;
+}
+#profile-icon {
+    all: unset;
+    display: inline;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+#profile-icon > img {
+    width: inherit;
+    height: inherit;
+    border-radius: 50%;
+}
+.sign-in-button {
+    text-decoration: none;
+    color: var(--text-color);
+    border: 1.5px solid var(--text-color);
+    border-radius: 8px;
+    transition: 0.3s;
+    font-size: 1.05em;
+    padding: 5px;
+}
+.sign-in-button:hover {
+    background-color: var(--navbar-color-hover);
+}
+
+@media(max-width: 900px) {
+    nav {
+        grid-template-areas: 
+        "sidebar-menu search profile";
+    }
+    nav h1 {
+        display: none;
+    }
+}
+
+@media(max-width: 700px) {
+    nav.full-search {
+        grid-template-areas: 
+        "search search search";
+        padding: 0.4em 0em;
+    }
+    #sidebar-toggle-button.hidden {
+        display: none;
+    }
+    #search-form {
+        display: none;
+    }
+    #search-form.show {
+        display: flex;
+        width: 100%;
+    }
+    #search-form-input {
+        width: 100%;
+        border-radius: 0;
+    }
+    #search-form-button {
+        border-radius: 0;
+    }
+    .small-search-button-container {
+        grid-area: search;
+        width: fit-content;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #small-search-button {
+        height: 35px;
+        width: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        box-sizing: border-box;
+        border-radius: 8px;
+        border: none;
+        padding: 0.5em;
+        cursor: pointer;
+        background-color: var(--navbar-color-hover);
+    }
+    #small-search-button > svg {
+        transition: 0.3s;
+    }
+    #small-search-button:hover > svg {
+        transform: rotate(15deg);
+    }
+    .hidden {
+        background-color: red;
+    }
+    #search-toggle-off-button.show {
+        height: 35px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        box-sizing: border-box;
+        border: none;
+        padding: 0.5em;
+        cursor: pointer;
+        background-color: var(--navbar-color-hover);
+    }
+    #search-toggle-off-button.show > svg {
+        transition: 0.3s;
+    }
+    #search-toggle-off-button.show:hover > svg {
+        transform: rotate(15deg);
+    }
+}

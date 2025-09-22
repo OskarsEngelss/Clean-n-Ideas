@@ -1,0 +1,32 @@
+#navbar-extension {
+    height: calc(100vh - 52.79px);
+    top: 52.79px;
+    position: fixed;
+    width: 300px;
+    background-color: var(--navbar-color);
+}
+.logout-button-form {
+    width: 100%;
+}
+.logout-button {
+    all: unset;
+    cursor: pointer;
+    width: inherit;
+    height: fit-content;
+    text-decoration: none;
+    color: var(--text-color);
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding: 0.5em;
+    padding-left: 0.8em;
+    font-size: 1.1em;
+    font-weight: 500
+}
+.hidden-right {
+    right: -100%;
+    transition: right 300ms ease-out;
+}
+.show-right {
+    right: 0;
+}

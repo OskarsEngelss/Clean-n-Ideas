@@ -1,0 +1,32 @@
+:root {
+    --base-color-original: #e6e6e6;
+    --base-color: #eeeeee;
+    --base-variant: #e4e4e4;
+
+    --navbar-color: #dfdfdf;
+    --navbar-color-hover: rgb(255, 255, 255, 0.4);
+    
+    --accent-color: #46a2d4;
+    --accent-color-hover: #6fc0ec;
+
+    --secondary-accent-color: rgb(207, 130, 99);
+    --secondary-accent-color-hover: rgb(232, 156, 126);
+
+    --agree-color: rgb(45, 171, 45);
+    --agree-color-hover: rgb(87, 205, 87);
+
+    --text-color: black;
+
+    --popup-background-color: rgb(0, 0, 0, 0.4);
+    --indent-boxshadow-light: white;
+    --indent-boxshadow-dark: rgba(0, 0, 0, 0.1);
+
+    /* --clean-color: rgb(95, 231, 220);
+    --submit-color-default: rgb(183, 242, 190);
+    --submit-color-hover: rgb(161, 226, 169);
+    --secondary-submit-color-default: rgb(253, 199, 81);
+    --secondary-submit-color-hover: rgb(243, 179, 41); */
+}
+.darkmode {
+    --base-color: #181818;
+}

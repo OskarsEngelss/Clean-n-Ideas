@@ -12,6 +12,14 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
+    public function experiences() {
+        return $this->hasMany(Experience::class);
+    }
+
+    public function tutorialLists() {
+        return $this->hasMany(TutorialList::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *
@@ -19,6 +27,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'description',
         'email',
         'password',
     ];
@@ -44,5 +53,13 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function followers() {
+        return $this->belongsToMany(User::class, 'follows', 'followed_id', 'follower_id');
+    }
+
+    public function following() {
+        return $this->belongsToMany(User::class, 'follows', 'follower_id', 'followed_id');
     }
 }

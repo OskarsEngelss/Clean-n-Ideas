@@ -1,3 +1,28 @@
-@tailwind base;
+/* @tailwind base;
 @tailwind components;
 @tailwind utilities;
+ */
+
+/* app.css */
+
+/* Variables and base styles */
+@import './root.css';
+@import './base/base.css';
+@import './base/typography.css';
+
+/* Layout styles */
+/* @import './layout/grid.css'; */
+/* @import './layout/header.css';
+@import './layout/footer.css'; */
+
+/* Component styles */
+@import './components/navigation.css';
+@import './components/sidebar.css';
+@import './components/tutorial-card.css';
+@import './components/navbar-extension.css';
+
+/* Page-specific styles */
+@import './pages/followers.css';
+@import './pages/profile-show.css';
+@import './pages/experience-create.css';
+/* @import './pages/dashboard.css'; */
