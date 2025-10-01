@@ -12,6 +12,9 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap" rel="stylesheet">
 
+        <!-- Emoji Picker library -->
+        <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
+
         <!-- Scripts -->
         @vite('resources/css/app.css')
         @vite('resources/js/app.js')
@@ -25,7 +28,7 @@
         <main>
             {{ $slot }}
         </main>
-        <footer>Footer</footer>
+        <x-footer></x-footer>
         <x-popup-overlay>
             @stack('popup')
         </x-popup-overlay>

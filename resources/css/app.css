@@ -20,9 +20,12 @@
 @import './components/sidebar.css';
 @import './components/tutorial-card.css';
 @import './components/navbar-extension.css';
+@import './components/comment.css';
 
 /* Page-specific styles */
 @import './pages/followers.css';
 @import './pages/profile-show.css';
 @import './pages/experience-create.css';
-/* @import './pages/dashboard.css'; */
+@import './pages/experience-show.css';
+@import './pages/profile-settings.css';
+@import './pages/home.css';

@@ -85,4 +85,8 @@ class ProfileController extends Controller
 
         return back();
     }
+
+    public function settings() {
+        return view('profile.settings');
+    }
 }

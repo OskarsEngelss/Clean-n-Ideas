@@ -6,12 +6,14 @@
             </div>
             <div class="follow-container">
                 <div>
-                    <form class="follow-user-form" method="POST" action="{{ route('follow.toggle', $user) }}">
-                        @csrf
-                        <button type="submit">
-                            {{ auth()->user()->following->contains($user->id) ? 'Unfollow' : 'Follow' }}
-                        </button>
-                    </form>
+                    @if(Auth::user())
+                        <form class="follow-user-form" method="POST" action="{{ route('follow.toggle', $user) }}">
+                            @csrf
+                            <button type="submit">
+                                {{ auth()->user()->following->contains($user->id) ? 'Unfollow' : 'Follow' }}
+                            </button>
+                        </form>
+                    @endif
                     <p>{{ $followersCount }} followers</p>
                     <button id="profile-more-info-button">
                         More

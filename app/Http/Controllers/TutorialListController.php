@@ -23,24 +23,35 @@ class TutorialListController extends Controller
             ]);
         }
 
-        $favouritesList->load('tutorialListItems.experiences');
+        $favouritesList->load('tutorialListItems.experience');
         $experiences = $favouritesList ? $favouritesList->experiences : collect();
 
         return view('favourites', compact('experiences'));
     }
 
+    //Izveido jaunu publisko metodi, kura izmanto Laravel HTTP Request objektu
     public function favouriteStore(Request $request) {
         //Atrod autentificēto lietotāju
         $user = Auth::user();
 
-        //Izveido jaunu ierakstu TutorialListItem tabulā
-        TutorialListItem::create([
-            //Izmantojot Eloquent Relationships, kuru deklarēja TutorialListItem modelī, atrod
-            //pareizo mīļāko sarakstu un to ievieto tutorial_list_id šūnā
-            'tutorial_list_id' => $user->tutorialLists()->where('is_favourite', true)->value('id'),
-            //Izmantojot Laravel Request atrod pamācības id, kuru vēlas saglabāt
-            'tutorial_id' => $request->experience_id,
-        ]);
+        $tutorialListId = $user->tutorialLists()->where('is_favourite', true)->value('id');
+
+        $existing = TutorialListItem::where('tutorial_list_id', $tutorialListId)
+            ->where('tutorial_id', $request->experience_id)
+            ->first();
+
+        if ($existing) {
+            $existing->delete();
+        } else {
+            //Izveido jaunu ierakstu TutorialListItem tabulā
+            TutorialListItem::create([
+                //Izmantojot Eloquent Relationships, kuru deklarēja TutorialListItem modelī, atrod
+                //pareizo mīļāko sarakstu un to ievieto tutorial_list_id šūnā
+                'tutorial_list_id' => $user->tutorialLists()->where('is_favourite', true)->value('id'),
+                //Izmantojot Laravel Request atrod pamācības id, kuru vēlas saglabāt
+                'tutorial_id' => $request->experience_id,
+            ]);
+        }
 
         //Atgriežas atpakaļ uz pamācību pēc tam, kad tā ir saglabāta
         return back();

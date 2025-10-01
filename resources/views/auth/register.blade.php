@@ -1,6 +1,7 @@
 <x-auth-layout>
-    <div class="form-container">
-        <form method="POST" action="{{ route('register') }}">
+    <div class="login-register-form-container">
+        <h1>Clean n Ideas</h1>
+        <form class="login-register-form" method="POST" action="{{ route('register') }}">
             @csrf
 
             <!-- Session Status -->
@@ -16,45 +17,20 @@
                     {{ $errors->first() }}
                 </span>
             @endif
-            
-            <div>
-                <h2>Register</h2>
-            </div>
+        
+            <h2>Register</h2>
 
-            <!-- Name -->
-            <div>
-                <label for="name">Name</label>
-                <input id="name" type="text" name="name" value="{{ old('name') }}" required autofocus>
-            </div>
+            <input id="name" type="text" name="name" value="{{ old('name') }}" placeholder="Name.." required autofocus>
+            <input id="email" type="email" name="email" value="{{ old('email') }}" placeholder="Email.." required>
+            <input id="password" type="password" name="password" placeholder="Password.." required>
+            <input id="password_confirmation" type="password" name="password_confirmation" placeholder="Confirm Password.." required>
 
-            <!-- Email Address -->
-            <div>
-                <label for="email">Email</label>
-                <input id="email" type="email" name="email" value="{{ old('email') }}" required>
-            </div>
-
-            <!-- Password -->
-            <div>
-                <label for="password">Password</label>
-                <input id="password" type="password" name="password" required>
-            </div>
-
-            <!-- Confirm Password -->
-            <div>
-                <label for="password_confirmation">Confirm Password</label>
-                <input id="password_confirmation" type="password" name="password_confirmation" required>
-            </div>
-
-            <!-- Redirect Links -->
             <div class="redirect-container">
-                <a href="{{ route('login') }}">Already registered? Log in</a>
                 <a href="{{ route('home') }}">Home</a>
+                <a href="{{ route('login') }}">Already registered? Sign in</a>
             </div>
 
-            <!-- Submit Button -->
-            <div>
-                <button class="submit-button" type="submit">Register</button>
-            </div>
+            <button class="submit-button" type="submit">Register</button>
         </form>
     </div>
 </x-auth-layout>

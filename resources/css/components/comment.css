@@ -1,0 +1,332 @@
+#experience-show-comments-popup {
+    max-height: 90%;
+    height: auto;
+    overflow-y: auto;
+}
+.experience-show-comment-container, .experience-show-reply-container {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    grid-template-areas: 
+    "comment-profile-picture-username-followers comment-like-dislike comment-reply"
+    "time-posted time-posted time-posted"
+    "comment comment comment";
+    padding: 10px 25px 5px 25px;
+    border-radius: 8px;
+    column-gap: 10px;
+}
+.experience-show-comment-profile-picture-username-followers {
+    grid-area: comment-profile-picture-username-followers;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-areas: "comment-profile-picture comment-username-followers";
+    column-gap: 10px;
+    padding: 7px 10px;
+    border-radius: 8px;
+    align-items: center;
+    transition: 0.3s;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--text-color);
+}
+.experience-show-comment-profile-picture-username-followers:hover {
+    box-shadow: 7px 7px 7px var(--indent-boxshadow-dark) inset,
+    -5px -5px 5px var(--indent-boxshadow-light) inset;
+}
+.experience-show-comment-profile-picture-username-followers > img {
+    grid-area: comment-profile-picture;
+    width: 45px;
+    border-radius: 50%;
+}
+.experience-show-comment-username-followers {
+    grid-area: comment-username-followers;
+}
+.experience-show-comment-username-followers > h4 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 505px;
+}
+.experience-show-comment-username-followers > p {
+    font-size: 0.8em;
+}
+.experience-show-comment-like-dislike {
+    grid-area: comment-like-dislike;
+    font-size: 0.9em;
+}
+.experience-show-comment-like-dislike > div > button > svg {
+    width: 25px;
+    height: 25px;
+}
+.experience-show-comment-reply {
+    all: unset;
+    grid-area: comment-reply;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.experience-show-comment-reply:hover {
+    box-shadow: 4px 4px 4px var(--indent-boxshadow-dark) inset,
+    -3px -3px 3px var(--indent-boxshadow-light) inset;
+}
+.experience-show-comment-reply > svg {
+    transform: rotate(90deg);
+}
+.experience-show-comment-time-posted {
+    grid-area: time-posted;
+    justify-self: end;
+    text-align: center;
+    font-size: 0.7em;
+    color: var(--secondary-text-color);
+    padding-right: 17px;
+}
+
+.experience-show-comment {
+    grid-area: comment;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+
+#experience-show-comments-popup-form, .experience-show-comments-popup-form-denied > div {
+    width: 100%;
+    padding: 10px 25px;
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    background-color: var(--base-variant);
+    box-sizing: border-box;
+    box-shadow: 0 -5px 6px -1px rgba(0, 0, 0, 0.2);
+    margin-top: 7px;
+}
+#experience-show-comments-popup-form {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+    "experience-show-comments-popup-button-container"
+    "input"
+    "emoji";
+    row-gap: 7px;
+}
+#experience-show-comments-popup-button-container {
+    grid-area: experience-show-comments-popup-button-container;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: 
+    "experience-show-comments-popup-cancel-button experience-show-comments-popup-emoji-button experience-show-comments-popup-submit-button";
+    transition: 0.2s ease-in;
+    transform: translateY(7px);
+    height: 0px;
+    z-index: -1;
+    opacity: 0;
+}
+#experience-show-comments-popup-button-container.show {
+    transform: translateY(0px);
+    height: 36.67px;
+    opacity: 1;
+}
+#experience-show-comments-popup-input {
+    grid-area: input;
+    width: 100%;
+    max-height: 182px;
+    box-sizing: border-box;
+    font-size: 1.15em;
+    padding: 7px;
+    overflow: hidden;
+    overflow-y: auto;
+    resize: none;
+    border: none;
+    border-radius: 8px;
+}
+#experience-show-comments-popup-input:focus {
+    outline: none;
+}
+#experience-show-comments-popup-cancel-button, #experience-show-comments-popup-emoji-button, #experience-show-comments-popup-submit-button {
+    grid-area: experience-show-comments-popup-cancel-button;
+    all: unset;
+    padding: 5px 15px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: 0.2s;
+    font-size: 1em;
+    width: fit-content;
+    background-color: var(--disagree-color);
+}
+#experience-show-comments-popup-cancel-button:hover {
+    background-color: var(--disagree-color-hover);
+}
+#experience-show-comments-popup-emoji-button {
+    grid-area: experience-show-comments-popup-emoji-button;
+    justify-self: center;
+    background-color: var(--accent-color);
+}
+#experience-show-comments-popup-emoji-button:hover {
+    background-color: var(--accent-color-hover);
+}
+#experience-show-comments-popup-submit-button {
+    grid-area: experience-show-comments-popup-submit-button;
+    justify-self: end;
+    background-color: var(--agree-color);
+}
+#experience-show-comments-popup-submit-button:hover {
+    background-color: var(--agree-color-hover);
+}
+
+emoji-picker {
+    width: 90%;
+    height: 300px;
+    position: absolute;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    overflow: hidden;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+.experience-show-comments-popup-form-denied {
+    text-decoration: none;
+    color: var(--text-color);
+}
+.experience-show-comments-popup-form-denied > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
+.experience-show-comments-popup-form-denied > div > p > span {
+    font-weight: 600;
+}
+
+
+
+
+.experience-show-reply-container {
+    grid-template-columns: 1fr auto;
+    grid-template-areas: 
+    "comment-profile-picture-username-followers comment-like-dislike"
+    "time-posted time-posted"
+    "comment comment"
+    "reply reply";
+    font-size: 0.75em;
+    height: auto;
+    padding: 0px 25px 5px 80px;
+}
+.experience-show-reply-container > a > img {
+    width: 30px;
+}
+.experience-show-reply-container > .experience-show-comment-like-dislike > div > button > svg  {
+    width: 20px;
+    height: 20px;
+}
+/* .experience-show-comment-replies-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content;
+    gap: 0;
+
+    padding: 0;
+    margin: 0;
+} */
+.experience-show-comment-reply-container {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: 0.3s ease-in-out;
+
+    > div {
+        overflow: hidden;
+    }
+}
+.experience-show-comment-reply-container.show {
+    grid-template-rows: 1fr;
+}
+.experience-show-comment-toggle-reply-container-button {
+    all: unset;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    padding: 2px 0px;
+    margin-bottom: 5px;
+    font-size: 0.8em;
+    transition: 0.2s;
+}
+.experience-show-comment-toggle-reply-container-button:hover {
+    box-shadow: 7px 7px 7px var(--indent-boxshadow-dark) inset,
+    -5px -5px 5px var(--indent-boxshadow-light) inset;
+}
+
+@media(max-width: 830px) {
+    .experience-show-comment-username-followers > h4 {
+        width: 450px;
+    }
+}
+@media(max-width: 780px) {
+    .experience-show-comment-username-followers > h4 {
+        width: 400px;
+    }
+}
+@media(max-width: 730px) {
+    .experience-show-comment-username-followers > h4 {
+        width: 350px;
+    }
+}
+@media(max-width: 675px) {
+    .experience-show-comment-container, .experience-show-reply-container {
+        font-size: 0.8em;
+    }
+    .experience-show-comment-username-followers > h4 {
+        width: 285px;
+    }
+}
+@media(max-width: 600px) {
+    .experience-show-comment-container, .experience-show-reply-container {
+        font-size: 0.8em;
+        padding: 10px 10px 5px 10px;
+    }
+    .experience-show-reply-container {
+        padding-left: 60px;
+    }
+    .experience-show-comment-reply > svg {
+        width: 30px;
+        height: 30px;
+    }
+    .experience-show-comment-reply {
+        height: 45px;
+    }
+    .experience-show-comment-like-dislike > div > button > svg {
+        width: 20px;
+        height: 20px;
+    }
+    .experience-show-comment-username-followers > h4 {
+        width: 285px;
+    }
+}
+@media(max-width: 560px) {
+    .experience-show-comment-username-followers > h4 {
+        width: 240px;
+    }
+}
+@media(max-width: 515px) {
+    .experience-show-comment-container, .experience-show-reply-container {
+        grid-template-columns: 1fr auto auto;
+        grid-template-areas: 
+        "comment-profile-picture-username-followers comment-profile-picture-username-followers comment-reply"
+        "time-posted comment-like-dislike comment-like-dislike"
+        "comment comment comment";
+    }
+    .experience-show-comment-time-posted {
+        justify-self: start;
+        text-align: center;
+    }
+    .experience-show-comment-like-dislike {
+        display: flex;
+        column-gap: 10px;
+    }
+    .experience-show-comment-like-dislike > div > button > svg {
+        width: 18px;
+        height: 18px;
+    }
+    .experience-show-comment-like-dislike > div > p {
+        font-size: 0.9em;
+    }
+}

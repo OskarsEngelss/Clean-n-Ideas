@@ -1,6 +1,7 @@
 <x-auth-layout>
-    <div class="form-container">
-        <form method="POST" action="{{ route('login') }}">
+    <div class="login-register-form-container">
+        <h1>Clean n Ideas</h1>
+        <form class="login-register-form" method="POST" action="{{ route('login') }}">
             @csrf
 
             <!-- Session Status -->
@@ -17,45 +18,31 @@
                 </span>
             @endif
 
-            <div>
-                <h2>Login</h2>
+            <h2>Sign in</h2>
+
+            <input id="email" type="email" name="email" value="{{ old('email') }}" placeholder="Email.." required autofocus>
+            <input id="password" type="password" name="password" placeholder="Password.." required>
+
+            <div class="redirect-container">
+                <a href="{{ route('home') }}">Home</a>
+                <a href="{{ route('register') }}">Register instead</a>
             </div>
 
-            <!-- Email -->
-            <div>
-                <label for="email">Email</label>
-                <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus>
-            </div>
-
-            <!-- Password -->
-            <div>
-                <label for="password">Password</label>
-                <input id="password" type="password" name="password" required>
-            </div>
+            <button class="submit-button" type="submit">Sign in</button>
 
             <!-- Remember Me -->
-            <div>
+            <!-- <div>
                 <label>
                     <input type="checkbox" name="remember"> Remember me
                 </label>
-            </div>
-
-            <div class="redirect-container">
-                <a href="{{ route('register') }}">Register instead</a>
-                <a href="{{ route('home') }}">Home</a>
-            </div>
-
+            </div> -->
+            
             <!-- Forgot Password Link -->
             <!-- @if (Route::has('password.request'))
                 <div>
                     <a href="{{ route('password.request') }}">Forgot your password?</a>
                 </div>
             @endif -->
-
-            <!-- Submit Button -->
-            <div>
-                <button class="submit-button" type="submit">Log in</button>
-            </div>
         </form>
     </div>
 </x-auth-layout>

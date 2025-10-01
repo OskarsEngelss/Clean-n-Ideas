@@ -1,55 +1,44 @@
-//NEEDS IMPROVEMENT!!!!!!!!!!!
-
 export function initExperienceCreatePopups() {
-    const categoryInput = document.getElementById('category-input');
-    const visibilityInput = document.getElementById('experience-visibility-input');
-
-    const categoryPopup = document.getElementById('category-popup');
-    const visibilityPopup = document.getElementById('visibility-popup');
-
-    const categoryOptionList = categoryPopup.querySelectorAll('.category-popup-options');
-    const visibilityOptionList = visibilityPopup.querySelectorAll('.visibility-popup-options');
-
     const popupOverlay = document.querySelector('.popup-overlay');
 
-    function toggleCategoryPopup() {
-        visibilityPopup.style.display = "none";
-        categoryPopup.style.display = "block";
-        popupOverlay.classList.toggle('show');
+    let activePopup = null;
+
+    function closeActivePopup() {
+        if (activePopup) {
+            activePopup.popup.style.display = 'none';
+            popupOverlay.classList.remove('show');
+            activePopup = null;
+        }
     }
-    function toggleVisibilityPopup() {
-        categoryPopup.style.display = "none";
-        visibilityPopup.style.display = "block";
-        popupOverlay.classList.toggle('show');
+
+    function openPopup(popupElement) {
+        closeActivePopup();
+        popupElement.style.display = 'block';
+        popupOverlay.classList.add('show');
+        activePopup = { popup: popupElement };
     }
 
-    categoryInput.addEventListener('click', toggleCategoryPopup);
-    visibilityInput.addEventListener('click', toggleVisibilityPopup);
+    const popupInputs = document.querySelectorAll('[data-popup-target]');
 
+    popupInputs.forEach(input => {
+        const popupId = input.getAttribute('data-popup-target');
+        const popupElement = document.getElementById(popupId);
+        const optionSelector = input.getAttribute('data-option-selector');
+        const options = popupElement.querySelectorAll(optionSelector);
 
-    categoryOptionList.forEach((option) => {
-        option.addEventListener('click', () => {
-            selectOptionForCategory(option);
+        input.addEventListener('click', () => openPopup(popupElement));
+
+        options.forEach(option => {
+            option.addEventListener('click', () => {
+                input.value = option.textContent;
+                closeActivePopup();
+            });
         });
     });
-    visibilityOptionList.forEach((option) => {
-        option.addEventListener('click', () => {
-            selectOptionForVisibility(option);
-        });
-    });
-
-    function selectOptionForCategory(option) {
-        categoryInput.value = option.textContent;
-        toggleCategoryPopup();
-    }
-    function selectOptionForVisibility(option) {
-        visibilityInput.value = option.textContent;
-        toggleVisibilityPopup();
-    }
 
     popupOverlay.addEventListener('click', (event) => {
         if (event.target === popupOverlay) {
-            toggleCategoryPopup();
+            closeActivePopup();
         }
     });
 }

@@ -1,4 +1,11 @@
 export function initBase() {
+    let darkmode = localStorage.getItem('darkmode');
+    const enableDarkmode = () => {
+        document.body.classList.add('darkmode');
+        localStorage.setItem('darkmode', 'active');
+    }
+    if (darkmode === "active") enableDarkmode();
+
     const sidebar = document.getElementById('sidebar');
     const sidebarToggleButton = document.getElementById('sidebar-toggle-button');
     const menuIcon = sidebarToggleButton.querySelector('.menu-icon');
@@ -9,15 +16,6 @@ export function initBase() {
         menuIcon.classList.toggle('hidden');
         closeIcon.classList.toggle('hidden');
     });
-
-
-    const navbarExtension = document.getElementById('navbar-extension');
-    const navbarExtensionToggleButton = document.getElementById('profile-icon');
-
-    navbarExtensionToggleButton.addEventListener('click', () => {
-        navbarExtension.classList.toggle('show-right');
-    });
-
 
     const nav = document.querySelector('nav');
     const searchForm = document.getElementById('search-form');

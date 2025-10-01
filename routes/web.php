@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\TutorialListController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -17,6 +18,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/profile/settings', [ProfileController::class, 'settings'])->name('profile.settings');
 
     Route::get('/favourites', function () {
         return view('favourites');
@@ -28,6 +30,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/your-experiences', [ExperienceController::class, 'yourExperiences'])->name('your-experiences');
     Route::get('/experience/create', [ExperienceController::class, 'create'])->name('experience.create');
     Route::post('/experience/store', [ExperienceController::class, 'store'])->name('experience.store');
+
+    Route::post('/comment/store', [CommentController::class, 'store'])->name('comment.store');
 
     Route::post('/tutorialList/favourite/store', [TutorialListController::class, 'favouriteStore'])->name('tutorialList.favourite.store');
 

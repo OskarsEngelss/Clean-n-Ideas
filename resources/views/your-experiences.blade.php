@@ -2,11 +2,10 @@
             <h2>Your shared experiences</h2>
             @forelse ($experiences as $experience)
                 <x-tutorial-card
-                    :title="$experience->title"
-                    :description="$experience->description"
-                    :category="$experience->category"
+                    :experience="$experience"
                     :thumbnail="$experience->thumbnail_url"
                     :user="$experience->user"
+                    :savedCount="$experience->tutorial_list_items_count"
                     :url="route('experience.show', $experience->slug)"
                 ></x-tutorial-card>
             @empty

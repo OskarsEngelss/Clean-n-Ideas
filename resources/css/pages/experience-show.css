@@ -1,0 +1,203 @@
+.experience-show-container {
+    grid-area: content;
+    display: flex;
+    flex-direction: column;
+    padding: 5px 15px;
+    row-gap: 5px;
+}
+.experience-show-container > h2 {
+    width: 100%;
+    text-align: center;
+    padding: 0px;
+    font-size: 2em;
+}
+.experience-show-container > p {
+    white-space: pre-wrap;
+    font-size: 1.1em;
+}
+
+.experience-show-options {
+    height: min-content;
+    grid-area: options;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content;
+    grid-template-areas: 
+    "creator-info"
+    "save-rate-description"
+    "comments"
+    "media";
+    padding: 10px 15px;
+    row-gap: 7px;
+}
+.experience-creator-info {
+    grid-area: creator-info;
+    width: 100%;
+    text-decoration: none;
+    color: var(--text-color);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-areas: 
+    "profile-picture username-follower-count";
+    gap: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    box-sizing: border-box;
+    transition: 0.3s;
+}
+.experience-creator-info:hover {
+    box-shadow: 12px 12px 12px var(--indent-boxshadow-dark) inset,
+    -10px -10px 10px var(--indent-boxshadow-light) inset;
+}
+.experience-creator-info > img {
+    grid-area: profile-picture;
+    width: 60px;
+    border-radius: 50%;
+}
+.experience-creator-info > div {
+    grid-area: username-follower-count;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+}
+.experience-creator-info > div > p:first-of-type {
+    font-size: 1.3em;
+}
+
+.experience-show-save-rate-description-container {
+    grid-area: save-rate-description;
+    display: grid;
+    grid-template-columns: auto 3fr 7fr;
+    grid-template-areas: 
+    "favourite like description"
+    "save dislike description";
+    gap: 10px;
+}
+.experience-show-favourite-form {
+    grid-area: favourite;
+}
+.experience-show-save-form {
+    grid-area: save;
+}
+#experience-show-tutorial-like-button {
+    grid-area: like;
+}
+#experience-show-tutorial-dislike-button {
+    grid-area: dislike;
+}
+.experience-show-favourite-button, .experience-show-save-to-list-button, #experience-show-tutorial-like-button, #experience-show-tutorial-dislike-button, #experience-show-comment-like-button, #experience-show-comment-dislike-button {
+    all: unset;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+}
+.experience-show-favourite-button .hovered {
+    opacity: 0;
+}
+.experience-show-favourite-button:hover .default {
+    opacity: 0;
+}
+.experience-show-favourite-button:hover .hovered {
+    opacity: 1;
+}
+
+#experience-show-comments-button, #experience-show-media-button, #experience-show-description-button {
+    all: unset;
+    grid-area: comments;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--accent-color);
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 1.3em;
+    padding: 15px;
+    transition: 0.3s;
+}
+#experience-show-description-button {
+    grid-area: description;
+    background-color: var(--secondary-accent-color);
+}
+#experience-show-media-button {
+    grid-area: media;
+    background-color: var(--third-accent-color);
+}
+#experience-show-comments-button:hover {
+    background-color: var(--accent-color-hover);
+}
+#experience-show-media-button:hover {
+    background-color: var(--third-accent-color-hover);
+}
+#experience-show-description-button:hover {
+    background-color: var(--secondary-accent-color-hover);
+}
+
+.like-dislike-button-counter-container {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 7px;
+    font-size: 1.2em;
+}
+
+.like-dislike-button-counter-container > button .hovered {
+    opacity: 0;
+}
+.like-dislike-button-counter-container > button:hover .default {
+    opacity: 0;
+}
+.like-dislike-button-counter-container > button:hover .hovered {
+    opacity: 1;
+}
+
+
+#experience-show-description-popup, #experience-show-comments-popup, #experience-show-media-popup {
+    display: none;
+    background-color: var(--base-color);
+    position: fixed;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -25%);
+    width: min(800px, 95%);
+    overflow-y: auto;
+    border-radius: 8px;
+    font-size: 1.2em;
+    box-sizing: border-box;
+}
+#experience-show-description-popup > div:nth-child(2), #experience-show-media-popup > div:nth-child(2) {
+   padding: 15px 25px;
+}
+#experience-show-comments-popup {
+    padding: 0;
+}
+
+#experience-show-description-popup {
+
+}
+
+#experience-show-media-popup {
+
+}
+
+.experience-show-popup-close-container {
+    width: 100%;
+    position: sticky;
+    top: 0;
+    background-color: var(--base-color);
+    box-shadow: 0 5px 6px -1px rgba(0, 0, 0, 0.2);
+    height: 35px;
+}
+.experience-show-popups-off-button {
+    all: unset;
+    cursor: pointer;
+    height: 35px;
+}
+.experience-show-popups-off-button > svg {
+    transition: 0.3s;
+}
+.experience-show-popups-off-button:hover > svg {
+    transform: rotate(15deg);
+}

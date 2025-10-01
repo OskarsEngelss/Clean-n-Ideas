@@ -8,22 +8,24 @@
         <title>{{ $title ?? 'Clean n Ideas' }}</title>
 
         <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Rubik+Gemstones&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap" rel="stylesheet">
+
+        <!-- Emoji Picker library -->
+        <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
 
         <!-- Scripts -->
-        @vite('resources/css/root.css')
-        @vite('resources/css/auth.css')
-        @vite('resources/css/footer.css')
+        @vite('resources/css/pages/auth.css')
+        @vite('resources/js/app.js')
     </head>
+    <body>
         <main>
             {{ $slot }}
         </main>
-
         <x-footer></x-footer>
+        <x-popup-overlay>
+            @stack('popup')
+        </x-popup-overlay>
     </body>
 </html>

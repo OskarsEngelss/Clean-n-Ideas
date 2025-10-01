@@ -1,0 +1,146 @@
+@import '../root.css';
+
+* {
+    font-family: "Onest";
+    color: var(--text-color);
+}
+
+body {
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto;
+    grid-template-areas: 
+    "main"
+    "footer";
+    background-color: var(--base-color);
+}
+
+.login-register-form-container {
+    width: 100%;
+    min-height: calc(100vh - 53.21px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-register-form-container h1 {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    font-size: 4.5em;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.login-register-form {
+    width: fit-content;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background-color: var(--base-color);
+    display: grid;
+    grid-template-columns: 1fr;
+    box-shadow: 8px 8px 8px var(--indent-boxshadow-dark),
+    -10px -10px 10px var(--indent-boxshadow-light);
+    transition: 0.2s;
+}
+
+.login-register-form h2 {
+    text-align: center;
+    padding: 5px 0px;
+    margin: 0;
+    font-size: 1.7em;
+}
+
+.login-register-form input {
+    width: 400px;
+    height: 30px;
+    border-radius: 8px;
+    border: none;
+    padding: 5px 10px;
+    font-size: 1.1em;
+    margin: 5px 0px;
+    transition: 0.2s;
+}
+
+.login-register-form input:focus, .login-register-form input:hover {
+    outline: none;
+    box-shadow: 12px 12px 12px var(--indent-boxshadow-dark) inset,
+    -8px -8px 8px var(--indent-boxshadow-light) inset;
+}
+
+.redirect-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0px 10px 0px;
+}
+.redirect-container a {
+    text-decoration: none;
+    color: var(--text-color);
+    padding: 3px 8px;
+    border-radius: 8px;
+    background-color: var(--secondary-accent-color);
+    transition: 0.3s;
+}
+.redirect-container a:hover {
+    background-color: var(--secondary-accent-color-hover);
+}
+
+.login-register-form button {
+    all: unset;
+    background-color: var(--accent-color);
+    padding: 5px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    justify-self: center;
+    font-size: 1.2em;
+}
+.login-register-form button:hover {
+    background-color: var(--accent-color-hover);
+}
+
+footer {
+    grid-area: footer;
+    background-color: var(--base-color-original);
+    padding: 1.2em;
+    font-size: 0.9em;
+    text-align: center;
+}
+
+
+/* Some code for the checkbox if I decide to make the remember be function */
+
+/* .login-register-form input[type="checkbox"] {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    padding: none;
+}
+.login-register-form input[type="checkbox"]:focus, .login-register-form input[type="checkbox"]:hover {
+    box-shadow: none;
+} */
+
+@media(max-width: 1000px) {
+    .login-register-form-container h1 {
+        font-size: 3.5em;
+    }
+}
+@media(max-width: 550px) {
+    .login-register-form-container h1 {
+        font-size: 2.8em;
+    }
+    .login-register-form {
+        width: 100%;
+        border-radius: 0px;
+    }
+    .login-register-form input {
+        width: 95%;
+    }
+    .login-register-form-container {
+        width: 100%;
+        align-items: start;
+        padding-top: 25vh;
+        box-sizing: border-box;
+    }
+}

@@ -35,7 +35,7 @@ aside {
         position: fixed;
         width: 300px;
         left: -100%;
-        transition: left 300ms ease-out;
+        transition: left 300ms ease-in-out;
     }
     .show-left {
         left: 0;

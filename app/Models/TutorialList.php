@@ -20,7 +20,7 @@ class TutorialList extends Model
 
     public function getExperiencesAttribute() {
         return ($this->tutorialListItems ?? collect())
-            ->pluck('experiences')
+            ->pluck('experience')
             ->flatten()
             ->unique('id');
     }

@@ -10,7 +10,7 @@
             <input value="{{ old('title') }}" class="title-input" type="text" name="title" placeholder="Title"/>
         </div>
         <div class="category-input-container">
-            <input value="{{ old('category') }}" type="text" name="category" id="category-input" placeholder="Pick a category" readonly>
+            <input value="{{ old('category') }}" type="text" name="category" id="category-input" placeholder="Pick a category" readonly id="category-input" data-popup-target="category-popup" data-option-selector=".category-popup-options">
         </div>
         <div class="tutorial-input-container">
             <textarea class="tutorial-textarea" name="tutorial" placeholder="Tutorial">{{ old('tutorial') }}</textarea>
@@ -24,7 +24,7 @@
         <div class="extra-options-container">
             <p>Extra options here!!</p>
             <div class="experience-visibility-input-container">
-                <input type="text" name="visibility" id="experience-visibility-input" value="{{ old('visibility', 'Public') }}" placeholder="Choose visiblity" readonly>
+                <input type="text" name="visibility" id="experience-visibility-input" value="{{ old('visibility', 'Public') }}" placeholder="Choose visiblity" readonly id="experience-visibility-input" data-popup-target="visibility-popup" data-option-selector=".visibility-popup-options">
             </div>
             <div></div>
         </div>

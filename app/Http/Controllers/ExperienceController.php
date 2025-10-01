@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use App\Models\TutorialList;
 use App\Models\TutorialListItem;
+use App\Models\Comment;
 
 class ExperienceController extends Controller
 {
@@ -44,9 +45,18 @@ class ExperienceController extends Controller
 
     public function show(Experience $experience) {
         $favourited = false;
+        $creator = $experience->user;
+        $followersCount = $creator->followers()->count();
+
+        $comments = Comment::where('tutorial_id', $experience->id)
+                   ->whereNull('parent_id')
+                   ->with('replies.user')
+                   ->latest()
+                   ->get();
         
         if (Auth::check()) {
             $user = Auth::user();
+
             $favouritesList = $user->tutorialLists()->where('is_favourite', true)->first();
 
             if (!$favouritesList) {
@@ -64,7 +74,7 @@ class ExperienceController extends Controller
             }
         }
 
-        return view('experience.show', compact('experience', 'favourited'));
+        return view('experience.show', compact('experience', 'followersCount', 'favourited', 'comments'));
     }
 
     public function edit($id) {

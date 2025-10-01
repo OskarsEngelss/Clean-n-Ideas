@@ -8,7 +8,7 @@
                 <img class="tutorial-card-profile-picture" atl="Profile icon" src="https://static.vecteezy.com/system/resources/previews/013/360/247/non_2x/default-avatar-photo-icon-social-media-profile-sign-symbol-vector.jpg" >
                 <p class="tutorial-card-category">{{ $user->name }}</p>
             </div>
-            <p class="tutorial-card-favourites">Favourites: {{ $savedCount }}</p>
+            <p class="tutorial-card-favourites">Likes: {{ $savedCount }}</p>
             <p class="tutorial-card-upload-time">{{ $experience->created_at->diffForHumans() }}</p>
         </div>
     </div>

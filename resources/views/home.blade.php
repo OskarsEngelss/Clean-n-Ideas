@@ -1,13 +1,25 @@
 <x-main-layout title="Home">
-    @forelse ($experiences as $experience)
-        <x-tutorial-card
-            :experience="$experience"
-            :thumbnail="$experience->thumbnail_url"
-            :user="$experience->user"
-            :savedCount="$experience->tutorial_list_items_count"
-            :url="route('experience.show', $experience->slug)"
-        ></x-tutorial-card>
-    @empty
-        <p>You haven't shared any experiences yet</p>
-    @endforelse
+    <div class="home-container">
+        <div class="carousel">
+            <button class="carousel-back-button"><</button>
+
+            <div class="carousel-group">
+                @forelse ($experiences as $experience)
+                    @if ($experience->visibility == "public")
+                        <x-tutorial-card
+                            :experience="$experience"
+                            :thumbnail="$experience->thumbnail_url"
+                            :user="$experience->user"
+                            :savedCount="$experience->tutorial_list_items_count"
+                            :url="route('experience.show', $experience->slug)"
+                        ></x-tutorial-card>
+                    @endif
+                @empty
+                    <p>You haven't shared any experiences yet</p>
+                @endforelse
+            </div>
+
+            <button class="carousel-forward-button">></button>
+        </div>
+    </div>
 </x-main-layout>
