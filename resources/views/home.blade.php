@@ -5,7 +5,7 @@
 
             <div class="carousel-group">
                 @forelse ($experiences as $experience)
-                    @if ($experience->visibility == "public")
+                    @if ($experience->visibility == "Public")
                         <x-tutorial-card
                             :experience="$experience"
                             :thumbnail="$experience->thumbnail_url"
@@ -15,7 +15,7 @@
                         ></x-tutorial-card>
                     @endif
                 @empty
-                    <p>You haven't shared any experiences yet</p>
+                    <p>Nothing is posted?! How?!</p>
                 @endforelse
             </div>
 

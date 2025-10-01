@@ -20,9 +20,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/profile/settings', [ProfileController::class, 'settings'])->name('profile.settings');
 
-    Route::get('/favourites', function () {
-        return view('favourites');
-    })->name('favourites');
+
     Route::get('/lists', function () {
         return view('lists');
     })->name('lists');

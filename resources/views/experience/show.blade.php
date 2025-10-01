@@ -6,7 +6,7 @@
         </section>
         <section class="experience-show-options">
             <a href="{{ route('profile.show', $experience->user->id) }}" class="experience-creator-info">
-                <img atl="Profile icon" src="https://static.vecteezy.com/system/resources/previews/013/360/247/non_2x/default-avatar-photo-icon-social-media-profile-sign-symbol-vector.jpg" >
+                <img atl="Profile icon" src="{{ $experience->user->profile_picture ? asset('storage/' . $experience->user->profile_picture) : asset('images/defaults/default-profile-picture.jpg') }}">
                 <div>
                     <p>{{ $experience->user->name }}</p>
                     <p>Followers: {{ $followersCount }} </p>

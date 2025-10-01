@@ -5,7 +5,7 @@
             <h3 class="tutorial-card-title">{{ $experience->title }}</h3>
             <!-- <p class="tutorial-card-description">{{ $experience->description }}</p> -->
             <div class="tutorial-card-user-info-container">
-                <img class="tutorial-card-profile-picture" atl="Profile icon" src="https://static.vecteezy.com/system/resources/previews/013/360/247/non_2x/default-avatar-photo-icon-social-media-profile-sign-symbol-vector.jpg" >
+                <img class="tutorial-card-profile-picture" atl="Profile icon" src="{{ $user->profile_picture ? asset('storage/' . $user->profile_picture) : asset('images/defaults/default-profile-picture.jpg') }}" >
                 <p class="tutorial-card-category">{{ $user->name }}</p>
             </div>
             <p class="tutorial-card-favourites">Likes: {{ $savedCount }}</p>

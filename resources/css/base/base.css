@@ -46,6 +46,15 @@ footer {
     "content options";
 }
 
+@media(max-width:1415px) {
+    .two-to-one-grid {
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+        "options"
+        "content";
+    }
+}
+
 @media(max-width: 900px) {
     body {
         grid-template-columns: 1fr;

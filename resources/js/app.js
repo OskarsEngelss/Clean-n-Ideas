@@ -15,6 +15,7 @@ import { initExperienceShowPopupsEmojiPicker } from './modules/experienceShowPop
 import { initExperienceShowCommentsForm } from './modules/experienceShowCommentsForm.js';
 import { initLightDarkMode } from './modules/light-dark-mode.js';
 import { initHomeCarousel } from './modules/home-carousel.js';
+import { initSettings } from './modules/settings.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     initBase();
@@ -49,5 +50,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (document.querySelector('#home-carousel')) {
         initHomeCarousel();
+    }
+
+    if (document.querySelector('#settings-profile-picture-input')) {
+        initSettings();
     }
 });

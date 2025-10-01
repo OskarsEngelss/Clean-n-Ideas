@@ -39,7 +39,7 @@
     @if (Auth::check())
         <div class="nav-profile">
             <button id="profile-icon">
-                <img src="https://static.vecteezy.com/system/resources/previews/013/360/247/non_2x/default-avatar-photo-icon-social-media-profile-sign-symbol-vector.jpg" alt="Profile icon">
+                <img alt="Profile icon" src="{{ Auth::user()->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : asset('images/defaults/default-profile-picture.jpg') }}">
             </button>
         </div>
     @else

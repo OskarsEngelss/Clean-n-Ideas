@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div class="profile-picture-container">
-                <img alt="Profile picture" src="https://static.vecteezy.com/system/resources/previews/013/360/247/non_2x/default-avatar-photo-icon-social-media-profile-sign-symbol-vector.jpg">
+                <img alt="Profile picture" src="{{ $user->profile_picture ? asset('storage/' . $user->profile_picture) : asset('images/defaults/default-profile-picture.jpg') }}">
             </div>
         </div>
         <div class="profile-lower-grid">

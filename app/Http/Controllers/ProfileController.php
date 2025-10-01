@@ -27,15 +27,30 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        $user = $request->user();
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        $user->fill($request->validated());
+
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null;
         }
 
-        $request->user()->save();
+        if ($request->hasFile('profile_picture')) {
+            if ($user->profile_picture) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($user->profile_picture);
+            }
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+            $path = $request->file('profile_picture')->store('profile_pictures', 'public');
+            $user->profile_picture = $path;
+        }
+
+        if ($request->filled('password')) {
+            $user->password = \Illuminate\Support\Facades\Hash::make($request->password);
+        }
+
+        $user->save();
+
+        return Redirect::route('profile.settings')->with('status', 'profile-updated');
     }
 
     /**
@@ -87,6 +102,7 @@ class ProfileController extends Controller
     }
 
     public function settings() {
-        return view('profile.settings');
+        $user = Auth::user();
+        return view('profile.settings', compact('user'));
     }
 }

@@ -1,0 +1,144 @@
+.one-grid {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px 0px;
+}
+
+.settings-container {
+    width: 90%;
+    box-shadow: 12px 12px 12px var(--indent-boxshadow-dark) inset,
+    -10px -10px 10px var(--indent-boxshadow-light) inset;
+    padding: 25px;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.settings-extras-options {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas: 
+    "profile-picture about light-dark-mode";
+    column-gap: 20px;
+}
+
+.settings-prolfile-picture-container {
+    grid-area: profile-picture;
+    display: grid;
+    place-items: center;
+}
+.settings-profile-picture {
+    grid-column: 1/2;
+    grid-row: 1/2;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+#settings-profile-picture-svg {
+    opacity: 0;
+    grid-column: 1/2;
+    grid-row: 1/2;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.settings-profile-picture:hover ~ #settings-profile-picture-svg, #settings-profile-picture-svg:hover {
+    opacity: 1;
+}
+
+.settings-about-textarea {
+    grid-area: about;
+    width: 100%;
+    border-radius: 8px;
+    border: none;
+    transition: 0.2s;
+    padding: 8px;
+    font-size: larger;
+    box-sizing: border-box;
+}
+.settings-about-textarea:hover, .settings-main-options input:hover {
+    box-shadow: 12px 12px 12px var(--indent-boxshadow-dark) inset,
+    -10px -10px 10px var(--indent-boxshadow-light) inset;
+}
+.settings-about-textarea:focus, .settings-main-options input:focus {
+    outline: none;
+    box-shadow: 12px 12px 12px var(--indent-boxshadow-dark) inset,
+    -10px -10px 10px var(--indent-boxshadow-light) inset;
+}
+.settings-light-dark-mode-container {
+    display: flex;
+    justify-content: start;
+}
+.settings-light-dark-mode-container {
+    grid-area: light-dark-mode;
+}
+
+
+.settings-main-options {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    row-gap: 10px;
+    margin-top: 20px;
+}
+.settings-main-options input {
+    width: max(500px, 50%);
+    padding: 8px;
+    font-size: larger;
+    border-radius: 8px;
+    border: none;
+}
+.settings-password-change-title {
+    font-size: larger;
+    font-weight: 500;
+}
+.settings-save-button {
+    all: unset;
+    background-color: var(--agree-color);
+    transition: 0.3s;
+    border-radius: 8px;
+    font-size: larger;
+    padding: 7px 14px;
+    cursor: pointer;
+}
+.settings-save-button:hover {
+    background-color: var(--agree-color-hover);
+}
+
+@media(max-width: 1100px) {
+    .settings-extras-options {
+        grid-template-columns: auto 1fr;
+        grid-template-areas: 
+        "profile-picture about"
+        "light-dark-mode light-dark-mode";
+        row-gap: 10px;
+    }
+    .settings-light-dark-mode-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+@media(max-width: 1000px) {
+    .settings-main-options input {
+        width: 90%;
+    }
+}
+@media(max-width: 625px) {
+    .settings-extras-options {
+        grid-template-columns: auto 1fr;
+        grid-template-rows: auto 150px;
+        grid-template-areas: 
+        "profile-picture light-dark-mode"
+        "about about";
+        row-gap: 10px;
+    }
+    .settings-light-dark-mode-container {
+        width: 100%;
+        display: flex;
+        justify-content: end;
+        align-items: center;
+    }
+}

@@ -1,6 +1,6 @@
 <div class="experience-show-reply-container">
-    <a href="/" class="experience-show-comment-profile-picture-username-followers">
-        <img src="https://static.vecteezy.com/system/resources/previews/013/360/247/non_2x/default-avatar-photo-icon-social-media-profile-sign-symbol-vector.jpg" alt="Profile icon">
+    <a href="{{ route('profile.show', $reply->user) }}" class="experience-show-comment-profile-picture-username-followers">
+        <img alt="Profile icon" src="{{ $reply->user->profile_picture ? asset('storage/' . $reply->user->profile_picture) : asset('images/defaults/default-profile-picture.jpg') }}">
         <div class="experience-show-comment-username-followers">
             <h4>{{ $reply->user->name }}</h4>
             <p>Followers: {{ $reply->user->followers()->count() }}</p>

@@ -65,18 +65,18 @@
 
 .options {
     grid-area: options;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: min-content auto;
-    grid-template-areas: 
-    "title-following"
-    "filters";
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+    row-gap: 10px;
+    padding: 10px 0px 15px 0px;
     box-shadow: 12px 12px 12px var(--indent-boxshadow-dark) inset,
     -10px -10px 10px var(--indent-boxshadow-light) inset;
-    padding-top: 0.8em;
+    height: fit-content;
+    border-bottom-left-radius: 8px;
 }
 .options > h2 {
-    grid-area: "title-following";
     font-size: 2em;
     height: fit-content;
     display: flex;
@@ -84,11 +84,8 @@
     align-items: center;
 }
 
-@media(max-width:1250px) {
-    .two-to-one-grid {
-        grid-template-columns: 1fr;
-        grid-template-areas: 
-        "options"
-        "content";
+@media(max-width:1415px) {
+    .options {
+        border-bottom-left-radius: 0px;
     }
 }

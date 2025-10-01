@@ -1,5 +1,5 @@
 <x-main-layout>
-    <form action="{{ route('experience.store') }}" class="experience-form" id="create-tutorial-form" method="POST">
+    <form action="{{ route('experience.store') }}" class="experience-form" id="create-tutorial-form" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="publish-experience-button-container">
             <button>
@@ -19,7 +19,7 @@
             <textarea class="description-textarea" name="description" placeholder="Description">{{ old('description') }}</textarea>
         </div>
         <div class="media-upload-container">
-            <p>Media upload here later!</p>
+            <input type="file" id="imageInput" name="images[]" multiple accept="image/*">
         </div>
         <div class="extra-options-container">
             <p>Extra options here!!</p>
