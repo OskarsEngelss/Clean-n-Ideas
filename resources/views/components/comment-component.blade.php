@@ -1,4 +1,4 @@
-<div class="experience-show-comment-container">
+<div class="experience-show-comment-container" data-comment="{{ $comment->id }}">
     <a href="{{ route('profile.show', $comment->user) }}" class="experience-show-comment-profile-picture-username-followers">
         <img alt="Profile icon" src="{{ $comment->user->profile_picture ? asset('storage/' . $comment->user->profile_picture) : asset('images/defaults/default-profile-picture.jpg') }}">
         <div class="experience-show-comment-username-followers">
@@ -8,16 +8,22 @@
     </a>
     <div class="experience-show-comment-like-dislike">
         <div class="like-dislike-button-counter-container">
-            <button id="experience-show-comment-like-button">
-                <x-like-button-svg></x-like-button-svg>
-            </button>
-            <p>300k</p>
+            <form action="{{ route('comment.react') }}" class="experience-show-comment-reaction-form" data-type="like" data-comment-id="{{ $comment->id }}">
+                @csrf
+                <button id="experience-show-comment-like-button" class="{{ $comment->userReaction && $comment->userReaction->type === 'like' ? 'active' : '' }}">
+                    <x-like-button-svg></x-like-button-svg>
+                </button>
+            </form>
+            <p id="like-count-{{ $comment->id }}">{{ $comment->likes_count }}</p>
         </div>
         <div class="like-dislike-button-counter-container">
-            <button id="experience-show-comment-dislike-button">
-                <x-dislike-button-svg></x-dislike-button-svg>
-            </button>
-            <p>100</p>
+            <form action="{{ route('comment.react') }}" class="experience-show-comment-reaction-form" data-type="dislike" data-comment-id="{{ $comment->id }}">
+                @csrf
+                <button id="experience-show-comment-dislike-button" class="{{ $comment->userReaction && $comment->userReaction->type === 'dislike' ? 'active' : '' }}">
+                    <x-dislike-button-svg></x-dislike-button-svg>
+                </button>
+            </form>
+            <p id="dislike-count-{{ $comment->id }}">{{ $comment->dislikes_count }}</p>
         </div>
     </div>
     <button class="experience-show-comment-reply" data-comment-id="{{ $comment->id }}">
@@ -31,12 +37,8 @@
 
 @if($comment->replies->count())
     <div class="experience-show-comment-reply-and-toggle-container">
-        @php
-            $replyCount = $comment->replies->count();
-            $replyLabel = $replyCount === 1 ? '1 Reply' : "$replyCount replies";
-        @endphp
-        <button class="experience-show-comment-toggle-reply-container-button" data-reply-label="{{ $replyLabel }}">
-            {{ $replyLabel }}
+        <button class="experience-show-comment-toggle-reply-container-button" data-reply-count="{{ $comment->replies->count() }}">
+            {{ $comment->replies->count() }} {{ $comment->replies->count() === 1 ? 'Reply' : 'Replies' }}
         </button>
 
         <div class="experience-show-comment-reply-container">

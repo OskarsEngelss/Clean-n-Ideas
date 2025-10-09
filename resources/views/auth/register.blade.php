@@ -1,4 +1,4 @@
-<x-auth-layout>
+<x-auth-layout title="Register">
     <div class="login-register-form-container">
         <h1>Clean n Ideas</h1>
         <form class="login-register-form" method="POST" action="{{ route('register') }}">

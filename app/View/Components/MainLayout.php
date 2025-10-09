@@ -7,13 +7,12 @@ use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
 class MainLayout extends Component
-{
-    /**
-     * Create a new component instance.
-     */
-    public function __construct()
+{ 
+    public string $title;
+
+    public function __construct(string $title = "Clean n Ideas")
     {
-        //
+        $this->title = $title;
     }
 
     /**

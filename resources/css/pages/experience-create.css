@@ -34,18 +34,18 @@
 }
 
 
-.experience-form input, .experience-form textarea {
+.experience-form input, .experience-form textarea, .tutorial-textarea {
     width: 100%;
     height: 45px;
     padding: 8px;
     font-size: larger;
     border: none;
-    background-color: var(--base-color);
+    background-color: var(--base-color-hover);
     transition: 0.15s;
     border-radius: 8px;
     box-sizing: border-box;
 }
-.experience-form input:focus, .experience-form textarea:focus, .experience-form input:hover, .experience-form textarea:hover, .media-upload-container:hover {
+.experience-form input:focus, .experience-form textarea:focus, .experience-form input:hover, .experience-form textarea:hover, .media-upload-container:hover, .tutorial-textarea:hover, .tutorial-textarea:focus {
     outline: none;
     box-shadow: 12px 12px 12px var(--indent-boxshadow-dark) inset,
     -10px -10px 10px var(--indent-boxshadow-light) inset;
@@ -55,8 +55,6 @@
 .title-input-container {
     grid-area: title;
 }
-
-
 .category-input-container {
     grid-area: category;
 }
@@ -92,9 +90,27 @@
 
 .tutorial-input-container {
     grid-area: tutorial;
+    position: relative;
 }
-.tutorial-input-container > textarea {
+.tutorial-textarea {
     height: 600px;
+    display: block;
+    min-width: 0;
+    overflow-y: auto;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: pre-wrap;
+    box-sizing: border-box;
+}
+.editor-placeholder {
+    display: none;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: gray;
+    pointer-events: none;
+    user-select: none;
+    font-size: larger;
 }
 
 
@@ -129,6 +145,145 @@
 }
 
 
+.media-upload-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: min-content auto;
+    grid-template-areas: 
+    "media-upload-image media-upload-video"
+    "media-preview-images media-preview-videos";
+    overflow-y: auto;
+}
+.media-upload-container:hover .publish-experience-media-add-button {
+    background-color: var(--accent-color);
+}
+
+.publish-experience-add-image-button-container {
+    grid-area: media-upload-image;
+}
+.publish-experience-add-video-button-container  {
+    grid-area: media-upload-video;
+}
+#publish-experience-image-preview-container {
+    grid-area: media-preview-images;
+}
+#publish-experience-video-preview-container {
+    grid-area: media-preview-videos;
+}
+.publish-experience-add-image-button-container, .publish-experience-add-video-button-container  {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+
+}
+.publish-experience-media-add-button {
+    all: unset;
+    width: 50%;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    padding: 5px 10px;
+    text-align: center;
+    background-color: hsl(from var(--accent-color) h s l / 0.4);;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.media-upload-container:hover .publish-experience-media-add-button:hover {
+    background-color: var(--accent-color-hover);
+}
+.publish-experience-media-preview-container {
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.publish-experience-media-preview {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+.publish-experience-media-preview > img, .publish-experience-media-preview > video {
+    width: 100%;
+    border-radius: 8px;
+    display: block;
+}
+.publish-experience-media-preview-remove-button {
+    all: unset;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--disagree-color);
+    cursor: pointer;
+    border-bottom-left-radius: 8px;
+    transition: 0.2s;
+    z-index: 1;
+}
+.publish-experience-media-preview-remove-button:hover {
+    background-color: var(--disagree-color-hover);
+}
+
+
+/* Media upload spinner code */
+.media-upload-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    pointer-events: none;
+}
+.media-upload-overlay .spinner {
+    pointer-events: auto;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #333;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+
+/* CSS for media inside the textarea */
+.media-clone {
+    position: absolute;
+    width: 300px;
+    opacity: 0.4;
+    pointer-events: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+.tutorial-textarea-media-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 12px 0px 10px 0px;
+}
+.inserted-media-remove-button-container {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.inserted-media {
+    max-height: 300px;
+    border-radius: 8px;
+    display: block;
+    transition: 0.2s;
+}
+
 @media(max-width: 1200px) {
     .experience-form {
         width: 100%;
@@ -157,5 +312,15 @@
         border-radius: 8px;
         align-items: center;
         row-gap: 7px;
+    }
+}
+@media(max-width: 1000px) {
+    .inserted-media {
+        max-height: 200px;
+    }
+}
+@media(max-width: 400px) {
+    .inserted-media {
+        max-height: 150px;
     }
 }

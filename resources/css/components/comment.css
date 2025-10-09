@@ -1,8 +1,3 @@
-#experience-show-comments-popup {
-    max-height: 90%;
-    height: auto;
-    overflow-y: auto;
-}
 .experience-show-comment-container, .experience-show-reply-container {
     display: grid;
     grid-template-columns: 1fr auto auto;
@@ -14,6 +9,19 @@
     border-radius: 8px;
     column-gap: 10px;
 }
+
+.experience-show-popup-comments-container {
+    min-height: 300px;
+    grid-area: comments-container;
+}
+#no-comments-message {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.4em;
+}
+
 .experience-show-comment-profile-picture-username-followers {
     grid-area: comment-profile-picture-username-followers;
     display: grid;
@@ -49,14 +57,21 @@
 .experience-show-comment-username-followers > p {
     font-size: 0.8em;
 }
+
+
+
 .experience-show-comment-like-dislike {
     grid-area: comment-like-dislike;
     font-size: 0.9em;
 }
-.experience-show-comment-like-dislike > div > button > svg {
+.experience-show-comment-like-dislike > div > form > button > svg {
     width: 25px;
     height: 25px;
 }
+
+
+
+
 .experience-show-comment-reply {
     all: unset;
     grid-area: comment-reply;
@@ -99,6 +114,7 @@
     margin-top: 7px;
 }
 #experience-show-comments-popup-form {
+    grid-area: form-or-sign-in;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-areas: 
@@ -185,6 +201,7 @@ emoji-picker {
 
 
 .experience-show-comments-popup-form-denied {
+    grid-area: form-or-sign-in;
     text-decoration: none;
     color: var(--text-color);
 }

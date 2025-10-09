@@ -18,7 +18,7 @@ export function initExperienceShowPopups() {
 
     function openPopup(popupElement) {
         closeActivePopup();
-        popupElement.style.display = 'block';
+        popupElement.id == "experience-show-comments-popup" ? popupElement.style.display = 'grid' : popupElement.style.display = 'block';
         popupOverlay.classList.add('show');
         activePopup = { popup: popupElement };
     }
@@ -39,17 +39,21 @@ export function initExperienceShowPopups() {
     });
 
     //Toggle reply visiblity code
-    const showRepliesButtons = document.querySelectorAll('.experience-show-comment-toggle-reply-container-button');
-    showRepliesButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const repliesContainer = button.nextElementSibling;
-            const isVisible = repliesContainer.classList.toggle('show');
+    const experienceShowCommentsPopup = document.getElementById('experience-show-comments-popup');
+    experienceShowCommentsPopup.addEventListener('click', (e) => {
+        const button = e.target.closest('.experience-show-comment-toggle-reply-container-button');
+        if (!button) return;
 
-            if (isVisible) {
-                button.textContent = 'Hide';
-            } else {
-                button.textContent = button.getAttribute('data-reply-label');
-            }
-        });
+        const repliesContainer = button.nextElementSibling;
+        if (!repliesContainer) return;
+
+        const isVisible = repliesContainer.classList.toggle('show');
+
+        if (isVisible) {
+            button.textContent = 'Hide';
+        } else {
+            const replyCount = parseInt(button.dataset.replyCount) || 0;
+            button.textContent = replyCount === 1 ? '1 Reply' : `${replyCount} Replies`;
+        }
     });
 }

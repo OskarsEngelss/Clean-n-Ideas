@@ -12,7 +12,13 @@
     font-size: 2em;
 }
 .experience-show-container > p {
+    display: block;
+    min-width: 0;
+    overflow-y: auto;
+    overflow-wrap: break-word;
+    word-break: break-word;
     white-space: pre-wrap;
+    box-sizing: border-box;
     font-size: 1.1em;
 }
 
@@ -77,7 +83,7 @@
 .experience-show-favourite-form {
     grid-area: favourite;
 }
-.experience-show-save-form {
+.experience-show-lists-button-container {
     grid-area: save;
 }
 #experience-show-tutorial-like-button {
@@ -86,7 +92,7 @@
 #experience-show-tutorial-dislike-button {
     grid-area: dislike;
 }
-.experience-show-favourite-button, .experience-show-save-to-list-button, #experience-show-tutorial-like-button, #experience-show-tutorial-dislike-button, #experience-show-comment-like-button, #experience-show-comment-dislike-button {
+.experience-show-favourite-button, .experience-show-lists-button, #experience-show-tutorial-like-button, #experience-show-tutorial-dislike-button, #experience-show-comment-like-button, #experience-show-comment-dislike-button {
     all: unset;
     cursor: pointer;
     display: flex;
@@ -146,15 +152,24 @@
 .like-dislike-button-counter-container > button .hovered {
     opacity: 0;
 }
-.like-dislike-button-counter-container > button:hover .default {
-    opacity: 0;
+.like-dislike-button-counter-container > form > button .default {
+    display: inline;
 }
-.like-dislike-button-counter-container > button:hover .hovered {
-    opacity: 1;
+.like-dislike-button-counter-container > form > button .selected {
+    display: none;
+}
+.like-dislike-button-counter-container > form > button.active .default {
+    display: none;
+}
+.like-dislike-button-counter-container > form > button.active .selected {
+    display: inline;
 }
 
 
-#experience-show-description-popup, #experience-show-comments-popup, #experience-show-media-popup {
+#experience-show-description-popup, #experience-show-comments-popup, #experience-show-media-popup, #experience-show-lists-popup {
+    max-height: 90%;
+    height: auto;
+    overflow-y: auto;
     display: none;
     background-color: var(--base-color);
     position: fixed;
@@ -167,37 +182,57 @@
     font-size: 1.2em;
     box-sizing: border-box;
 }
-#experience-show-description-popup > div:nth-child(2), #experience-show-media-popup > div:nth-child(2) {
+#experience-show-description-popup > div:nth-child(2), #experience-show-media-popup > div:nth-child(2), #experience-show-lists-popup > div:nth-child(2) {
    padding: 15px 25px;
 }
 #experience-show-comments-popup {
     padding: 0;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas: 
+    "close-button"
+    "comments-container"
+    "form-or-sign-in";
 }
 
 #experience-show-description-popup {
 
 }
 
-#experience-show-media-popup {
-
-}
-
 .experience-show-popup-close-container {
+    grid-area: close-button;
     width: 100%;
     position: sticky;
     top: 0;
     background-color: var(--base-color);
     box-shadow: 0 5px 6px -1px rgba(0, 0, 0, 0.2);
     height: 35px;
+    z-index: 1;
+    display: grid;
 }
 .experience-show-popups-off-button {
     all: unset;
     cursor: pointer;
     height: 35px;
+    width: 35px;
 }
 .experience-show-popups-off-button > svg {
     transition: 0.3s;
 }
 .experience-show-popups-off-button:hover > svg {
     transform: rotate(15deg);
+}
+
+/* MEDIA POPUP CSS */ /* MEDIA POPUP CSS */ /* MEDIA POPUP CSS */ /* MEDIA POPUP CSS */
+#experience-show-media-popup {
+    
+}
+.experience-show-media-popup-image, .experience-show-media-popup-video {
+    width: 300px;
+    border-radius: 8px;
+}
+
+/* LISTS POPUP CSS */ /* LISTS POPUP CSS */ /* LISTS POPUP CSS */ /* LISTS POPUP CSS */ 
+#experience-show-lists-popup {
+
 }

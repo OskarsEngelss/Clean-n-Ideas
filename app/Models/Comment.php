@@ -25,7 +25,24 @@ class Comment extends Model
         return $this->belongsTo(Comment::class, 'parent_id');
     }
 
-    public function replies() {
-        return $this->hasMany(Comment::class, 'parent_id');
+    public function replies()
+    {
+        return $this->hasMany(Comment::class, 'parent_id')->withCount([
+            'likes as likes_count',
+            'dislikes as dislikes_count',
+        ])->with('user');
+    }
+
+    public function likes() {
+        return $this->hasMany(CommentLike::class)->where('type', 'like');
+    }
+
+    public function dislikes() {
+        return $this->hasMany(CommentLike::class)->where('type', 'dislike');
+    }
+
+    public function userReaction() {
+        return $this->hasOne(CommentLike::class, 'comment_id')
+                    ->where('user_id', auth()->id());
     }
 }

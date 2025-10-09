@@ -28,6 +28,7 @@
     --indent-boxshadow-light: hsl(0, 0%, 100%);
     --indent-boxshadow-dark: hsl(0, 0%, 0%, 0.1);
     --favourite-color: hsl(0, 100%, 45%);
+    --progress-bar-mold-color: hsl(0, 0%, 78%);
 }
 
 .darkmode {

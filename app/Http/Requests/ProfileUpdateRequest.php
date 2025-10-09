@@ -28,8 +28,6 @@ class ProfileUpdateRequest extends FormRequest
             ],
             'description' => ['nullable', 'string', 'max:400'],
             'profile_picture' => ['nullable', 'image', 'max:2048'],
-            'current_password' => ['nullable', 'current_password'],
-            'password' => ['nullable', 'confirmed', Password::defaults()],
         ];
     }
 }

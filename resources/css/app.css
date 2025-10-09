@@ -21,6 +21,7 @@
 @import './components/tutorial-card.css';
 @import './components/navbar-extension.css';
 @import './components/comment.css';
+@import './components/experience-create-upload-progress-popup.css';
 
 /* Page-specific styles */
 @import './pages/followers.css';
@@ -32,3 +33,4 @@
 @import './pages/your-experiences.css';
 @import './pages/favourites.css';
 @import './pages/settings.css';
+@import './pages/lists.css';

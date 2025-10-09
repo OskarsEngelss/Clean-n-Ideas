@@ -57,11 +57,11 @@
     font-size: larger;
     box-sizing: border-box;
 }
-.settings-about-textarea:hover, .settings-main-options input:hover {
+.settings-about-textarea:hover, .settings-main-options input:hover, .settings-profile-delete-password-confirm-container input:hover {
     box-shadow: 12px 12px 12px var(--indent-boxshadow-dark) inset,
     -10px -10px 10px var(--indent-boxshadow-light) inset;
 }
-.settings-about-textarea:focus, .settings-main-options input:focus {
+.settings-about-textarea:focus, .settings-main-options input:focus, .settings-profile-delete-password-confirm-container input:focus {
     outline: none;
     box-shadow: 12px 12px 12px var(--indent-boxshadow-dark) inset,
     -10px -10px 10px var(--indent-boxshadow-light) inset;
@@ -75,36 +75,203 @@
 }
 
 
-.settings-main-options {
+.settings-main-options, .settings-profile-delete-password-confirm-container {
     display: flex;
     align-items: center;
     flex-direction: column;
     row-gap: 10px;
     margin-top: 20px;
 }
-.settings-main-options input {
+.settings-main-options input, .settings-profile-delete-password-confirm-container input {
     width: max(500px, 50%);
     padding: 8px;
     font-size: larger;
     border-radius: 8px;
     border: none;
+    transition: 0.2s;
 }
-.settings-password-change-title {
+.settings-password-change-title, .settings-profile-delete-password-confirm-container p {
     font-size: larger;
     font-weight: 500;
 }
-.settings-save-button {
+
+
+#settings-save-button, #settings-cancel-button, #settings-delete-profile-fake-button, .settings-delete-profile-button {
     all: unset;
+    width: 90px;
+    box-sizing: border-box;
+    text-align: center;
     background-color: var(--agree-color);
     transition: 0.3s;
     border-radius: 8px;
     font-size: larger;
     padding: 7px 14px;
     cursor: pointer;
+    justify-self: start;
 }
-.settings-save-button:hover {
+#settings-cancel-button {
+    background-color: var(--disagree-color);
+    justify-self: end;
+}
+#settings-save-button:hover {
     background-color: var(--agree-color-hover);
 }
+#settings-cancel-button:hover {
+    background-color: var(--disagree-color-hover);
+}
+.settings-save-cancel-button-container, .settings-delete-profile-fake-button-container {
+    width: 100%;
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: 0.3s ease-in-out;
+
+    > div {
+        overflow: hidden;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 15px;
+    }
+}
+.settings-save-cancel-button-container.show {
+    grid-template-rows: 1fr;
+}
+
+.settings-delete-profile-fake-button-container {
+    grid-template-rows: 1fr;
+    
+    > div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+.settings-delete-profile-fake-button-container.hide {
+    grid-template-rows: 0fr;
+}
+
+#settings-delete-profile-fake-button, .settings-delete-profile-button {
+    margin-top: 10px;
+    width: fit-content;
+    background-color: var(--disagree-color);
+}
+#settings-delete-profile-fake-button:hover, .settings-delete-profile-button:hover {
+    background-color: var(--disagree-color-hover);
+}
+
+/* Delete profile popup CSS */
+#settings-delete-profile-popup, #settings-profile-picture-cropper-popup {
+    display: none;
+    background-color: var(--base-color);
+    position: fixed;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -25%);
+    width: min(800px, 95%);
+    overflow-y: auto;
+    border-radius: 8px;
+    font-size: 1em;
+    box-sizing: border-box;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+}
+.settings-delete-profile-form {
+    padding: 0px 25px 10px 25px;
+}
+.settings-delete-profile-button-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.settings-profile-delete-password-confirm-container p {
+    text-align: center;
+}
+.settings-popups-close-container {
+    width: 100%;
+    position: sticky;
+    top: 0;
+    background-color: var(--base-color);
+    box-shadow: 0 5px 6px -1px rgba(0, 0, 0, 0.2);
+    height: 35px;
+}
+.settings-popups-off-button {
+    all: unset;
+    cursor: pointer;
+    height: 35px;
+}
+.settings-popups-off-button > svg {
+    transition: 0.3s;
+}
+.settings-popups-off-button:hover > svg {
+    transform: rotate(15deg);
+}
+
+
+/* CROPPER CSS */
+#settings-profile-picture-cropper-popup {
+    width: auto;
+    max-width: 90%;
+    max-height: 90%;
+}
+#settings-profile-picture-cropper-popup > div:last-of-type {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 0px 8px;
+}
+#crop-box {
+    position: absolute;
+    border: 3px dashed var(--disagree-color);
+    background: rgba(255,255,255,0.3);
+    top: 50px;
+    left: 50px;
+    width: 150px;
+    height: 150px;
+    cursor: move;
+    box-sizing: border-box;
+}
+#cropper-image {
+    max-height: 600px;
+    width: auto;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.resize-handle {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background: var(--disagree-color);
+    border-radius: 5px;
+    z-index: 2;
+}
+
+.top-left { top: -8px; left: -8px; cursor: nwse-resize; }
+.top-right { top: -8px; right: -8px; cursor: nesw-resize; }
+.bottom-left { bottom: -8px; left: -8px; cursor: nesw-resize; }
+.bottom-right { bottom: -8px; right: -8px; cursor: nwse-resize; }
+
+#crop-box,
+#crop-box * {
+    user-select: none; /* prevents blue selection */
+    -webkit-user-drag: none; /* disables image drag on Safari */
+}
+#crop-button {
+    all: unset;
+    padding: 5px;
+    box-sizing: border-box;
+    background-color: var(--accent-color);
+    width: 100%;
+    cursor: pointer;
+    text-align: center;
+    font-size: larger;
+}
+#crop-button:hover {
+    background-color: var(--accent-color-hover);
+}
+
 
 @media(max-width: 1100px) {
     .settings-extras-options {
@@ -122,7 +289,7 @@
     }
 }
 @media(max-width: 1000px) {
-    .settings-main-options input {
+    .settings-main-options input, .settings-profile-delete-password-confirm-container input {
         width: 90%;
     }
 }

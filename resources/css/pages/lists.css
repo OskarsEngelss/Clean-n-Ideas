@@ -1,0 +1,81 @@
+#lists-make-new-list-button {
+    all: unset;
+    padding: 7px 15px;
+    font-size: 1em;
+    border-radius: 8px;
+    background-color: var(--agree-color);
+    transition: 0.3s;
+    cursor: pointer;
+}
+#lists-make-new-list-button:hover {
+    background-color: var(--agree-color-hover);
+}
+
+/* Close button CSS */ /* Close button CSS */ /* Close button CSS */ /* Close button CSS */
+.lists-popup-close-container {
+    grid-area: close-button;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    background-color: var(--base-color);
+    box-shadow: 0 5px 6px -1px rgba(0, 0, 0, 0.2);
+    height: 35px;
+    z-index: 1;
+    display: grid;
+}
+.lists-popups-off-button {
+    all: unset;
+    cursor: pointer;
+    height: 35px;
+    width: 35px;
+}
+.lists-popups-off-button > svg {
+    transition: 0.3s;
+}
+.lists-popups-off-button:hover > svg {
+    transform: rotate(15deg);
+}
+
+
+/* Make new list popup CSS */ /* Make new list popup CSS */ /* Make new list popup CSS */
+#lists-make-new-list-popup {
+    max-height: 90%;
+    height: auto;
+    overflow-y: auto;
+    display: none;
+    background-color: var(--base-color);
+    position: fixed;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -25%);
+    width: min(800px, 95%);
+    overflow-y: auto;
+    border-radius: 8px;
+    font-size: 1.2em;
+    box-sizing: border-box;
+}
+#lists-make-new-list-popup > div:nth-child(2) {
+   padding: 15px 25px;
+}
+
+#lists-make-new-list-popup h4 {
+    font-size: 1.5em;
+    text-align: center;
+}
+
+#new-list-form > input {
+    width: 100%;
+    height: 45px;
+    padding: 8px;
+    font-size: larger;
+    border: none;
+    background-color: var(--base-color);
+    transition: 0.15s;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+#new-list-form > input:focus, #new-list-form > input:hover {
+    outline: none;
+    box-shadow: 12px 12px 12px var(--indent-boxshadow-dark) inset,
+    -10px -10px 10px var(--indent-boxshadow-light) inset;
+}

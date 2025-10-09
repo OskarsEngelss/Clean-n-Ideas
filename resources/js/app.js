@@ -16,6 +16,9 @@ import { initExperienceShowCommentsForm } from './modules/experienceShowComments
 import { initLightDarkMode } from './modules/light-dark-mode.js';
 import { initHomeCarousel } from './modules/home-carousel.js';
 import { initSettings } from './modules/settings.js';
+import { initExperienceCreateMediaUpload } from './modules/experienceCreateMediaUpload.js';
+import { initExperienceShowAjaxRequests } from './modules/experienceShowAjaxRequests.js';
+import { initLists } from './modules/lists.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     initBase();
@@ -54,5 +57,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (document.querySelector('#settings-profile-picture-input')) {
         initSettings();
+    }
+
+    if (document.querySelector('#publish-experience-add-image-button')) {
+        initExperienceCreateMediaUpload();
+    }
+
+    if (document.querySelector('#experience-show-favourite-button')) {
+        initExperienceShowAjaxRequests();
+    }
+
+    if (document.querySelector('#lists-make-new-list-button')) {
+        initLists();
     }
 });

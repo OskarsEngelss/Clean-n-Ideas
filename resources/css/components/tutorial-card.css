@@ -37,6 +37,9 @@
 
 .tutorial-card-title {
     grid-area: title;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .tutorial-card-user-info-container {
     grid-area: user-info;

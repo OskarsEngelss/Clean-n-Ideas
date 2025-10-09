@@ -1,12 +1,13 @@
-<x-main-layout>
+<x-main-layout title="Settings">
     <div class="one-grid">
         <section class="settings-container">
-            <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data" id="settings-form">
                 @csrf
                 @method('PATCH')
+                <input type="file" name="profile_picture" id="cropped-image-input" style="display:none;">
 
                 <div class="settings-extras-options">
-                    <input id="settings-profile-picture-input" type="file" name="profile_picture" accept="image/*" hidden>
+                    <input id="settings-profile-picture-input" type="file" accept="image/*" hidden>
                     <div class="settings-prolfile-picture-container">
                         <img id="settings-profile-picture" class="settings-profile-picture" alt="Profile icon" src="{{ $user->profile_picture ? asset('storage/' . $user->profile_picture) : asset('images/defaults/default-profile-picture.jpg') }}">
                         <svg id="settings-profile-picture-svg" xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="var(--text-color)">
@@ -14,7 +15,7 @@
                         </svg>
                     </div>
 
-                    <textarea name="description" class="settings-about-textarea" placeholder="Write a little about yourself!">{{ old('about', $user->description) }}</textarea>
+                    <textarea name="description" class="settings-about-textarea settings-input" placeholder="Write a little about yourself!">{{ old('about', $user->description) }}</textarea>
                     
                     <div class="settings-light-dark-mode-container">
                         <button type="button" class="settings-light-dark-mode" id="toggle-light-dark-mode">
@@ -24,15 +25,81 @@
                     </div>
                 </div>
                 <div class="settings-main-options">
-                    <input id="name" name="name" type="text" value="{{ old('name', $user->name) }}" required autofocus>
-                    <input id="email" name="email" type="email" value="{{ old('email', $user->email) }}" required>
+                    <input class="settings-input" id="name" name="name" type="text" value="{{ old('name', $user->name) }}" required autofocus>
+                    <input class="settings-input" id="email" name="email" type="email" value="{{ old('email', $user->email) }}" required>
                     <p class="settings-password-change-title">Change password:</p>
-                    <input id="current_password" placeholder="Current password" name="current_password" type="password" autocomplete="current-password">
-                    <input id="password" placeholder="New password" name="password" type="password" autocomplete="new-password">
-                    <input id="password_confirmation" placeholder="Repeat new password" name="password_confirmation" type="password" autocomplete="new-password">
-                    <button class="settings-save-button" type="submit">Save</button>
+                    <input class="settings-input" id="current_password" placeholder="Current password" name="current_password" type="password" autocomplete="current-password">
+                    <input class="settings-input" id="password" placeholder="New password" name="password" type="password" autocomplete="new-password">
+                    <input class="settings-input" id="password_confirmation" placeholder="Repeat new password" name="password_confirmation" type="password" autocomplete="new-password">
+                    <div class="settings-save-cancel-button-container">
+                        <div>
+                            <button type="button" id="settings-cancel-button">Cancel</button>
+                            <button id="settings-save-button" type="submit">Save</button>
+                        </div>
+                    </div>
                 </div>
             </form>
+            <div class="settings-delete-profile-fake-button-container">
+                <div>
+                    <button type="button" id="settings-delete-profile-fake-button" data-popup-target="settings-delete-profile-popup">
+                        Delete Profile
+                    </button>
+                </div>
+            </div>
         </section>
     </div>
+
+    @push('popup')
+        <div id="settings-delete-profile-popup">
+            <div class="settings-popups-close-container">
+                <button class="settings-popups-off-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="35px" viewBox="0 -960 960 960" width="35px" fill="var(--text-color)">
+                        <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
+                    </svg>
+                </button>
+            </div>
+            <form method="POST" action="{{ route('profile.destroy') }}" class="settings-delete-profile-form">
+                @csrf
+                @method('DELETE')
+
+                <div class="settings-profile-delete-password-confirm-container">
+                    <p>Enter your password to confirm account deletion:</p>
+                    <input placeholder="Current password" name="password" type="password" autocomplete="current-password" required>
+                    <!-- @error('password')
+                        <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                    @enderror -->
+                </div>
+
+                <div class="settings-delete-profile-button-container">
+                    <button type="submit" class="settings-delete-profile-button" 
+                        onclick="return confirm('Are you sure you want to delete your account? This action cannot be undone.')">
+                        Delete Profile
+                    </button>
+                </div>
+            </form>
+        </div>
+    @endpush
+    @push('popup')
+        <div id="settings-profile-picture-cropper-popup">
+            <div class="settings-popups-close-container">
+                <button class="settings-popups-off-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="35px" viewBox="0 -960 960 960" width="35px" fill="var(--text-color)">
+                        <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
+                    </svg>
+                </button>
+            </div>
+            <div>
+                <div class="cropper-wrapper" style="position: relative; display: inline-block;">
+                    <img id="cropper-image" src="" />
+                    <div id="crop-box">
+                        <div class="resize-handle top-left" style="..."></div>
+                        <div class="resize-handle top-right" style="..."></div>
+                        <div class="resize-handle bottom-left" style="..."></div>
+                        <div class="resize-handle bottom-right" style="..."></div>
+                    </div>
+                </div>
+            </div>
+            <button type="button" id="crop-button">Confirm</button>
+        </div>
+    @endpush
 </x-main-layout>

@@ -8,7 +8,7 @@
                 <img class="tutorial-card-profile-picture" atl="Profile icon" src="{{ $user->profile_picture ? asset('storage/' . $user->profile_picture) : asset('images/defaults/default-profile-picture.jpg') }}" >
                 <p class="tutorial-card-category">{{ $user->name }}</p>
             </div>
-            <p class="tutorial-card-favourites">Likes: {{ $savedCount }}</p>
+            <p class="tutorial-card-favourites">Likes: {{ $experience->likes()->count() }} | Dislikes: {{ $experience->dislikes()->count() }}</p>
             <p class="tutorial-card-upload-time">{{ $experience->created_at->diffForHumans() }}</p>
         </div>
     </div>

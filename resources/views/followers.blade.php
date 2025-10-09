@@ -1,4 +1,4 @@
-<x-main-layout>
+<x-main-layout title="Following">
     <div class="two-to-one-grid">
         <section class="followers">
             @forelse($following as $user)
@@ -19,7 +19,6 @@
         </section>
         <section class="options">
             <h2>Following</h2>
-            <p>Sort coming later</p>
         </section>
     </div>
 </x-main-layout>

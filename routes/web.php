@@ -25,11 +25,19 @@ Route::middleware('auth')->group(function () {
         return view('lists');
     })->name('lists');
 
+
     Route::get('/your-experiences', [ExperienceController::class, 'yourExperiences'])->name('your-experiences');
     Route::get('/experience/create', [ExperienceController::class, 'create'])->name('experience.create');
+    Route::post('/upload-temp', [ExperienceController::class, 'uploadTemp']);
+    Route::post('/delete-temp', [ExperienceController::class, 'deleteTemp']);
     Route::post('/experience/store', [ExperienceController::class, 'store'])->name('experience.store');
 
+    Route::post('/tutorial/react', [ExperienceController::class, 'toggleReaction'])->name('experience.react');
+
+
     Route::post('/comment/store', [CommentController::class, 'store'])->name('comment.store');
+    Route::post('/comment/react', [CommentController::class, 'toggleReaction'])->name('comment.react');
+
 
     Route::post('/tutorialList/favourite/store', [TutorialListController::class, 'favouriteStore'])->name('tutorialList.favourite.store');
 

@@ -1,0 +1,50 @@
+
+#upload-progress-popup {
+    position: fixed;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -25%);
+    background: var(--base-color);
+    border-radius: 8px;
+    list-style: none;
+    box-sizing: border-box;
+    overflow: hidden;
+    padding: 5px 15px;
+    display: none;
+    width: 800px;
+}
+.upload-progress-container > p {
+    font-size: 1.5em;
+    text-align: center;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+.upload-progress-bar-container {
+    display: grid;
+    grid-template-areas: "progress-bar";
+}
+.upload-progress-bar-container > div:first-of-type, .upload-progress-bar-container > div:last-of-type {
+    grid-area: progress-bar;
+    width: 0%;
+    height: 30px;
+    background-color: var(--agree-color);
+    border-radius: 8px;
+    z-index: 1;
+}
+.upload-progress-bar-container > div:last-of-type {
+    width: 100%;
+    background-color: var(--progress-bar-mold-color);
+    z-index: 0;
+}
+.upload-progress-time {
+    font-size: 1.2em; 
+    text-align: center;
+    color: var(--secondary-text-color);
+    margin-top: 5px;
+}
+
+@media(max-width: 850px) {
+    #upload-progress-popup {
+        width: 95%;
+    }
+}

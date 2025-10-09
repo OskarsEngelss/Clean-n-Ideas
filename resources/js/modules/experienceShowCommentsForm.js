@@ -1,24 +1,25 @@
 export function initExperienceShowCommentsForm() {
+    const popup = document.getElementById('experience-show-comments-popup');
     const input = document.getElementById('experience-show-comments-popup-input');
     const buttonContainer = document.getElementById('experience-show-comments-popup-button-container');
     const cancelButton = document.getElementById('experience-show-comments-popup-cancel-button');
     const submitButton = document.getElementById('experience-show-comments-popup-submit-button');
     const emojiPicker = document.getElementById('experience-show-comments-popup-emoji-picker');
-    const replyButtons = document.querySelectorAll('.experience-show-comment-reply');
     const parentInput = document.getElementById('parent_id');
 
     input.addEventListener('click', () => {
         buttonContainer.classList.add('show');
     });
 
-    replyButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const commentId = button.dataset.commentId;
-            parentInput.value = commentId;
-            buttonContainer.classList.add('show');
-            input.placeholder = "Reply...";
-            submitButton.textContent = "Reply";
-        });
+    popup.addEventListener('click', (e) => {
+        const button = e.target.closest('.experience-show-comment-reply');
+        if (!button) return;
+
+        const commentId = button.dataset.commentId;
+        parentInput.value = commentId;
+        buttonContainer.classList.add('show');
+        input.placeholder = "Reply...";
+        submitButton.textContent = "Reply";
     });
 
     cancelButton.addEventListener('click', () => {

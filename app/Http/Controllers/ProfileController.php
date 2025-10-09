@@ -13,16 +13,6 @@ use App\Models\User;
 class ProfileController extends Controller
 {
     /**
-     * Display the user's profile form.
-     */
-    public function edit(Request $request): View
-    {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
-    }
-
-    /**
      * Update the user's profile information.
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
@@ -41,14 +31,25 @@ class ProfileController extends Controller
             }
 
             $path = $request->file('profile_picture')->store('profile_pictures', 'public');
+
             $user->profile_picture = $path;
         }
 
         if ($request->filled('password')) {
+            if (!\Illuminate\Support\Facades\Hash::check($request->current_password, $user->password)) {
+            return back()->withErrors(['current_password' => 'Current password is incorrect.']);
+        }
+
+        // Optional: validate new password rules manually
+        $request->validate([
+            'password' => ['required', 'confirmed', \Illuminate\Validation\Rules\Password::defaults()],
+        ]);
+
             $user->password = \Illuminate\Support\Facades\Hash::make($request->password);
         }
 
         $user->save();
+
 
         return Redirect::route('profile.settings')->with('status', 'profile-updated');
     }
