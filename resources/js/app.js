@@ -14,11 +14,12 @@ import { initExperienceShowPopups } from './modules/experienceShowPopups.js';
 import { initExperienceShowPopupsEmojiPicker } from './modules/experienceShowPopupsEmojiPicker.js';
 import { initExperienceShowCommentsForm } from './modules/experienceShowCommentsForm.js';
 import { initLightDarkMode } from './modules/light-dark-mode.js';
-import { initHomeCarousel } from './modules/home-carousel.js';
+import { initCarousel } from './modules/home/carousel.js';
 import { initSettings } from './modules/settings.js';
 import { initExperienceCreateMediaUpload } from './modules/experienceCreateMediaUpload.js';
 import { initExperienceShowAjaxRequests } from './modules/experienceShowAjaxRequests.js';
 import { initLists } from './modules/lists.js';
+import { initAddOutsideLinkInput } from './modules/experienceCreate/addOutsideLinkInput.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     initBase();
@@ -33,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (document.querySelector('#category-popup')) {
         initExperienceCreatePopups();
+        initAddOutsideLinkInput();
     }
 
     if (document.querySelector('#experience-show-description-popup')) {
@@ -52,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (document.querySelector('#home-carousel')) {
-        initHomeCarousel();
+        initCarousel();
     }
 
     if (document.querySelector('#settings-profile-picture-input')) {

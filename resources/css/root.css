@@ -16,6 +16,9 @@
     --third-accent-color: hsl(120, 42%, 58%);
     --third-accent-color-hover: hsl(from var(--third-accent-color) h s calc(l + 10));
 
+    --fourth-accent-color: hsl(268, 47%, 66%);
+    --fourth-accent-color-hover: hsl(from var(--fourth-accent-color) h s calc(l + 10));
+
     --agree-color: hsl(120, 58%, 42%);
     --agree-color-hover: hsl(from var(--agree-color) h s calc(l + 10));
     --disagree-color: hsl(0, 62%, 52%);
@@ -48,6 +51,9 @@
 
     --third-accent-color: hsl(120, 42%, 58%);
     --third-accent-color-hover: hsl(from var(--third-accent-color) h s calc(l + 10));
+
+    --fourth-accent-color: hsl(268, 47%, 66%);
+    --fourth-accent-color-hover: hsl(from var(--fourth-accent-color) h s calc(l + 10));
 
     --agree-color: hsl(120, 58%, 42%);
     --agree-color-hover: hsl(from var(--agree-color) h s calc(l + 10));

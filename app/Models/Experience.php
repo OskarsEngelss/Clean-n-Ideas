@@ -35,4 +35,8 @@ class Experience extends Model
         return $this->hasOne(TutorialLike::class, 'tutorial_id')
             ->where('user_id', auth()->id());
     }
+
+    public function links() {
+        return $this->hasMany(TutorialOutsideLink::class, 'tutorial_id');
+    }
 }

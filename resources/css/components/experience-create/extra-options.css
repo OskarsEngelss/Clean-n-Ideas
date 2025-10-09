@@ -1,0 +1,139 @@
+/* Extra options container */ /* Extra options container */ /* Extra options container */ /* Extra options container */ /* Extra options container */
+/* Extra options container */ /* Extra options container */ /* Extra options container */ /* Extra options container */ /* Extra options container */
+.extra-options-container {
+    grid-area: extra-options;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-template-areas:
+    "visbility extra-links";
+    border-radius: 8px;
+    align-items: center;
+    gap: 7px;
+}
+.extra-options-container button {
+    all: unset;
+    cursor: pointer;
+    height: 45px;
+    padding: 8px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    background-color: var(--secondary-accent-color);
+    transition: 0.3s;
+    font-size: larger;
+}
+.extra-options-container button:hover {
+    background-color: var(--secondary-accent-color-hover);
+}
+
+/* Add outside links popup */ /* Add outside links popup */ /* Add outside links popup */ /* Add outside links popup */ /* Add outside links popup */
+/* Add outside links popup */ /* Add outside links popup */ /* Add outside links popup */ /* Add outside links popup */ /* Add outside links popup */
+#add-outside-links-popup {
+    max-height: 90%;
+    height: auto;
+    overflow-y: auto;
+    display: none;
+    background-color: var(--base-color);
+    position: fixed;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -25%);
+    width: min(800px, 95%);
+    overflow-y: auto;
+    border-radius: 8px;
+    font-size: 1.2em;
+    box-sizing: border-box;
+}
+#add-outside-links-popup > div:nth-child(2) {
+    padding: 15px 25px;
+}
+
+/* Add outside links input and button container */ /* Add outside links input and button container */ /* Add outside links input and button container */
+/* Add outside links input and button container */ /* Add outside links input and button container */ /* Add outside links input and button container */
+.add-outside-link-input-button-container {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas: 
+    "outside-link-input outside-link-button";
+}
+.add-outside-link-input-button-container input {
+    grid-area: outside-link-input;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+.add-outside-link-input-button-container button {
+    all: unset;
+    grid-area: outside-link-button;
+    padding: 10px;
+    cursor: pointer;
+    background-color: var(--agree-color);
+    transition: 0.3s;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+.add-outside-link-input-button-container button:hover {
+    background-color: var(--agree-color-hover);
+}
+
+/* Added url list*/ /* Added url list*/ /* Added url list*/ /* Added url list*/ /* Added url list*/ /* Added url list*/ /* Added url list*/ 
+/* Added url list*/ /* Added url list*/ /* Added url list*/ /* Added url list*/ /* Added url list*/ /* Added url list*/ /* Added url list*/
+#added-url-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 8px;
+    margin-top: 15px;
+}
+
+/* Added url container */ /* Added url container */ /* Added url container */ /* Added url container */ /* Added url container */ /* Added url container */
+/* Added url container */ /* Added url container */ /* Added url container */ /* Added url container */ /* Added url container */ /* Added url container */
+.added-url-container {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas: 
+    "added-url added-url-remove-button";
+}
+.added-url-container a {
+    grid-area: added-url;
+    box-shadow: 12px 12px 12px var(--indent-boxshadow-dark) inset,
+    -10px -10px 10px var(--indent-boxshadow-light) inset;
+    padding: 15px;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+
+    word-break: break-all;
+    overflow-wrap: anywhere;
+    display: inline-block;
+}
+.added-url-container button {
+    all: unset;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background-color: var(--disagree-color);
+    transition: 0.3s;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    grid-area: added-url-remove-button;
+}
+.added-url-container button svg {
+    transition: 0.3s;
+}
+.added-url-container button:hover svg {
+    transform: rotate(15deg);
+}
+
+/* Extra options container @media */ /* Extra options container @media */ /* Extra options container @media */ /* Extra options container @media */
+/* Extra options container @media */ /* Extra options container @media */ /* Extra options container @media */ /* Extra options container @media */
+@media(max-width: 1200px) {
+    .extra-options-container {
+        grid-area: extra-options;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-areas:
+        "visbility"
+        "extra-links";
+        border-radius: 8px;
+        align-items: center;
+        row-gap: 7px;
+    }
+}

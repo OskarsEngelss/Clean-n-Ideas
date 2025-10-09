@@ -12,6 +12,7 @@ use App\Models\TutorialListItem;
 use App\Models\Comment;
 use App\Models\TutorialMedia;
 use App\Models\TutorialLike;
+use App\Models\TutorialOutsideLink;
 
 
 class ExperienceController extends Controller
@@ -57,6 +58,10 @@ class ExperienceController extends Controller
             'description' => 'required|string|max:400',
             'tutorial' => 'required|string|max:15000',
             'visibility' => 'required|in:Public,Unlisted,Private',
+
+            //Url validation
+            'urls' => 'nullable|array',
+            'urls.*' => 'required|url',
         ]);
 
         if (empty(trim(strip_tags(html_entity_decode($request->input('tutorial')))))) {
@@ -138,11 +143,21 @@ class ExperienceController extends Controller
         }
         $tutorial->save();
 
+        if (!empty($request->input('urls'))) {
+            foreach ($request->input('urls') as $url) {
+                TutorialOutsideLink::create([
+                    'tutorial_id' => $tutorial->id,
+                    'url' => $url,
+                ]);
+            }
+        }
+
         return response()->json([
             'success' => true,
             'message' => 'Your experience has been recorded!',
             'tutorial_id' => $tutorial->id,
-            'redirect' => route('your-experiences')
+            'redirect' => route('your-experiences'),
+            'requestData' => $request->all(),
         ]);
     }
 
@@ -151,6 +166,7 @@ class ExperienceController extends Controller
     public function show(Experience $experience) {
         $experience->load('media');
         $experience->load('userReaction');
+        $experience->load('links');
 
         $favourited = false;
         $creator = $experience->user;

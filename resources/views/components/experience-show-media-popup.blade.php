@@ -1,12 +1,6 @@
 @push('popup')
-    <div id="experience-show-media-popup">
-        <div class="experience-show-popup-close-container">
-            <button class="experience-show-popups-off-button">
-                <svg xmlns="http://www.w3.org/2000/svg" height="35px" viewBox="0 -960 960 960" width="35px" fill="var(--text-color)">
-                    <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
-                </svg>
-            </button>
-        </div>
+    <div id="experience-show-media-popup" class="default-popup-style">
+        <x-popup-close-component />
         <div>
             @if ($experience->media->count() > 0)
                 @foreach ($experience->media as $media)

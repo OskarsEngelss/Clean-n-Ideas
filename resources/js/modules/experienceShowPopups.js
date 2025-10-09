@@ -1,10 +1,5 @@
 export function initExperienceShowPopups() {
     const popupOverlay = document.querySelector('.popup-overlay');
-    const offButton = document.querySelectorAll('.experience-show-popups-off-button');
-
-    offButton.forEach(button => {
-        button.addEventListener('click', () => closeActivePopup());
-    });
 
     let activePopup = null;
 
@@ -33,7 +28,7 @@ export function initExperienceShowPopups() {
     });
 
     popupOverlay.addEventListener('click', (event) => {
-        if (event.target === popupOverlay) {
+        if (event.target === popupOverlay || event.target.closest('.popup-close-button')) {
             closeActivePopup();
         }
     });

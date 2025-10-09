@@ -22,6 +22,8 @@
 @import './components/navbar-extension.css';
 @import './components/comment.css';
 @import './components/experience-create-upload-progress-popup.css';
+@import './components/experience-create/extra-options.css';
+@import './components/experience-show/links-popup.css';
 
 /* Page-specific styles */
 @import './pages/followers.css';

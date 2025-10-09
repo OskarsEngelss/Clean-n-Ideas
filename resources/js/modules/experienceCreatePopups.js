@@ -37,7 +37,7 @@ export function initExperienceCreatePopups() {
     });
 
     popupOverlay.addEventListener('click', (event) => {
-        if (event.target === popupOverlay) {
+        if (event.target === popupOverlay || event.target.closest('.popup-close-button')) {
             closeActivePopup();
         }
     });

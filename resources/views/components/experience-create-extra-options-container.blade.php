@@ -1,7 +1,8 @@
 <div class="extra-options-container">
-    <p>Extra options here!!</p>
     <div class="experience-visibility-input-container">
-        <input type="text" name="visibility" id="experience-visibility-input" value="{{ old('visibility', 'Public') }}" placeholder="Choose visiblity" readonly id="experience-visibility-input" data-popup-target="visibility-popup" data-option-selector=".visibility-popup-options">
+        <input type="text" name="visibility" id="experience-visibility-input" class="default-input-style" value="{{ old('visibility', 'Public') }}" placeholder="Choose visiblity" readonly data-popup-target="visibility-popup" data-option-selector=".visibility-popup-options">
     </div>
-    <div></div>
+    <button type="button" data-popup-target="add-outside-links-popup">
+        Add outside links
+    </button>
 </div>

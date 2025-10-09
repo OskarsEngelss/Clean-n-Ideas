@@ -1,0 +1,15 @@
+.experience-show-links-popup-links-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 8px;
+}
+.experience-show-links-popup-links-container a {
+    box-shadow: 12px 12px 12px var(--indent-boxshadow-dark) inset,
+    -10px -10px 10px var(--indent-boxshadow-light) inset;
+    padding: 15px;
+    border-radius: 8px;
+
+    word-break: break-all;
+    overflow-wrap: anywhere;
+    display: inline-block;
+}

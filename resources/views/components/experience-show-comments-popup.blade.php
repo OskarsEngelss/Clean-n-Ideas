@@ -1,12 +1,6 @@
 @push('popup')
-    <div id="experience-show-comments-popup">
-        <div class="experience-show-popup-close-container">
-            <button class="experience-show-popups-off-button">
-                <svg xmlns="http://www.w3.org/2000/svg" height="35px" viewBox="0 -960 960 960" width="35px" fill="var(--text-color)">
-                    <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
-                </svg>
-            </button>
-        </div>
+    <div id="experience-show-comments-popup" class="default-popup-style">
+        <x-popup-close-component />
         <div class="experience-show-popup-comments-container">
             @forelse($comments as $comment)
                 <x-comment-component

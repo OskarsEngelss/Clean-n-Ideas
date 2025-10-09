@@ -24,6 +24,28 @@ footer {
     font-size: 0.9em;
     text-align: end;
 }
+
+/* Default input style */ /* Default input style */ /* Default input style */ /* Default input style */ /* Default input style */
+/* Default input style */ /* Default input style */ /* Default input style */ /* Default input style */ /* Default input style */
+.default-input-style {
+    width: 100%;
+    height: 45px;
+    padding: 8px;
+    font-size: larger;
+    border: none;
+    background-color: var(--base-color-hover);
+    transition: 0.15s;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+.default-input-style:focus, .default-input-style:hover {
+    outline: none;
+    box-shadow: 12px 12px 12px var(--indent-boxshadow-dark) inset,
+    -10px -10px 10px var(--indent-boxshadow-light) inset;
+}
+
+/* Popup overlay CSS */ /* Popup overlay CSS */ /* Popup overlay CSS */ /* Popup overlay CSS */ /* Popup overlay CSS */
+/* Popup overlay CSS */ /* Popup overlay CSS */ /* Popup overlay CSS */ /* Popup overlay CSS */ /* Popup overlay CSS */
 .popup-overlay {
     display: none;
     width: 100vw;
@@ -36,6 +58,54 @@ footer {
 }
 .popup-overlay.show {
     display: block;
+}
+
+/* Default popup style */ /* Default popup style */ /* Default popup style */ /* Default popup style */ /* Default popup style */
+/* Default popup style */ /* Default popup style */ /* Default popup style */ /* Default popup style */ /* Default popup style */
+.default-popup-style {
+    max-height: 90%;
+    height: auto;
+    overflow-y: auto;
+    display: none;
+    background-color: var(--base-color);
+    position: fixed;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -25%);
+    width: min(800px, 95%);
+    overflow-y: auto;
+    border-radius: 8px;
+    font-size: 1.2em;
+    box-sizing: border-box;
+}
+.default-popup-style > div:nth-child(2) {
+   padding: 15px 25px;
+}
+
+/* Popup close CSS */ /* Popup close CSS */ /* Popup close CSS */ /* Popup close CSS */ /* Popup close CSS */
+/* Popup close CSS */ /* Popup close CSS */ /* Popup close CSS */ /* Popup close CSS */ /* Popup close CSS */
+.popup-close-container {
+    grid-area: close-button;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    background-color: var(--base-color);
+    box-shadow: 0 5px 6px -1px rgba(0, 0, 0, 0.2);
+    height: 35px;
+    z-index: 1;
+    display: grid;
+}
+.popup-close-button {
+    all: unset;
+    cursor: pointer;
+    height: 35px;
+    width: 35px;
+}
+.popup-close-button > svg {
+    transition: 0.3s;
+}
+.popup-close-button:hover > svg {
+    transform: rotate(15deg);
 }
 
 .two-to-one-grid {

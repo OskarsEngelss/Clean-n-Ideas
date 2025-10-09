@@ -219,7 +219,6 @@ export function initExperienceCreateMediaUpload() {
 
                 preview.removeChild(overlay);
             } else {
-                // Video: generate thumbnail and background upload
                 media.src = URL.createObjectURL(file);
                 media.controls = true;
                 bindMediaDragEvents(media);
@@ -328,7 +327,7 @@ export function initExperienceCreateMediaUpload() {
         const uploadProgressPopup = document.getElementById('upload-progress-popup');
 
         const progressBar = document.getElementById('upload-progress');
-        const progressTime = document.getElementById('upload-progress-time'); // create a span for ETA
+        const progressTime = document.getElementById('upload-progress-time');
         popupOverlay.classList.add('show');
         uploadProgressPopup.style.display = 'block';
         progressBar.style.width = '0%';
@@ -342,10 +341,10 @@ export function initExperienceCreateMediaUpload() {
                 progressBar.style.width = percent + '%';
 
                 // Estimated time remaining
-                const elapsed = (Date.now() - startTime) / 1000; // seconds
-                const speed = event.loaded / elapsed; // bytes per second
+                const elapsed = (Date.now() - startTime) / 1000;
+                const speed = event.loaded / elapsed;
                 const remainingBytes = event.total - event.loaded;
-                const eta = remainingBytes / speed; // seconds remaining
+                const eta = remainingBytes / speed;
 
                 // Format as mm:ss
                 const minutes = Math.floor(eta / 60);
