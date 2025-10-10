@@ -7,6 +7,7 @@ aside {
     background-color: var(--navbar-color);
     display: flex;
     flex-direction: column;
+    z-index: 1000;
 }
 .side-pannel-nav-link {
     height: fit-content;

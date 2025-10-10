@@ -32,6 +32,14 @@ class UserFactory extends Factory
         ];
     }
 
+    public function computerTester() {
+        return $this->state(fn () => [
+            'name' => 'Computer Tester',
+            'email' => 'computertester@gmail.com',
+            'password' => static::$password ??= Hash::make('password'),
+        ]);
+    }
+
     /**
      * Indicate that the model's email address should be unverified.
      */

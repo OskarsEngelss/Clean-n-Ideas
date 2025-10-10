@@ -53,8 +53,9 @@ class ExperienceController extends Controller
 
     public function store(Request $request) {
         $validated = $request->validate([
-            'category' => 'required|string',
+            
             'title' => 'required|string|max:70',
+            'category' => 'required|string',
             'description' => 'required|string|max:400',
             'tutorial' => 'required|string|max:15000',
             'visibility' => 'required|in:Public,Unlisted,Private',

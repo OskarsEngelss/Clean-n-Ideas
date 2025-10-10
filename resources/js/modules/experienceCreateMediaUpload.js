@@ -361,16 +361,31 @@ export function initExperienceCreateMediaUpload() {
                     const result = JSON.parse(xhr.responseText);
                     window.location.href = result.redirect;
                 } else if (xhr.status === 422) {
-                    const errors = JSON.parse(xhr.responseText);
-                    Object.keys(errors).forEach(field => {
-                        const fieldEl = document.querySelector(`[name="${field}"]`);
-                        if (fieldEl) {
-                            let errorEl = document.createElement('div');
-                            errorEl.className = 'form-error';
-                            errorEl.innerText = errors[field][0];
-                            fieldEl.parentNode.appendChild(errorEl);
-                        }
+                    const response = JSON.parse(xhr.responseText);
+                    const errors = response.errors || {};
+
+                    // Combine all error messages into one string
+                    const errorMessages = Object.values(errors)
+                        .map(msgArr => msgArr[0])
+                        .join('\n');
+
+                    // Create floating notification
+                    const errorToast = document.createElement('div');
+                    errorToast.className = 'floating-error-toast';
+                    errorToast.innerText = errorMessages;
+
+                    document.body.appendChild(errorToast);
+
+                    // Trigger fade-in
+                    requestAnimationFrame(() => {
+                        errorToast.classList.add('show');
                     });
+
+                    // Auto-remove after 3 seconds
+                    setTimeout(() => {
+                        errorToast.classList.remove('show');
+                        setTimeout(() => errorToast.remove(), 500); // Wait for fade-out animation
+                    }, 30000);
                 } else {
                     console.error('Upload failed:', xhr.responseText);
                 }

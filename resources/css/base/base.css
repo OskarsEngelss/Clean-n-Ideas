@@ -83,8 +83,8 @@ footer {
    padding: 15px 25px;
 }
 
-/* Popup close CSS */ /* Popup close CSS */ /* Popup close CSS */ /* Popup close CSS */ /* Popup close CSS */
-/* Popup close CSS */ /* Popup close CSS */ /* Popup close CSS */ /* Popup close CSS */ /* Popup close CSS */
+/* Popup close CSS */ /* Popup close CSS */ /* Popup close CSS */ /* Popup close CSS */ /* Popup close CSS */ /* Popup close CSS */ /* Popup close CSS */
+/* Popup close CSS */ /* Popup close CSS */ /* Popup close CSS */ /* Popup close CSS */ /* Popup close CSS */ /* Popup close CSS */ /* Popup close CSS */
 .popup-close-container {
     grid-area: close-button;
     width: 100%;
@@ -109,6 +109,33 @@ footer {
     transform: rotate(15deg);
 }
 
+/* Floating error CSS */ /* Floating error CSS */ /* Floating error CSS */ /* Floating error CSS */ /* Floating error CSS */ /* Floating error CSS */
+/* Floating error CSS */ /* Floating error CSS */ /* Floating error CSS */ /* Floating error CSS */ /* Floating error CSS */ /* Floating error CSS */
+.floating-error-toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    background-color: #e74c3c;
+    color: #fff;
+    padding: 12px 18px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    white-space: pre-line; /* allows newlines */
+    font-size: 1.2em;
+    max-width: 320px;
+    line-height: 1.5em;
+}
+.floating-error-toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Two to one grid CSS */ /* Two to one grid CSS */ /* Two to one grid CSS */ /* Two to one grid CSS */ /* Two to one grid CSS */ /* Two to one grid CSS */
+/* Two to one grid CSS */ /* Two to one grid CSS */ /* Two to one grid CSS */ /* Two to one grid CSS */ /* Two to one grid CSS */ /* Two to one grid CSS */
 .two-to-one-grid {
     width: 100%;
     display: grid;
