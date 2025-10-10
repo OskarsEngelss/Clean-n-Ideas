@@ -20,8 +20,8 @@
 
             <h2>Sign in</h2>
 
-            <input id="email" type="email" name="email" value="{{ old('email') }}" placeholder="Email.." required autofocus>
-            <input id="password" type="password" name="password" placeholder="Password.." required>
+            <input class="default-input-style" id="email" type="email" name="email" value="{{ old('email') }}" placeholder="Email.." required autofocus>
+            <input class="default-input-style" id="password" type="password" name="password" placeholder="Password.." required>
 
             <div class="redirect-container">
                 <a href="{{ route('home') }}">Home</a>

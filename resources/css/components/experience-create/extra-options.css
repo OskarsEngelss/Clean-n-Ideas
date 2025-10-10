@@ -20,6 +20,7 @@
     background-color: var(--secondary-accent-color);
     transition: 0.3s;
     font-size: larger;
+    color: black;
 }
 .extra-options-container button:hover {
     background-color: var(--secondary-accent-color-hover);

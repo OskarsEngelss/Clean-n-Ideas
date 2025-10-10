@@ -15,7 +15,7 @@
                         </svg>
                     </div>
 
-                    <textarea name="description" class="settings-about-textarea settings-input" placeholder="Write a little about yourself!">{{ old('about', $user->description) }}</textarea>
+                    <textarea name="description" class="default-input-style settings-about-textarea settings-input" placeholder="Write a little about yourself!">{{ old('about', $user->description) }}</textarea>
                     
                     <div class="settings-light-dark-mode-container">
                         <button type="button" class="settings-light-dark-mode" id="toggle-light-dark-mode">
@@ -25,12 +25,12 @@
                     </div>
                 </div>
                 <div class="settings-main-options">
-                    <input class="settings-input" id="name" name="name" type="text" value="{{ old('name', $user->name) }}" required autofocus>
-                    <input class="settings-input" id="email" name="email" type="email" value="{{ old('email', $user->email) }}" required>
+                    <input class="settings-input default-input-style" id="name" name="name" type="text" value="{{ old('name', $user->name) }}" required autofocus>
+                    <input class="settings-input default-input-style" id="email" name="email" type="email" value="{{ old('email', $user->email) }}" required>
                     <p class="settings-password-change-title">Change password:</p>
-                    <input class="settings-input" id="current_password" placeholder="Current password" name="current_password" type="password" autocomplete="current-password">
-                    <input class="settings-input" id="password" placeholder="New password" name="password" type="password" autocomplete="new-password">
-                    <input class="settings-input" id="password_confirmation" placeholder="Repeat new password" name="password_confirmation" type="password" autocomplete="new-password">
+                    <input class="settings-input default-input-style" id="current_password" placeholder="Current password" name="current_password" type="password" autocomplete="current-password">
+                    <input class="settings-input default-input-style" id="password" placeholder="New password" name="password" type="password" autocomplete="new-password">
+                    <input class="settings-input default-input-style" id="password_confirmation" placeholder="Repeat new password" name="password_confirmation" type="password" autocomplete="new-password">
                     <div class="settings-save-cancel-button-container">
                         <div>
                             <button type="button" id="settings-cancel-button">Cancel</button>
@@ -64,7 +64,7 @@
 
                 <div class="settings-profile-delete-password-confirm-container">
                     <p>Enter your password to confirm account deletion:</p>
-                    <input placeholder="Current password" name="password" type="password" autocomplete="current-password" required>
+                    <input class="default-input-style" placeholder="Current password" name="password" type="password" autocomplete="current-password" required>
                     <!-- @error('password')
                         <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                     @enderror -->

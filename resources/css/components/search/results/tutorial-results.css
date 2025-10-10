@@ -1,0 +1,31 @@
+.search-result-experiences-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 20px 0px;
+    column-gap: 30px;
+    row-gap: 15px;
+}
+.search-result-experiences-container > div {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+.search-result-experiences-container > div:nth-child(even) {
+    justify-content: start;
+}
+
+@media(max-width: 1080px) {
+    .search-result-experiences-container {
+        grid-template-columns: 1fr;
+        column-gap: 0px;
+        row-gap: 15px;
+    }
+    .search-result-experiences-container > div {
+        justify-content: center;
+    }
+    .search-result-experiences-container > div:nth-child(even) {
+        justify-content: center;
+    }
+}

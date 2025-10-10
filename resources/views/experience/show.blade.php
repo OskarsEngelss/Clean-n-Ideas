@@ -41,11 +41,16 @@
                     </form>
                     <p id="tutorial-dislike-count-{{ $experience->id }}">{{ $experience->dislikes()->count() }}</p>
                 </div>
-                <button id="experience-show-description-button" data-popup-target="experience-show-description-popup">Description</button>
+                <button id="experience-show-description-button" data-popup-target="experience-show-description-popup" class="default-experience-show-popup-button-style">Description</button>
             </div>
-            <button id="experience-show-comments-button" data-popup-target="experience-show-comments-popup">Comments</button>
-            <button id="experience-show-media-button" data-popup-target="experience-show-media-popup">Media</button>
-            <button id="experience-show-links-button" data-popup-target="experience-show-links-popup">Links</button>
+            <button id="experience-show-comments-button" data-popup-target="experience-show-comments-popup" class="default-experience-show-popup-button-style">Comments</button>
+            <button id="experience-show-media-button" data-popup-target="experience-show-media-popup" class="default-experience-show-popup-button-style">Media</button>
+            <button id="experience-show-links-button" data-popup-target="experience-show-links-popup" class="default-experience-show-popup-button-style">Links</button>
+            @if(Auth::user())
+                @if(Auth::user()->id == $experience->user->id)
+                    <button id="experience-delete-button" data-popup-target="experience-delete-popup" class="default-experience-show-popup-button-style">Delete experience</button>
+                @endif
+            @endif
         </section>
     </div>
 
@@ -53,6 +58,7 @@
     <x-experience-show-comments-popup :experience="$experience" :comments="$comments" />
     <x-experience-show-media-popup :experience="$experience" />
     <x-experience-show-links-popup :experience="$experience" />
+    <x-experience-delete-popup :experience="$experience" />
 
     @push('popup')
         <div id="experience-show-lists-popup" class="default-popup-style">

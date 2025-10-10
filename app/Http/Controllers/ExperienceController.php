@@ -214,8 +214,26 @@ class ExperienceController extends Controller
         // Handle update logic
     }
 
-    public function destroy($id) {
-        // Delete the resource
+    public function destroy(Request $request, $id) {
+        $experience = Experience::with('media')->findOrFail($id);
+
+        $request->validate([
+            'title_confirmation' => ['required', 'string', function($attribute, $value, $fail) use ($experience) {
+                if ($value !== $experience->title) {
+                    $fail('The title does not match. Deletion aborted.');
+                }
+            }],
+        ]);
+
+        foreach ($experience->media as $file) {
+            if (Storage::disk('public')->exists($file->path)) {
+                Storage::disk('public')->delete($file->path);
+            }
+        }
+
+        $experience->delete();
+
+        return redirect()->route('home')->with('success', 'Experience deleted successfully.');
     }
 
     public function toggleReaction(Request $request) {

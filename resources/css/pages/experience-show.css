@@ -37,15 +37,6 @@
     flex-direction: column;
     width: 100%;
     box-sizing: border-box;
-    /* display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: min-content;
-    grid-template-areas: 
-    "creator-info"
-    "save-rate-description"
-    "comments"
-    "media"
-    "links"; */
     padding: 10px 15px;
     row-gap: 7px;
 }
@@ -124,7 +115,7 @@
     opacity: 1;
 }
 
-#experience-show-comments-button, #experience-show-media-button, #experience-show-description-button, #experience-show-links-button {
+.default-experience-show-popup-button-style {
     all: unset;
     width: 100%;
     box-sizing: border-box;
@@ -138,6 +129,7 @@
     font-size: 1.3em;
     padding: 15px;
     transition: 0.3s;
+    color: black;
 }
 #experience-show-description-button {
     grid-area: description;
@@ -151,6 +143,10 @@
     grid-area: links;
     background-color: var(--fourth-accent-color);
 }
+#experience-delete-button {
+    grid-area: delete;
+    background-color: var(--disagree-color);
+}
 #experience-show-comments-button:hover {
     background-color: var(--accent-color-hover);
 }
@@ -162,6 +158,9 @@
 }
 #experience-show-links-button:hover {
     background-color: var(--fourth-accent-color-hover);
+}
+#experience-delete-button:hover {
+    background-color: var(--disagree-color-hover);
 }
 
 .like-dislike-button-counter-container {
@@ -261,7 +260,8 @@
         "save-rate-description"
         "comments"
         "media"
-        "links";
+        "links"
+        "delete";
         padding: 10px 15px 13px 15px;
         row-gap: 7px;
     }

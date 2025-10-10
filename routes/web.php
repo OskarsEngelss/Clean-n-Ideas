@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\TutorialListController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -11,7 +12,8 @@ Route::get('/', [ExperienceController::class, 'index'])->name('home');
 Route::get('/experiences/{experience:slug}', [ExperienceController::class, 'show'])->name('experience.show');
 
 Route::get('/users/{user}', [ProfileController::class, 'show'])->name('profile.show');
-Route::post('/users/{user}/follow', [ProfileController::class, 'toggleFollow'])->name('follow.toggle');
+
+Route::get('/search', [SearchController::class, 'search'])->name('search');
 
 
 Route::middleware('auth')->group(function () {
@@ -19,6 +21,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/profile/settings', [ProfileController::class, 'settings'])->name('profile.settings');
+
+
+    Route::post('/users/{user}/follow', [ProfileController::class, 'toggleFollow'])->name('follow.toggle');
 
 
     Route::get('/lists', function () {
@@ -31,6 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/upload-temp', [ExperienceController::class, 'uploadTemp']);
     Route::post('/delete-temp', [ExperienceController::class, 'deleteTemp']);
     Route::post('/experience/store', [ExperienceController::class, 'store'])->name('experience.store');
+    Route::delete('/experience/{id}/delete', [ExperienceController::class, 'destroy'])->name('experience.destroy');
 
     Route::post('/tutorial/react', [ExperienceController::class, 'toggleReaction'])->name('experience.react');
 

@@ -6,6 +6,7 @@
     background-color: var(--agree-color);
     transition: 0.3s;
     cursor: pointer;
+    color: black;
 }
 #lists-make-new-list-button:hover {
     background-color: var(--agree-color-hover);

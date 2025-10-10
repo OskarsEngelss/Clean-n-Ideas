@@ -24,6 +24,9 @@
 @import './components/experience-create-upload-progress-popup.css';
 @import './components/experience-create/extra-options.css';
 @import './components/experience-show/links-popup.css';
+@import './components/experience-show/delete-popup.css';
+@import './components/search/results/tutorial-results.css';
+@import './components/search/results/user-results.css';
 
 /* Page-specific styles */
 @import './pages/followers.css';
@@ -36,3 +39,4 @@
 @import './pages/favourites.css';
 @import './pages/settings.css';
 @import './pages/lists.css';
+@import './pages/search-results.css';

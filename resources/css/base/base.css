@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     font-family: "Onest";
+    color: var(--text-color);
 }
 body {
     min-height: 100vh;
@@ -33,7 +34,7 @@ footer {
     padding: 8px;
     font-size: larger;
     border: none;
-    background-color: var(--base-color-hover);
+    background-color: var(--base-variant);
     transition: 0.15s;
     border-radius: 8px;
     box-sizing: border-box;

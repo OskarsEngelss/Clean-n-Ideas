@@ -20,6 +20,7 @@ import { initExperienceCreateMediaUpload } from './modules/experienceCreateMedia
 import { initExperienceShowAjaxRequests } from './modules/experienceShowAjaxRequests.js';
 import { initLists } from './modules/lists.js';
 import { initAddOutsideLinkInput } from './modules/experienceCreate/addOutsideLinkInput.js';
+import { initSearch } from './modules/search.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     initBase();
@@ -71,5 +72,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (document.querySelector('#lists-make-new-list-button')) {
         initLists();
+    }
+
+    if (document.querySelector('#search-results')) {
+        initSearch();
     }
 });

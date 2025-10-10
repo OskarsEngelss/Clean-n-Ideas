@@ -28,31 +28,31 @@
     --secondary-text-color: hsl(from var(--text-color) h s calc(l + 39));;
 
     --popup-background-color: hsl(0, 0%, 0%, 0.4);
-    --indent-boxshadow-light: hsl(0, 0%, 100%);
+    --indent-boxshadow-light: hsl(0, 0%, 95%);
     --indent-boxshadow-dark: hsl(0, 0%, 0%, 0.1);
     --favourite-color: hsl(0, 100%, 45%);
     --progress-bar-mold-color: hsl(0, 0%, 78%);
 }
 
 .darkmode {
-    --base-color-original: #e6e6e6;
-    --base-color: hsl(0, 0%, 9%);
+    --base-color-original: hsl(from var(--base-color) h s calc(l - 2));;
+    --base-color: hsl(0, 0%, 15%);
     --base-color-hover: hsl(from var(--base-color) h s calc(l - 7));
-    --base-variant: hsl(from var(--base-color) h s calc(l + 4));
+    --base-variant: hsl(from var(--base-color) h s calc(l + 2));
 
-    --navbar-color: hsl(from var(--base-color) h s calc(l + 6));
+    --navbar-color: hsl(from var(--base-color) h s calc(l + 2));
     --navbar-color-hover: hsl(from var(--base-color-hover) h s l / 0.4);
     
-    --accent-color: hsl(201, 62%, 55%);
+    --accent-color: hsl(201, 62%, 40%);
     --accent-color-hover: hsl(from var(--accent-color) h s calc(l + 10));
 
-    --secondary-accent-color: hsl(17, 53%, 60%);
+    --secondary-accent-color: hsl(17, 53%, 45%);
     --secondary-accent-color-hover: hsl(from var(--secondary-accent-color) h s calc(l + 10));
 
-    --third-accent-color: hsl(120, 42%, 58%);
+    --third-accent-color: hsl(120, 42%, 43%);
     --third-accent-color-hover: hsl(from var(--third-accent-color) h s calc(l + 10));
 
-    --fourth-accent-color: hsl(268, 47%, 66%);
+    --fourth-accent-color: hsl(268, 47%, 51%);
     --fourth-accent-color-hover: hsl(from var(--fourth-accent-color) h s calc(l + 10));
 
     --agree-color: hsl(120, 58%, 42%);
@@ -60,11 +60,11 @@
     --disagree-color: hsl(0, 62%, 52%);
     --disagree-color-hover: hsl(from var(--disagree-color) h s calc(l + 10));
 
-    --text-color: hsl(0, 0%, 100%);
+    --text-color: hsl(0, 0%, 90%);
     --secondary-text-color: hsl(from var(--text-color) h s calc(l + 39));;
 
     --popup-background-color: hsl(0, 0%, 0%, 0.4);
-    --indent-boxshadow-light: hsl(0, 0%, 100%);
+    --indent-boxshadow-light: hsl(from var(--base-color) h s calc(l + 3.5));
     --indent-boxshadow-dark: hsl(0, 0%, 0%, 0.1);
     --favourite-color: hsl(0, 100%, 45%);
 }

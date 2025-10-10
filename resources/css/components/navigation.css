@@ -43,6 +43,7 @@ nav {
     border: none;
     padding: 0.5em;
     font-size: 1.05em;
+    background-color: hsl(from var(--base-variant) h s calc(l + 3));
 }
 #search-form-input:focus {
     outline: none;
@@ -59,7 +60,7 @@ nav {
     border: none;
     padding: 0.5em;
     cursor: pointer;
-    background-color: var(--navbar-color-hover);
+    background-color: hsl(from var(--navbar-color-hover) h s calc(l + 4));
 }
 #search-form-button > svg {
     transition: 0.3s;

@@ -41,7 +41,7 @@
 
 .your-experiences-share-new-button {
     text-decoration: none;
-    color: var(--text-color);
+    color: black;
     padding: 7px 15px;
     border-radius: 8px;
     background-color: var(--agree-color);

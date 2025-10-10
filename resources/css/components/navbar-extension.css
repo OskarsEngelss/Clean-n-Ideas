@@ -4,6 +4,7 @@
     position: fixed;
     width: 300px;
     background-color: var(--navbar-color);
+    z-index: 1000;
 }
 .logout-button-form {
     width: 100%;

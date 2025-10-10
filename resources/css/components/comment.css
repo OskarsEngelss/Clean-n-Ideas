@@ -152,6 +152,7 @@
     resize: none;
     border: none;
     border-radius: 8px;
+    background-color: hsl(from var(--base-variant) h s calc(l + 3));
 }
 #experience-show-comments-popup-input:focus {
     outline: none;

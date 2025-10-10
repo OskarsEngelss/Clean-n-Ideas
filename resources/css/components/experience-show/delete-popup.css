@@ -1,0 +1,38 @@
+.experiencec-delete-popup-content h4 {
+    text-align: center;
+    font-size: 1.3em;
+}
+.experiencec-delete-popup-content p {
+    display: inline-block;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    hyphens: auto;
+    width: 100%;
+    text-align: center;
+    font-size: 1.15em;
+}
+.experiencec-delete-popup-content form {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas: 
+    "input button";
+}
+.experiencec-delete-popup-content form input {
+    grid-area: input;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+.experiencec-delete-popup-content form button {
+    grid-area: input;
+    all: unset;
+    padding: 7px 15px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    cursor: pointer;
+    background-color: var(--disagree-color);
+    transition: 0.3s;
+}
+.experiencec-delete-popup-content form button:hover {
+    background-color: var(--disagree-color-hover);
+}

@@ -61,6 +61,7 @@ body {
     font-size: 1.1em;
     margin: 5px 0px;
     transition: 0.2s;
+    background-color: var(--base-variant);
 }
 
 .login-register-form input:focus, .login-register-form input:hover {
@@ -120,6 +121,8 @@ footer {
 .login-register-form input[type="checkbox"]:focus, .login-register-form input[type="checkbox"]:hover {
     box-shadow: none;
 } */
+
+
 
 @media(max-width: 1000px) {
     .login-register-form-container h1 {
