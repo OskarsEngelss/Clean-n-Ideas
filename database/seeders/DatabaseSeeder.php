@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Experience;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -20,7 +21,11 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         User::factory()->admin()->create();
-        User::factory()->basicUser()->create();
+
+        $user = User::factory()->basicUser()->create();
+        Experience::factory(14)->create([
+            'user_id' => $user->id,
+        ]);
 
         $this->call([
             ExperienceSeeder::class,

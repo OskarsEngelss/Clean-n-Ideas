@@ -119,6 +119,7 @@ class ExperienceSeeder extends Seeder
                 'tutorial' => $data['tutorial'],
                 'visibility' => $data['visibility'],
                 'slug' => Str::slug($data['title']) . '-' . uniqid(),
+                'thumbnail' => 'images/defaults/' . mb_strtolower($data['category'], 'UTF-8') . '-default-thumbnail.webp',
             ]);
 
             foreach ($mediaRecords as $m) {

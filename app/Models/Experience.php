@@ -9,7 +9,7 @@ class Experience extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['category', 'title', 'description', 'tutorial', 'user_id', 'slug', 'visibility'];
+    protected $fillable = ['category', 'title', 'description', 'tutorial', 'user_id', 'slug', 'visibility', 'thumbnail'];
 
     public function tutorialListItems()
     {

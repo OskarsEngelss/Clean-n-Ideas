@@ -53,7 +53,6 @@ class ExperienceController extends Controller
 
     public function store(Request $request) {
         $validated = $request->validate([
-            
             'title' => 'required|string|max:70',
             'category' => 'required|string',
             'description' => 'required|string|max:400',
@@ -74,6 +73,7 @@ class ExperienceController extends Controller
         }
 
         $validated['slug'] = Str::slug($validated['title']) . '-' . uniqid();
+        $validated['thumbnail'] = 'images/defaults/' . mb_strtolower($validated['category'], 'UTF-8') . '-default-thumbnail.webp';
         $tutorial = auth()->user()->experiences()->create($validated);
 
         $tutorialHtml = $request->input('tutorial');
@@ -142,6 +142,7 @@ class ExperienceController extends Controller
         foreach ($body->childNodes as $child) {
             $tutorial->tutorial .= $doc->saveHTML($child);
         }
+
         $tutorial->save();
 
         if (!empty($request->input('urls'))) {

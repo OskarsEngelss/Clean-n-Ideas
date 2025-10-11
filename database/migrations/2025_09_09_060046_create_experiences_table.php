@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('tutorial');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->enum('visibility', ['Public', 'Unlisted', 'Private'])->default('Public');
+            $table->string('thumbnail');
             $table->timestamps();
         });
     }

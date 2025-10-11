@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
+use App\Models\User;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Experience>
@@ -16,8 +18,16 @@ class ExperienceFactory extends Factory
      */
     public function definition(): array
     {
+        $title = fake()->catchPhrase();
+        $category = 'Housekeeping';
+
         return [
-            //
+            'title' => $title,
+            'category' => $category,
+            'description' => 'Clothes',
+            'tutorial' => fake()->paragraph(3, true),
+            'slug' => Str::slug($title) . '-' . uniqid(),
+            'thumbnail' => 'images/defaults/' . mb_strtolower($category, 'UTF-8') . '-default-thumbnail.webp',
         ];
     }
 }

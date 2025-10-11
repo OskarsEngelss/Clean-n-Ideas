@@ -385,7 +385,7 @@ export function initExperienceCreateMediaUpload() {
                     setTimeout(() => {
                         errorToast.classList.remove('show');
                         setTimeout(() => errorToast.remove(), 500); // Wait for fade-out animation
-                    }, 30000);
+                    }, 3000);
                 } else {
                     console.error('Upload failed:', xhr.responseText);
                 }

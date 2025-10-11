@@ -22,6 +22,9 @@
 }
 .tutorial-card > img {
     width: 100%;
+    height: 196px;
+    object-fit: cover;    /* scales and crops the image to fill */
+    object-position: center; 
 }
 
 .tutorial-card-text-container {
