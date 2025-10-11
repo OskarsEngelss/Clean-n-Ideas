@@ -47,7 +47,7 @@
             <button id="experience-show-media-button" data-popup-target="experience-show-media-popup" class="default-experience-show-popup-button-style">Media</button>
             <button id="experience-show-links-button" data-popup-target="experience-show-links-popup" class="default-experience-show-popup-button-style">Links</button>
             @if(Auth::user())
-                @if(Auth::user()->id == $experience->user->id)
+                @if(Auth::user()->id == $experience->user->id || Auth::user()->role == "admin")
                     <button id="experience-delete-button" data-popup-target="experience-delete-popup" class="default-experience-show-popup-button-style">Delete experience</button>
                 @endif
             @endif

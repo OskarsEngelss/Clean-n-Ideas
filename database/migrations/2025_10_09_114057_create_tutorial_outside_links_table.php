@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('tutorial_outside_links', function (Blueprint $table) {
             $table->id();
             $table->foreignId('tutorial_id')->constrained('experiences')->onDelete('cascade');
-            $table->string('url');
+            $table->text('url');
             $table->timestamps();
         });
     }

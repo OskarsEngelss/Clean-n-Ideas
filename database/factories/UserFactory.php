@@ -40,6 +40,23 @@ class UserFactory extends Factory
         ]);
     }
 
+    public function admin() {
+        return $this->state(fn () => [
+            'name' => 'Admin',
+            'email' => 'admin@example.com',
+            'password' => static::$password ??= Hash::make('password'),
+            'role' => 'admin'
+        ]);
+    }
+
+    public function basicUser() {
+        return $this->state(fn () => [
+            'name' => 'User',
+            'email' => 'user@gmail.com',
+            'password' => static::$password ??= Hash::make('password'),
+        ]);
+    }
+
     /**
      * Indicate that the model's email address should be unverified.
      */
