@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->admin()->create();
 
         $user = User::factory()->basicUser()->create();
-        Experience::factory(14)->create([
+        Experience::factory(30)->create([
             'user_id' => $user->id,
         ]);
 

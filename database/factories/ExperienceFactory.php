@@ -19,7 +19,8 @@ class ExperienceFactory extends Factory
     public function definition(): array
     {
         $title = fake()->catchPhrase();
-        $category = 'Housekeeping';
+        $categories = ['Housekeeping', 'Furniture', 'Clothing & Textiles', 'Electronics', 'Vehicles', 'Miscellaneous', 'Outdoors & Garden', 'Personal Care Items'];
+        $category = $this->faker->randomElement($categories);
 
         return [
             'title' => $title,

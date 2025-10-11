@@ -24,7 +24,7 @@
                     </button>
                 </div>
                 <div class="like-dislike-button-counter-container">
-                    <form action="{{ route('experience.react') }}" class="experience-show-tutorial-reaction-form" data-type="like" data-tutorial-id="{{ $experience->id }}">
+                    <form method="POST" action="{{ route('experience.react') }}" class="experience-show-tutorial-reaction-form" data-type="like" data-tutorial-id="{{ $experience->id }}">
                         @csrf
                         <button id="experience-show-tutorial-like-button" class="{{ $experience->userReaction && $experience->userReaction->type === 'like' ? 'active' : '' }}">
                             <x-like-button-svg></x-like-button-svg>
@@ -33,7 +33,7 @@
                     <p id="tutorial-like-count-{{ $experience->id }}">{{ $experience->likes()->count() }}</p>
                 </div>
                 <div class="like-dislike-button-counter-container">
-                    <form action="{{ route('experience.react') }}" class="experience-show-tutorial-reaction-form" data-type="dislike" data-tutorial-id="{{ $experience->id }}">
+                    <form method="POST" action="{{ route('experience.react') }}" class="experience-show-tutorial-reaction-form" data-type="dislike" data-tutorial-id="{{ $experience->id }}">
                         @csrf
                         <button id="experience-show-tutorial-dislike-button" class="{{ $experience->userReaction && $experience->userReaction->type === 'dislike' ? 'active' : '' }}">
                             <x-dislike-button-svg></x-dislike-button-svg>

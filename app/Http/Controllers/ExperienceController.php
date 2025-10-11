@@ -239,6 +239,10 @@ class ExperienceController extends Controller
     }
 
     public function toggleReaction(Request $request) {
+        if (!auth()->check()) {
+            return response()->json(['message' => 'You must be logged in'], 401);
+        }
+
         $validated = $request->validate([
             'tutorial_id' => 'required|integer|exists:experiences,id',
             'type' => 'required|in:like,dislike',

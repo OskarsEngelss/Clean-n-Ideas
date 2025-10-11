@@ -27,7 +27,7 @@ export function initSearch() {
                     div.innerHTML = `
                         <a href="/experiences/${exp.slug}" class="tutorial-card-link">
                             <div class="tutorial-card">
-                                <img class="thumbnail-preview" src="https://www.jakob-persson.com/media/posts/41/un4jeep.png" alt="Preview picture">
+                                <img class="thumbnail-preview" src="${exp.thumbnail}" alt="${exp.thumbnail} thumbnail">
                                 <div class="tutorial-card-text-container">
                                     <h3 class="tutorial-card-title">${exp.title}</h3>
                                     <div class="tutorial-card-user-info-container">

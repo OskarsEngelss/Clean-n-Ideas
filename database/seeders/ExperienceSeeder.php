@@ -54,7 +54,7 @@ class ExperienceSeeder extends Seeder
             ],
             [
                 'title' => 'Glovebox cleaning - simple - quick - effective - get over it',
-                'category' => 'Mechanics',
+                'category' => 'Vehicles',
                 'description' => 'Over the years of working with cars, I have learnt the best way to clean these bitches. This is the how and not the why. Get ready',
                 'visibility' => 'Public',
                 'tutorial' => '

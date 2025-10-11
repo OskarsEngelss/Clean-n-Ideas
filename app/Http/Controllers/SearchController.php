@@ -74,7 +74,7 @@ class SearchController extends Controller
                     return [
                         'slug' => $exp->slug,
                         'title' => $exp->title,
-                        'thumbnail_url' => $exp->thumbnail_url,
+                        'thumbnail' => $exp->thumbnail,
                         'likes_count' => $exp->likes()->count(),
                         'dislikes_count' => $exp->dislikes()->count(),
                         'created_at_human' => $exp->created_at->diffForHumans(),
