@@ -18,9 +18,29 @@ use App\Models\TutorialOutsideLink;
 class ExperienceController extends Controller
 {
     public function index() {
-        $experiences = Experience::with('user')->withCount('tutorialListItems')->get();
+        $experiences = Experience::with('user')->where('visibility', 'Public')->latest()->take(18)->get();
         return view('home', compact('experiences'));
     }
+    
+    public function loadMore(Request $request) {
+        $page = (int) $request->get('page', 1);
+        $perPage = 18;
+        $skip = ($page - 1) * $perPage;
+
+        $experiences = Experience::with('user')
+            ->where('visibility', 'Public')
+            ->latest()
+            ->skip($skip)
+            ->take($perPage)
+            ->get();
+
+        if ($experiences->isEmpty()) {
+            return response('', 200);
+        }
+
+        return view('partials._experience', compact('experiences'));
+    }
+
 
     public function yourExperiences(Request $request) {
         $order = $request->query('order', 'desc');
@@ -166,6 +186,10 @@ class ExperienceController extends Controller
 
 
     public function show(Experience $experience) {
+        if ($experience->visibility === 'Private' && $experience->user_id !== auth()->id()) {
+            return back();
+        }
+
         $experience->load('media');
         $experience->load('userReaction');
         $experience->load('links');

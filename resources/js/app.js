@@ -14,7 +14,7 @@ import { initExperienceShowPopups } from './modules/experienceShowPopups.js';
 import { initExperienceShowPopupsEmojiPicker } from './modules/experienceShowPopupsEmojiPicker.js';
 import { initExperienceShowCommentsForm } from './modules/experienceShowCommentsForm.js';
 import { initLightDarkMode } from './modules/light-dark-mode.js';
-import { initCarousel } from './modules/home/carousel.js';
+import { initExtraExperienceLoad } from './modules/home/extraExperienceLoad.js';
 import { initSettings } from './modules/settings.js';
 import { initExperienceCreateMediaUpload } from './modules/experienceCreateMediaUpload.js';
 import { initExperienceShowAjaxRequests } from './modules/experienceShowAjaxRequests.js';
@@ -54,8 +54,8 @@ document.addEventListener('DOMContentLoaded', () => {
         initLightDarkMode();
     }
 
-    if (document.querySelector('#home-carousel')) {
-        initCarousel();
+    if (document.querySelector('.home-container')) {
+        initExtraExperienceLoad();
     }
 
     if (document.querySelector('#settings-profile-picture-input')) {

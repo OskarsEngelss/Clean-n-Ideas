@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [ExperienceController::class, 'index'])->name('home');
+Route::get('/load-more', [ExperienceController::class, 'loadMore'])->name('experiences.loadMore');
+
 Route::get('/experiences/{experience:slug}', [ExperienceController::class, 'show'])->name('experience.show');
 
 Route::get('/users/{user}', [ProfileController::class, 'show'])->name('profile.show');
