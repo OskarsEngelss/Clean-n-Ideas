@@ -6,7 +6,6 @@
 }
 
 .tutorial-card {
-    background-color: red;
     display: grid;
     grid-template-rows: min-content auto;
     width: 350px;

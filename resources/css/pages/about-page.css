@@ -1,0 +1,21 @@
+.about-page-container {
+    width: 100%;
+    height: calc(70vh - 52.79px - 53.21px);
+    top: 52.79px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.about-page-info-div {
+    width: min(95%, 600px);
+    font-size: 1.2em;
+    background-color: var(--base-variant);
+    text-align: center;
+    padding: 15px 25px 22px 25px;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+.about-page-info-div h2 {
+    font-size: 2em;
+}

@@ -22,6 +22,8 @@ import { initLists } from './modules/lists.js';
 import { initAddOutsideLinkInput } from './modules/experienceCreate/addOutsideLinkInput.js';
 import { initSearch } from './modules/search.js';
 import { initExtraUserExperienceLoad } from './modules/user/extraUserExperienceLoad.js';
+import { initExtraYourExperiencesLoad } from './modules/your-experiences/extraYourExperiencesLoad.js';
+import { initExtraUserFollowingLoad } from './modules/user/extraUserFollowingLoad.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     initBase();
@@ -81,5 +83,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (document.querySelector('.profile-experience-container')) {
         initExtraUserExperienceLoad();
+    }
+
+    if (document.querySelector('.your-experiences-content')) {
+        initExtraYourExperiencesLoad();
+    }
+
+    if (document.querySelector('.followers')) {
+        initExtraUserFollowingLoad();
     }
 });

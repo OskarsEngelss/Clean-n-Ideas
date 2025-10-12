@@ -42,11 +42,30 @@ class ExperienceController extends Controller
     }
 
 
-    public function yourExperiences(Request $request) {
-        $order = $request->query('order', 'desc');
-        $experiences = auth()->user()->experiences()->orderBy('created_at', $order)->get();
+    public function yourExperiences() {
+        $experiences = auth()->user()->experiences()
+                        ->latest()
+                        ->take(8)
+                        ->get();
 
-        return view('your-experiences', compact('experiences', 'order'));
+        return view('your-experiences', compact('experiences',));
+    }
+    public function yourExperiencesLoadMore(Request $request) {
+        $page = (int) $request->get('page', 1);
+        $perPage = 8;
+        $skip = ($page - 1) * $perPage;
+
+        $experiences = auth()->user()->experiences()
+            ->latest()
+            ->skip($skip)   
+            ->take($perPage)
+            ->get();
+
+        if ($experiences->isEmpty()) {
+            return response('', 200);
+        }
+
+        return view('partials._experience', compact('experiences'));
     }
 
     public function create() {

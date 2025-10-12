@@ -1,10 +1,9 @@
-export function initExtraUserExperienceLoad() {
-    const postContainer = document.querySelector(".profile-experience-container");
-    const trigger = document.getElementById("user-load-more-trigger");
+export function initExtraYourExperiencesLoad() {
+    const postContainer = document.querySelector(".your-experiences-content");
+    const trigger = document.querySelector("footer");
     let page = 1;
     let isLoading = false;
     let noMorePosts = false;
-    const userId = trigger.dataset.userId;
 
     const loadMorePosts = async () => {
         if (isLoading || noMorePosts) return;
@@ -12,7 +11,7 @@ export function initExtraUserExperienceLoad() {
         page++;
 
         try {
-            const response = await fetch(`/user/${userId}/load-more?page=${page}`);
+            const response = await fetch(`/your-experiences/load-more?page=${page}`);
             if (!response.ok) throw new Error("Network error");
 
             const data = await response.text();
@@ -40,5 +39,5 @@ export function initExtraUserExperienceLoad() {
         { threshold: 0.5 }
     );
 
-    observer.observe(trigger);
+    observer.observe(trigger);   
 }

@@ -15,8 +15,7 @@ class ProfileController extends Controller
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
-    {
+    public function update(ProfileUpdateRequest $request): RedirectResponse {
         $user = $request->user();
 
         $user->fill($request->validated());
@@ -57,8 +56,7 @@ class ProfileController extends Controller
     /**
      * Delete the user's account.
      */
-    public function destroy(Request $request): RedirectResponse
-    {
+    public function destroy(Request $request): RedirectResponse {
         $request->validateWithBag('userDeletion', [
             'password' => ['required', 'current_password'],
         ]);
@@ -88,7 +86,6 @@ class ProfileController extends Controller
             'experiences' => $experiences,
         ]);
     }
-
     public function loadMoreExperiences(User $user, Request $request) {
         $page = (int) $request->get('page', 1);
         $perPage = 9;
@@ -109,8 +106,31 @@ class ProfileController extends Controller
     }
 
     public function followers() {
-        $following = Auth::user()->following()->get();
+        $following = Auth::user()
+                    ->following()
+                    ->latest()
+                    ->take(8)
+                    ->get();
+
         return view('followers', compact('following'));
+    }
+    public function followersLoadMore(Request $request) {
+        $page = (int) $request->get('page', 1);
+        $perPage = 8;
+        $skip = ($page - 1) * $perPage;
+
+        $following = Auth::user()
+                    ->following()
+                    ->latest()
+                    ->skip($skip) 
+                    ->take($perPage)
+                    ->get();
+
+        if ($following->isEmpty()) {
+            return response('', 200);
+        }
+
+        return view('partials._following', compact('following'));
     }
 
     public function toggleFollow(User $user) {

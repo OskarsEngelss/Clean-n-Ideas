@@ -35,6 +35,8 @@ Route::middleware('auth')->group(function () {
 
 
     Route::get('/your-experiences', [ExperienceController::class, 'yourExperiences'])->name('your-experiences');
+    Route::get('/your-experiences/load-more', [ExperienceController::class, 'yourExperiencesLoadMore'])->name('your-experiences.loadMore');
+
     Route::get('/experience/create', [ExperienceController::class, 'create'])->name('experience.create');
     Route::post('/upload-temp', [ExperienceController::class, 'uploadTemp']);
     Route::post('/delete-temp', [ExperienceController::class, 'deleteTemp']);
@@ -53,6 +55,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/favourites', [TutorialListController::class, 'index'])->name('favourites');
     
     Route::get('/followers', [ProfileController::class, 'followers'])->name('followers');
+    Route::get('/followers/load-more', [ProfileController::class, 'followersLoadMore'])->name('followers.loadMore');
 });
 
 Route::get('/about', function () {
