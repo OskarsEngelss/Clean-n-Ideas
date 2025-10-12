@@ -25,7 +25,20 @@
             </div>
         </div>
         <div class="profile-lower-grid">
-            <p>lower grid!!</p>
+            <div class="profile-experience-container">
+                @foreach($experiences as $experience)
+                    <div>
+                        <x-tutorial-card
+                            :experience="$experience"
+                            :thumbnail="$experience->thumbnail_url"
+                            :user="$experience->user"
+                            :savedCount="$experience->tutorial_list_items_count"
+                            :url="route('experience.show', $experience->slug)"
+                        ></x-tutorial-card>
+                    </div>
+                @endforeach
+            </div>
+            <div id="user-load-more-trigger" data-user-id="{{ $user->id }}"></div>
         </div>
     </div>
 

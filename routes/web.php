@@ -14,6 +14,7 @@ Route::get('/load-more', [ExperienceController::class, 'loadMore'])->name('exper
 Route::get('/experiences/{experience:slug}', [ExperienceController::class, 'show'])->name('experience.show');
 
 Route::get('/users/{user}', [ProfileController::class, 'show'])->name('profile.show');
+Route::get('/user/{user}/load-more', [ProfileController::class, 'loadMoreExperiences'])->name('profile.loadMoreExperiences');
 
 Route::get('/search', [SearchController::class, 'search'])->name('search');
 

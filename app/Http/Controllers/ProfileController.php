@@ -76,7 +76,36 @@ class ProfileController extends Controller
     }
 
     public function show(User $user) {
-        return view('profile.show', ['user' => $user, 'followersCount' => $user->followers()->count()]);
+        $experiences = $user->experiences()
+            ->where('visibility', 'Public')
+            ->latest()
+            ->take(9)
+            ->get();
+
+        return view('profile.show', [
+            'user' => $user,
+            'followersCount' => $user->followers()->count(),
+            'experiences' => $experiences,
+        ]);
+    }
+
+    public function loadMoreExperiences(User $user, Request $request) {
+        $page = (int) $request->get('page', 1);
+        $perPage = 9;
+        $skip = ($page - 1) * $perPage;
+
+        $experiences = $user->experiences()
+            ->where('visibility', 'Public')
+            ->latest()
+            ->skip($skip)   
+            ->take($perPage)
+            ->get();
+
+        if ($experiences->isEmpty()) {
+            return response('', 200);
+        }
+
+        return view('partials._experience', compact('experiences'));
     }
 
     public function followers() {

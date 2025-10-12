@@ -21,6 +21,7 @@ import { initExperienceShowAjaxRequests } from './modules/experienceShowAjaxRequ
 import { initLists } from './modules/lists.js';
 import { initAddOutsideLinkInput } from './modules/experienceCreate/addOutsideLinkInput.js';
 import { initSearch } from './modules/search.js';
+import { initExtraUserExperienceLoad } from './modules/user/extraUserExperienceLoad.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     initBase();
@@ -76,5 +77,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (document.querySelector('#search-results')) {
         initSearch();
+    }
+
+    if (document.querySelector('.profile-experience-container')) {
+        initExtraUserExperienceLoad();
     }
 });

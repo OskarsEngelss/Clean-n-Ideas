@@ -126,6 +126,20 @@
     transform: rotate(15deg);
 }
 
+.profile-experience-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    justify-content: center;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    row-gap: 10px;
+}
+.profile-experience-container > div {
+    display: flex;
+    justify-content: center;
+}
+
 
 @media(max-width: 1400px) {
     .profile-upper-grid {
