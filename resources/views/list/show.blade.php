@@ -1,6 +1,6 @@
 <x-main-layout title="{{ $list->name }}">
     <div class="two-to-one-grid">
-        <section class="list-show-content">
+        <section class="your-experiences-content">
             @forelse($experiences as $experience)
                 <div>
                     <x-tutorial-card
@@ -13,13 +13,13 @@
                 </div>
             @empty
                 @if($list->is_favourite)
-                    <p class="list-show-info-no-experiences">You haven't favourited any experiences yet</p>
+                    <p class="your-experiences-info-no-experiences">You haven't favourited any experiences yet</p>
                 @else
-                    <p>This list doesn't contain any tutorials</p>
+                    <p class="your-experiences-info-no-experiences">This list doesn't contain any tutorials</p>
                 @endif
             @endforelse
         </section>
-        <section class="list-show-options">
+        <section class="options">
             <h2>{{ $list->name }}</h2>
         </section>
     </div>

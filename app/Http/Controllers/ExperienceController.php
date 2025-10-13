@@ -213,7 +213,9 @@ class ExperienceController extends Controller
         $experience->load('userReaction');
         $experience->load('links');
 
+        $lists = [];
         $favourited = false;
+        $favouritesListId = null;
         $creator = $experience->user;
         $followersCount = $creator->followers()->count();
 
@@ -231,24 +233,22 @@ class ExperienceController extends Controller
         if (Auth::check()) {
             $user = Auth::user();
 
-            $favouritesList = $user->tutorialLists()->where('is_favourite', true)->first();
+            $lists = $user->tutorialLists()
+                ->where('is_favourite', false)
+                // ->withCount('tutorialListItems')
+                ->with('tutorialListItems:tutorial_list_id,tutorial_id')
+                ->latest()
+                ->take(10)
+                ->get();
 
-            if (!$favouritesList) {
-                $favouritesList = TutorialList::create([
-                    'user_id' => $user->id,
-                    'name' => 'Favourites',
-                    'is_favourite' => true,
-                    'is_public' => false,
-                ]);
-            }
-            if ($favouritesList) {
-                $favourited = $favouritesList->tutorialListItems
-                    ->pluck('experience.id')
-                    ->contains($experience->id);
-            }
+            $favouritesList = $user->tutorialLists()->where('is_favourite', true)->first();
+            $favouritesListId = $favouritesList->id;
+            $favourited = TutorialListItem::where('tutorial_list_id', $favouritesList->id)
+                            ->where('tutorial_id', $experience->id)
+                            ->exists();
         }
 
-        return view('experience.show', compact('experience', 'followersCount', 'favourited', 'comments'));
+        return view('experience.show', compact('experience', 'followersCount', 'favourited', 'comments', 'lists', 'favouritesListId'));
     }
 
     public function edit($id) {

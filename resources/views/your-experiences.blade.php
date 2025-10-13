@@ -1,7 +1,7 @@
 <x-main-layout title="Your experiences">
     <div class="two-to-one-grid">
         <section class="your-experiences-content">
-            @forelse ($experiences as $experience)
+            @forelse($experiences as $experience)
                 <div>
                     <x-tutorial-card
                         :experience="$experience"

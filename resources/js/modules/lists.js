@@ -68,4 +68,53 @@ export function initLists() {
             console.error("Error loading posts:", error);
         }
     });
+
+
+    //Load more lists AJAX //Load more lists AJAX //Load more lists AJAX //Load more lists AJAX //Load more lists AJAX //Load more lists AJAX
+    //Load more lists AJAX //Load more lists AJAX //Load more lists AJAX //Load more lists AJAX //Load more lists AJAX //Load more lists AJAX
+    const listIndexListContainer = document.querySelector(".lists");
+    const trigger = document.querySelector("footer");
+    let page = 1;
+    let isLoading = false;
+    let noMoreLists = false;
+    const authUserId = listIndexListContainer.dataset.authUserId;
+
+    const loadMoreLists = async () => {
+        if (isLoading || noMoreLists) return;
+        isLoading = true;
+        page++;
+
+        try {
+            const response = await fetch(`/lists/${authUserId}/load-more?page=${page}`, {
+                credentials: 'same-origin',
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
+            });
+            if (!response.ok) throw new Error("Network error");
+
+            const data = await response.text();
+            if (data.trim() === "") {
+                noMoreLists = true;
+                observer.disconnect();
+                console.log("No more lists to load.");
+                return;
+            }
+
+            listIndexListContainer.insertAdjacentHTML("beforeend", data);
+        } catch (error) {
+            console.error("Error loading posts:", error);
+        } finally {
+            isLoading = false;
+        }
+    };
+
+    const observer = new IntersectionObserver(
+        entries => {
+            if (entries[0].isIntersecting) {
+                loadMoreLists();
+            }
+        },
+        { threshold: 0.5 }
+    );
+
+    observer.observe(trigger);
 }

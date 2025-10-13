@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\TutorialList;
 use App\Models\TutorialListItem;
 use App\Models\User;
+use App\Models\Experience;
 use Illuminate\Support\Facades\Auth;
 
 class TutorialListController extends Controller
@@ -37,6 +38,7 @@ class TutorialListController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'is_public' => ['required', 'boolean'],
+            'experience_id' => ['nullable', 'exists:experiences,id'],
         ]);
 
         $list = TutorialList::create([
@@ -46,6 +48,17 @@ class TutorialListController extends Controller
             'is_public' => $validated['is_public'],
         ]);
 
+        if(!empty($validated['experience_id'])) {
+            $experienceId = $validated['experience_id'];
+
+            TutorialListItem::create([
+                'tutorial_list_id' => $list->id,
+                'tutorial_id' => $validated['experience_id'],
+            ]);
+
+            $saved = true;
+            return view('partials._list-option', compact('list', 'experienceId', 'saved'));
+        }
         return view('partials._list', compact('list'));
     }
 
@@ -55,35 +68,26 @@ class TutorialListController extends Controller
             'tutorial_id' => ['required', 'exists:experiences,id'],
         ]);
 
-        TutorialListItem::create([
-            'tutorial_list_id' => $validated['tutorial_list_id'],
-            'tutorial_id' => $validated['tutorial_id'],
-        ]);
+        $list = auth()->user()->tutorialLists()->find($validated['tutorial_list_id']);
+        if (!$list) {
+            return response()->json(['success' => false, 'message' => 'Invalid list'], 403);
+        }
 
-        return response()->json([
-            'success' => true,
-        ]);
+        $existing = $list->tutorialListItems()
+            ->where('tutorial_id', $validated['tutorial_id'])
+            ->first();
+
+        if ($existing) {
+            $existing->delete();
+            return response()->json(['success' => true, 'action' => 'removed']);
+        } else {
+            TutorialListItem::create([
+                'tutorial_list_id' => $validated['tutorial_list_id'],
+                'tutorial_id' => $validated['tutorial_id'],
+            ]);
+            return response()->json(['success' => true, 'action' => 'added']);
+        }
     }
-
-    // public function index(Request $request) {
-    //     $user = Auth::user();
-
-    //     $favouritesList = $user->tutorialLists()->where('is_favourite', true)->first();
-
-    //     if (!$favouritesList) {
-    //         $favouritesList = TutorialList::create([
-    //             'user_id' => $user->id,
-    //             'name' => 'Favourites',
-    //             'is_favourite' => true,
-    //             'is_public' => false,
-    //         ]);
-    //     }
-
-    //     $favouritesList->load('tutorialListItems.experience');
-    //     $experiences = $favouritesList ? $favouritesList->experiences : collect();
-
-    //     return view('favourites', compact('experiences'));
-    // }
 
     public function favouriteStore(Request $request) {
         $user = Auth::user();
@@ -113,5 +117,48 @@ class TutorialListController extends Controller
             'success' => true,
             'favourited' => $favourited,
         ]);
+    }
+
+    public function listsLoadMore(Request $request) {
+        $page = (int) $request->get('page', 1);
+        $perPage = 8;
+        $skip = ($page - 1) * $perPage;
+
+        $lists = auth()->user()->tutorialLists()
+                ->withCount('tutorialListItems')
+                ->latest()
+                ->skip($skip)
+                ->take($perPage)
+                ->get();
+
+        if ($lists->isEmpty()) {
+            return response('', 200);
+        }
+
+        return view('partials._list-multiple', compact('lists'));
+    }
+
+    public function experiencesListsLoadMore(Request $request, $slug) {
+        $page = (int) $request->get('page', 1);
+
+        $experience = Experience::where('slug', $slug)->firstOrFail();
+        $experienceId = $experience->id;
+
+        $perPage = 8;
+        $skip = ($page - 1) * $perPage;
+
+        $lists = auth()->user()->tutorialLists()
+                ->where('is_favourite', false)
+                ->with('tutorialListItems:tutorial_list_id,tutorial_id')
+                ->latest()
+                ->skip($skip)
+                ->take($perPage)
+                ->get();
+
+        if ($lists->isEmpty()) {
+            return response('', 200);
+        }
+
+        return view('partials._list-option-multiple', compact('lists', 'experienceId'));
     }
 }

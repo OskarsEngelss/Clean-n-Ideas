@@ -85,7 +85,7 @@
     "save dislike description";
     gap: 10px;
 }
-.experience-show-favourite-form {
+.experience-show-favourite-button-container {
     grid-area: favourite;
 }
 .experience-show-lists-button-container {
@@ -97,7 +97,7 @@
 #experience-show-tutorial-dislike-button {
     grid-area: dislike;
 }
-.experience-show-favourite-button, .experience-show-lists-button, #experience-show-tutorial-like-button, #experience-show-tutorial-dislike-button, #experience-show-comment-like-button, #experience-show-comment-dislike-button {
+#experience-show-favourite-button, .experience-show-lists-button, #experience-show-tutorial-like-button, #experience-show-tutorial-dislike-button, #experience-show-comment-like-button, #experience-show-comment-dislike-button {
     all: unset;
     cursor: pointer;
     display: flex;
@@ -239,9 +239,63 @@
 }
 
 /* LISTS POPUP CSS */ /* LISTS POPUP CSS */ /* LISTS POPUP CSS */ /* LISTS POPUP CSS */ 
-#experience-show-lists-popup {
-
+#experience-show-lists-popup > div:nth-child(2) {
+    box-shadow: 12px 12px 12px var(--indent-boxshadow-dark) inset,
+    -10px -10px 10px var(--indent-boxshadow-light) inset;
 }
+#experience-show-lists-popup > div:nth-child(3) {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    row-gap: 10px;
+    padding: 15px 25px;
+}
+
+.experience-show-list-add-card {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas: 
+    "list-info list-add-button";
+}
+
+.experience-show-list-add-card div {
+    grid-area: list-info;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding: 7px 15px;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    background-color: var(--navbar-color);
+    transition: 0.2s;
+    font-size: 1.1em;
+}
+.experience-show-list-add-card:hover div {
+    box-shadow: 12px 12px 12px var(--indent-boxshadow-dark) inset,
+    -10px -10px 10px var(--indent-boxshadow-light) inset;
+}
+
+.experience-show-list-add-card button {
+    all: unset;
+    grid-area: list-add-button;
+    background-color: var(--agree-color);
+    padding: 7px 15px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.experience-show-list-add-card button:hover {
+    background-color: var(--agree-color-hover);
+}
+.experience-show-list-add-card button.saved {
+    background-color: var(--disagree-color);
+}
+.experience-show-list-add-card button:hover.saved {
+    background-color: var(--disagree-color-hover);
+}
+
 
 @media(max-width: 1415px) {
     .experience-show-options {

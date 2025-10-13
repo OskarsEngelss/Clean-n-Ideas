@@ -5,18 +5,18 @@ export function initExperienceShowAjaxRequests() {
     //AJAX for favourite button //AJAX for favourite button //AJAX for favourite button //AJAX for favourite button //AJAX for favourite button
     //AJAX for favourite button //AJAX for favourite button //AJAX for favourite button //AJAX for favourite button //AJAX for favourite button
 
-    const favouriteForm = document.getElementById('experience-show-favourite-form');
     const favouriteButton = document.getElementById('experience-show-favourite-button');
 
-    const filledSVG = document.getElementById('svg-filled')?.innerHTML;
-    const emptySVG = document.getElementById('svg-empty')?.innerHTML;
+    favouriteButton.addEventListener('click', async () => {
+        const tutorialListId = favouriteButton.dataset.listId;
+        const tutorialId = favouriteButton.dataset.tutorialId;
 
-    favouriteForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const formData = new FormData(favouriteForm);
-        const data = Object.fromEntries(formData.entries());
+        const data = {
+            tutorial_list_id: tutorialListId,
+            tutorial_id: tutorialId,
+        };
 
-        const response = await fetch(favouriteForm.action, {
+        const response = await fetch('/lists/storeTutorial', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -25,10 +25,28 @@ export function initExperienceShowAjaxRequests() {
             body: JSON.stringify(data)
         });
 
-        const result = await response.json();
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
 
-        favouriteButton.innerHTML = result.favourited ? filledSVG : emptySVG;
-    });
+        const svg = favouriteButton.querySelector('svg');
+
+        if (favouriteButton.classList.contains('favourited-check')) {
+            favouriteButton.classList.remove('favourited-check');
+            svg.innerHTML = `<path class="default" d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Zm0-108q96-86 158-147.5t98-107q36-45.5 50-81t14-70.5q0-60-40-100t-100-40q-47 0-87 26.5T518-680h-76q-15-41-55-67.5T300-774q-60 0-100 40t-40 100q0 35 14 70.5t50 81q36 45.5 98 107T480-228Zm0-273Z"/>`;
+        } else {
+            favouriteButton.classList.add('favourited-check');
+            svg.innerHTML = `<path class="default" d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Z"/>`;
+        }
+
+        // if (button.classList.contains('saved')) {
+        //     button.classList.remove('saved');
+        //     button.textContent = "Add";
+        // } else {
+        //     button.classList.add('saved');
+        //     button.textContent = "Remove";
+        // }
+    })
 
 
 
@@ -251,6 +269,128 @@ export function initExperienceShowAjaxRequests() {
 
     //Save to tutorial list AJAX //Save to tutorial list AJAX //Save to tutorial list AJAX //Save to tutorial list AJAX //Save to tutorial list AJAX
     //Save to tutorial list AJAX //Save to tutorial list AJAX //Save to tutorial list AJAX //Save to tutorial list AJAX //Save to tutorial list AJAX
+    const experienceShowListsPopup = document.getElementById('experience-show-lists-popup');
 
+    experienceShowListsPopup.addEventListener('click', async (e) => {
+        const button = e.target.closest('.experience-show-list-add-button');
+        if (!button) return;
+
+        const tutorialListId = button.dataset.listId;
+        const tutorialId = button.dataset.tutorialId;
+
+        const data = {
+            tutorial_list_id: tutorialListId,
+            tutorial_id: tutorialId,
+        };
+
+        const response = await fetch('/lists/storeTutorial', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        if (button.classList.contains('saved')) {
+            button.classList.remove('saved');
+            button.textContent = "Add";
+        } else {
+            button.classList.add('saved');
+             button.textContent = "Remove";
+        }
+    });
     
+    
+    //Make new list and save to it AJAX //Make new list and save to it AJAX //Make new list and save to it AJAX //Make new list and save to it AJAX
+    //Make new list and save to it AJAX //Make new list and save to it AJAX //Make new list and save to it AJAX //Make new list and save to it AJAX
+    const newListForm = document.getElementById('new-list-form');
+    const listContainer = document.querySelector('.experience-show-list-option-container');
+
+    newListForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const formData = new FormData(newListForm);
+
+        const experienceId = newListForm.dataset.tutorialId;
+        formData.append('experience_id', experienceId ?? '');
+
+        try {
+            const response = await fetch(newListForm.action, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Accept': 'application/json'
+                },
+                body: formData
+            });
+
+            if (!response.ok) throw new Error("Network error");
+
+            const data = await response.text();
+            console.log(data);
+            if (data.trim() === "") {
+                console.log("Nothing was made?");
+                return;
+            }
+
+            listContainer.insertAdjacentHTML("afterbegin", data);
+        } catch (error) {
+            console.error("Error loading posts:", error);
+        }
+    });
+
+
+    //Load more lists AJAX //Load more lists AJAX //Load more lists AJAX //Load more lists AJAX //Load more lists AJAX //Load more lists AJAX
+    //Load more lists AJAX //Load more lists AJAX //Load more lists AJAX //Load more lists AJAX //Load more lists AJAX //Load more lists AJAX
+    const experienceShowListOptionContainer = document.querySelector(".experience-show-list-option-container");
+    const trigger = document.querySelector(".experience-show-list-load-more-trigger");
+    let page = 1;
+    let isLoading = false;
+    let noMoreLists = false;
+    const experienceSlug = experienceShowListOptionContainer.dataset.experienceSlug;
+    const experienceId = experienceShowListOptionContainer.dataset.experienceId;
+
+    const loadMoreLists = async () => {
+        if (isLoading || noMoreLists) return;
+        isLoading = true;
+        page++;
+
+        try {
+            const response = await fetch(`/experiences/${experienceSlug}/lists/load-more?page=${page}`, {
+                credentials: 'same-origin',
+                headers: { 'X-Requested-With': 'XMLHttpRequest' },
+            });
+            if (!response.ok) throw new Error("Network error");
+
+            const data = await response.text();
+            if (data.trim() === "") {
+                noMoreLists = true;
+                observer.disconnect();
+                console.log("No more lists to load.");
+                return;
+            }
+
+            experienceShowListOptionContainer.insertAdjacentHTML("beforeend", data);
+        } catch (error) {
+            console.error("Error loading posts:", error);
+        } finally {
+            isLoading = false;
+        }
+    };
+
+    const observer = new IntersectionObserver(
+        entries => {
+            if (entries[0].isIntersecting) {
+                loadMoreLists();
+            }
+        },
+        { threshold: 0.5 }
+    );
+
+    observer.observe(trigger);
 }

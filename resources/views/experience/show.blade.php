@@ -15,14 +15,8 @@
                 </div>
             </a>
             <div class="experience-show-save-rate-description-container">
-                <x-experience-show-favourite-form :experience="$experience" :favourited="$favourited" />
-                <div class="experience-show-lists-button-container">
-                    <button class="experience-show-lists-button" data-popup-target="experience-show-lists-popup">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="var(--text-color)">
-                            <path d="M840-680v480q0 33-23.5 56.5T760-120H200q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h480l160 160ZM480-240q50 0 85-35t35-85q0-50-35-85t-85-35q-50 0-85 35t-35 85q0 50 35 85t85 35ZM240-560h360v-160H240v160Z"/>
-                        </svg>
-                    </button>
-                </div>
+                <x-experience-show-favourite-button :experienceId="$experience->id" :favourited="$favourited" :favouritesListId="$favouritesListId"/>
+                <x-experience-show-lists-button />
                 <div class="like-dislike-button-counter-container">
                     <form method="POST" action="{{ route('experience.react') }}" class="experience-show-tutorial-reaction-form" data-type="like" data-tutorial-id="{{ $experience->id }}">
                         @csrf
@@ -54,18 +48,15 @@
         </section>
     </div>
 
+
+    <!-- Every Popup Component --> <!-- Every Popup Component --> <!-- Every Popup Component --> <!-- Every Popup Component -->
+    <!-- Every Popup Component --> <!-- Every Popup Component --> <!-- Every Popup Component --> <!-- Every Popup Component -->
     <x-experience-show-description-popup :experience="$experience" />
     <x-experience-show-comments-popup :experience="$experience" :comments="$comments" />
     <x-experience-show-media-popup :experience="$experience" />
     <x-experience-show-links-popup :experience="$experience" />
     <x-experience-delete-popup :experience="$experience" />
-
-    @push('popup')
-        <div id="experience-show-lists-popup" class="default-popup-style">
-            <x-popup-close-component />
-            <div>
-                All of your lists:
-            </div>
-        </div>
-    @endpush
+    @if(Auth::check())
+        <x-experience-show-lists-popup :lists="$lists" :experienceId="$experience->id" :experienceSlug="$experience->slug" />
+    @endif
 </x-main-layout>

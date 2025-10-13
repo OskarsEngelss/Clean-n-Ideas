@@ -1,6 +1,6 @@
 <x-main-layout title="Lists">
     <div class="two-to-one-grid">
-        <section class="lists">
+        <section class="lists" data-auth-user-id="{{ auth()->id() }}">
             @forelse($lists as $list)
                 <div class="list-card">
                     <a href="{{ route('list.show', ['id' => Auth::user()->id, 'list_id' => $list->id]) }}">

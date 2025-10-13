@@ -44,13 +44,15 @@ Route::middleware('auth')->group(function () {
     Route::post('/comment/store', [CommentController::class, 'store'])->name('comment.store');
     Route::post('/comment/react', [CommentController::class, 'toggleReaction'])->name('comment.react');
 
+
     Route::get('/lists/{id}', [TutorialListController::class, 'index'])->name('list.index');
+    Route::get('/lists/{id}/load-more', [TutorialListController::class, 'listsLoadMore'])->name('list.loadMore');
+    Route::get('/experiences/{experience:slug}/lists/load-more', [TutorialListController::class, 'experiencesListsLoadMore'])->name('experience.listsLoadMore');
     Route::get('/lists/show/{id}/{list_id}', [TutorialListController::class, 'show'])->name('list.show');
 
     Route::post('/lists/storeList', [TutorialListController::class, 'storeList'])->name('list.storeList');
     Route::post('/lists/storeTutorial', [TutorialListController::class, 'storeTutorial'])->name('list.storeTutorial');
-    
-    Route::post('/tutorialList/favourite/store', [TutorialListController::class, 'favouriteStore'])->name('tutorialList.favourite.store');
+
     
     Route::get('/followers', [ProfileController::class, 'followers'])->name('followers');
     Route::get('/followers/load-more', [ProfileController::class, 'followersLoadMore'])->name('followers.loadMore');
