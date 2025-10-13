@@ -29,11 +29,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/users/{user}/follow', [ProfileController::class, 'toggleFollow'])->name('follow.toggle');
 
 
-    Route::get('/lists', function () {
-        return view('lists');
-    })->name('lists');
-
-
     Route::get('/your-experiences', [ExperienceController::class, 'yourExperiences'])->name('your-experiences');
     Route::get('/your-experiences/load-more', [ExperienceController::class, 'yourExperiencesLoadMore'])->name('your-experiences.loadMore');
 
@@ -49,9 +44,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/comment/store', [CommentController::class, 'store'])->name('comment.store');
     Route::post('/comment/react', [CommentController::class, 'toggleReaction'])->name('comment.react');
 
-
+    Route::get('/lists/{id}', [TutorialListController::class, 'index'])->name('list.index');
+    Route::get('/lists/show/{id}/{list_id}', [TutorialListController::class, 'show'])->name('list.show');
+    
     Route::post('/tutorialList/favourite/store', [TutorialListController::class, 'favouriteStore'])->name('tutorialList.favourite.store');
-
     Route::get('/favourites', [TutorialListController::class, 'index'])->name('favourites');
     
     Route::get('/followers', [ProfileController::class, 'followers'])->name('followers');

@@ -5,13 +5,13 @@
         </svg>
         Home
     </a>
-    <a href="{{ route('favourites') }}" class="side-pannel-nav-link">
+    <a class="side-pannel-nav-link" href="{{ Auth::check() ? route('list.show', ['id' => Auth::user()->id, 'list_id' => $favouritesListId]) : route('login') }}">
         <svg xmlns="http://www.w3.org/2000/svg" height="35px" viewBox="0 -960 960 960" width="35px" fill="var(--text-color)">
             <path d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Z"/>
         </svg>
         Favourites
     </a>
-        <a href="{{ route('lists') }}" class="side-pannel-nav-link">
+        <a class="side-pannel-nav-link" href="{{ Auth::check() ? route('list.index', ['id' => Auth::user()->id]) : route('login') }}">
         <svg xmlns="http://www.w3.org/2000/svg" height="35px" viewBox="0 -960 960 960" width="35px" fill="var(--text-color)">
             <path d="M280-600v-80h560v80H280Zm0 160v-80h560v80H280Zm0 160v-80h560v80H280ZM160-600q-17 0-28.5-11.5T120-640q0-17 11.5-28.5T160-680q17 0 28.5 11.5T200-640q0 17-11.5 28.5T160-600Zm0 160q-17 0-28.5-11.5T120-480q0-17 11.5-28.5T160-520q17 0 28.5 11.5T200-480q0 17-11.5 28.5T160-440Zm0 160q-17 0-28.5-11.5T120-320q0-17 11.5-28.5T160-360q17 0 28.5 11.5T200-320q0 17-11.5 28.5T160-280Z"/>
         </svg>

@@ -48,7 +48,7 @@ class ExperienceController extends Controller
                         ->take(8)
                         ->get();
 
-        return view('your-experiences', compact('experiences',));
+        return view('your-experiences', compact('experiences'));
     }
     public function yourExperiencesLoadMore(Request $request) {
         $page = (int) $request->get('page', 1);

@@ -15,7 +15,11 @@ class TutorialList extends Model
     }
 
     public function tutorialListItems() {
-        return $this->hasMany(TutorialListItem::class);
+        return $this->hasMany(TutorialListItem::class, 'tutorial_list_id', 'tutorial_id');
+    }
+
+    public function experiences() {
+        return $this->hasManyThrough(Experience::class, TutorialListItem::class, 'tutorial_list_id', 'id', 'id', 'tutorial_id');
     }
 
     public function getExperiencesAttribute() {

@@ -9,6 +9,7 @@ use App\Models\Experience;
 use App\Models\TutorialMedia;
 use App\Models\TutorialOutsideLink;
 use App\Models\User;
+use App\Models\TutorialList;
 
 class ExperienceSeeder extends Seeder
 {
@@ -17,6 +18,12 @@ class ExperienceSeeder extends Seeder
         Storage::disk('public')->makeDirectory('uploads');
 
         $user = User::factory()->computerTester()->create();
+        TutorialList::create([
+            'user_id' => $user->id,
+            'name' => 'Favourites',
+            'is_favourite' => true,
+            'is_public' => false,
+        ]);
 
         $experiences = [
             [

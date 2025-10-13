@@ -13,9 +13,4 @@ class TutorialListItem extends Model
     public function tutorialList() {
         return $this->belongsTo(TutorialList::class);
     }
-
-    public function experience()
-    {
-        return $this->belongsTo(Experience::class, 'tutorial_id');
-    }
 }
