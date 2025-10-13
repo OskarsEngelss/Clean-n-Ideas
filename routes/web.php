@@ -46,9 +46,11 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/lists/{id}', [TutorialListController::class, 'index'])->name('list.index');
     Route::get('/lists/show/{id}/{list_id}', [TutorialListController::class, 'show'])->name('list.show');
+
+    Route::post('/lists/storeList', [TutorialListController::class, 'storeList'])->name('list.storeList');
+    Route::post('/lists/storeTutorial', [TutorialListController::class, 'storeTutorial'])->name('list.storeTutorial');
     
     Route::post('/tutorialList/favourite/store', [TutorialListController::class, 'favouriteStore'])->name('tutorialList.favourite.store');
-    Route::get('/favourites', [TutorialListController::class, 'index'])->name('favourites');
     
     Route::get('/followers', [ProfileController::class, 'followers'])->name('followers');
     Route::get('/followers/load-more', [ProfileController::class, 'followersLoadMore'])->name('followers.loadMore');
@@ -57,9 +59,5 @@ Route::middleware('auth')->group(function () {
 Route::get('/about', function () {
     return view('about');
 })->name('about');
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__.'/auth.php';

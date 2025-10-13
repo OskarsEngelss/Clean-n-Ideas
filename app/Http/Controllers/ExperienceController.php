@@ -57,7 +57,7 @@ class ExperienceController extends Controller
 
         $experiences = auth()->user()->experiences()
             ->latest()
-            ->skip($skip)   
+            ->skip($skip)
             ->take($perPage)
             ->get();
 

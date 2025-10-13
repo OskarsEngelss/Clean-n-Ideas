@@ -14,6 +14,7 @@ class TutorialListController extends Controller
         $user = User::find($id);
 
         $lists = $user->tutorialLists()
+                ->withCount('tutorialListItems')
                 ->latest()
                 ->take(8)
                 ->get();
@@ -38,17 +39,29 @@ class TutorialListController extends Controller
             'is_public' => ['required', 'boolean'],
         ]);
 
-        TutorialList::create([
+        $list = TutorialList::create([
             'user_id' => Auth::id(),
             'name' => $validated['name'],
             'is_favourite' => false,
             'is_public' => $validated['is_public'],
         ]);
 
+        return view('partials._list', compact('list'));
+    }
+
+    public function storeTutorial(Request $request) {
+        $validated = $request->validate([
+            'tutorial_list_id' => ['required', 'exists:tutorial_lists,id'],
+            'tutorial_id' => ['required', 'exists:experiences,id'],
+        ]);
+
+        TutorialListItem::create([
+            'tutorial_list_id' => $validated['tutorial_list_id'],
+            'tutorial_id' => $validated['tutorial_id'],
+        ]);
+
         return response()->json([
             'success' => true,
-            'message' => 'Playlist created successfully!',
-            'list' => $list,
         ]);
     }
 

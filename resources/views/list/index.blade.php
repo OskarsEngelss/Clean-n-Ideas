@@ -2,11 +2,12 @@
     <div class="two-to-one-grid">
         <section class="lists">
             @forelse($lists as $list)
-                <div>
+                <div class="list-card">
                     <a href="{{ route('list.show', ['id' => Auth::user()->id, 'list_id' => $list->id]) }}">
                         <div>
-                            <div class="tutorial-card-text-container">
+                            <div class="list-card-text-container">
                                 <h3>{{ $list->name }}</h3>
+                                <p>Tutorials: {{ $list->tutorial_list_items_count }}</p>
                             </div>
                         </div>
                     </a>
@@ -23,21 +24,19 @@
 
     @push('popup')
         <div id="lists-make-new-list-popup">
-            <div class="lists-popup-close-container">
-                <button class="lists-popups-off-button">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="35px" viewBox="0 -960 960 960" width="35px" fill="var(--text-color)">
-                        <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
-                    </svg>
-                </button>
-            </div>
+            <x-popup-close-component />
             <div>
                 <h4>Make a new list</h4>
-                <form id="new-list-form">
-                    <input id="list-name-input" name="" placeholder="List name" />
+                <form action="{{ route('list.storeList') }}" method="POST" id="new-list-form">
+                    @csrf
+
+                    <input id="list-name-input" name="name" placeholder="List name" class="default-input-style" />
                     <label>
                         Public
-                        <input type="checkbox" />
+                        <input type="hidden" name="is_public" value="0">
+                        <input type="checkbox" name="is_public" value="1">
                     </label>
+                    <button type="submit">Create</button>
                 </form>
             </div>
         </div>

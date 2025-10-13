@@ -1,3 +1,36 @@
+.lists {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px 0px;
+    row-gap: 12px;
+    box-sizing: border-box;
+}
+
+.list-card {
+    width: min(95%, 600px);
+    border-radius: 8px;
+    font-size: 1.4em;
+    box-sizing: border-box;
+    background-color: var(--navbar-color);
+    transition: 0.2s;
+    text-decoration: none;
+}
+.list-card:hover {
+    box-shadow: 12px 12px 12px var(--indent-boxshadow-dark) inset,
+    -10px -10px 10px var(--indent-boxshadow-light) inset;
+}
+.list-card a {
+    text-decoration: none;
+}
+.list-card-text-container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+}
+
 #lists-make-new-list-button {
     all: unset;
     padding: 7px 15px;
@@ -62,21 +95,4 @@
 #lists-make-new-list-popup h4 {
     font-size: 1.5em;
     text-align: center;
-}
-
-#new-list-form > input {
-    width: 100%;
-    height: 45px;
-    padding: 8px;
-    font-size: larger;
-    border: none;
-    background-color: var(--base-color);
-    transition: 0.15s;
-    border-radius: 8px;
-    box-sizing: border-box;
-}
-#new-list-form > input:focus, #new-list-form > input:hover {
-    outline: none;
-    box-shadow: 12px 12px 12px var(--indent-boxshadow-dark) inset,
-    -10px -10px 10px var(--indent-boxshadow-light) inset;
 }

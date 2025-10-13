@@ -16,8 +16,6 @@
     color: var(--text-color);
     background-color: var(--navbar-color);
     flex: 1 1 0;
-
-    scroll-snap-align: start;
 }
 .tutorial-card > img {
     width: 100%;
