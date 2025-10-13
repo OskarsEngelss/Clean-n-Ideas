@@ -175,6 +175,37 @@ class ExperienceController extends Controller
             }
         }
 
+        // Get all files in the temp folder
+        $tempFiles = Storage::disk('public')->exists('temp') ? Storage::disk('public')->files('temp') : [];
+
+        foreach ($tempFiles as $tempFile) {
+            $filename = basename($tempFile);
+            $newPath = 'uploads/' . $filename;
+
+            // Skip if file was already moved during HTML processing
+            if (in_array($newPath, $processedPaths)) {
+                continue;
+            }
+
+            // Move the file if it doesn't already exist
+            if (!Storage::disk('public')->exists($newPath)) {
+                Storage::disk('public')->move($tempFile, $newPath);
+
+                // Determine media type based on file extension
+                $extension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+                $type = in_array($extension, ['mp4', 'mov', 'webm', 'avi']) ? 'video' : 'image';
+
+                // Create media record
+                TutorialMedia::create([
+                    'tutorial_id' => $tutorial->id,
+                    'user_id' => auth()->id(),
+                    'type' => $type,
+                    'path' => $newPath,
+                ]);
+            }
+        }
+
+
         // Save cleaned HTML
         $body = $doc->getElementsByTagName('body')->item(0);
         $tutorial->tutorial = '';
@@ -201,8 +232,6 @@ class ExperienceController extends Controller
             'requestData' => $request->all(),
         ]);
     }
-
-
 
     public function show(Experience $experience) {
         if ($experience->visibility === 'Private' && $experience->user_id !== auth()->id()) {
