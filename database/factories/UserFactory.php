@@ -21,8 +21,7 @@ class UserFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition(): array
-    {
+    public function definition(): array {
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
@@ -34,6 +33,7 @@ class UserFactory extends Factory
         return $this->state(fn () => [
             'name' => 'Computer Tester',
             'email' => 'computertester@gmail.com',
+            'description' => 'I only exist to help with testing ._.',
             'password' => static::$password ??= Hash::make('password'),
         ]);
     }

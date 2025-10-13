@@ -23,7 +23,7 @@
     </div>
 
     @push('popup')
-        <div id="lists-make-new-list-popup">
+        <div id="lists-make-new-list-popup" class="default-popup-style">
             <x-popup-close-component />
             <div>
                 <h4>Make a new list</h4>
@@ -32,7 +32,7 @@
 
                     <input id="list-name-input" name="name" placeholder="List name" class="default-input-style" />
                     <label>
-                        Public
+                        Public:
                         <input type="hidden" name="is_public" value="0">
                         <input type="checkbox" name="is_public" value="1">
                     </label>

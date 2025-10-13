@@ -3,7 +3,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    padding: 10px 0px;
+    padding: 0.8em 0px;
     row-gap: 12px;
     box-sizing: border-box;
 }
@@ -45,54 +45,55 @@
     background-color: var(--agree-color-hover);
 }
 
-/* Close button CSS */ /* Close button CSS */ /* Close button CSS */ /* Close button CSS */
-.lists-popup-close-container {
-    grid-area: close-button;
-    width: 100%;
-    position: sticky;
-    top: 0;
-    background-color: var(--base-color);
-    box-shadow: 0 5px 6px -1px rgba(0, 0, 0, 0.2);
-    height: 35px;
-    z-index: 1;
-    display: grid;
-}
-.lists-popups-off-button {
-    all: unset;
-    cursor: pointer;
-    height: 35px;
-    width: 35px;
-}
-.lists-popups-off-button > svg {
-    transition: 0.3s;
-}
-.lists-popups-off-button:hover > svg {
-    transform: rotate(15deg);
-}
-
-
 /* Make new list popup CSS */ /* Make new list popup CSS */ /* Make new list popup CSS */
-#lists-make-new-list-popup {
-    max-height: 90%;
-    height: auto;
-    overflow-y: auto;
-    display: none;
-    background-color: var(--base-color);
-    position: fixed;
-    top: 25%;
-    left: 50%;
-    transform: translate(-50%, -25%);
-    width: min(800px, 95%);
-    overflow-y: auto;
-    border-radius: 8px;
-    font-size: 1.2em;
-    box-sizing: border-box;
-}
-#lists-make-new-list-popup > div:nth-child(2) {
-   padding: 15px 25px;
+#new-list-form {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    row-gap: 15px;
 }
 
 #lists-make-new-list-popup h4 {
     font-size: 1.5em;
     text-align: center;
+    margin-bottom: 5px;
+}
+
+#new-list-form label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em;
+}
+
+#new-list-form input[type="checkbox"] {
+    margin-left: 20px;
+    appearance: unset;
+    -webkit-appearance: unset;
+    -moz-appearance: unset;
+    width: 35px;
+    height: 35px;
+
+    border: 2px solid var(--secondary-text-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+#new-list-form input[type="checkbox"]:checked {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+#new-list-form button {
+    all: unset;
+    cursor: pointer;
+    background-color: var(--agree-color);
+    color: black;
+    padding: 7px 15px;
+    border-radius: 8px;
+    transition: 0.2s;
+}
+#new-list-form button:hover {
+    background-color: var(--agree-color-hover);
 }
