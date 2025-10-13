@@ -9,6 +9,7 @@ export function initExperienceCreateMediaUpload() {
     const addVideoButton = document.getElementById('publish-experience-add-video-button');
     const videoPreviewContainer = document.getElementById('publish-experience-video-preview-container');
     const backgroundVideoUploads = new Map();
+    const activeUploads = new Map();
 
 
     //Dragging media to tutorial input
@@ -68,11 +69,9 @@ export function initExperienceCreateMediaUpload() {
                 insertedMediaRemoveButtonContainer.appendChild(removeButton);
                 wrapper.appendChild(insertedMediaRemoveButtonContainer);
 
-                // 👇 NEW LOGIC: prevent nested insertions
                 let container = range.startContainer;
                 while (container && container !== editor) {
                     if (container.classList && container.classList.contains('tutorial-textarea-media-wrapper')) {
-                        // We're dropping inside an existing media wrapper
                         range.setStartAfter(container);
                         range.setEndAfter(container);
                         break;
@@ -80,10 +79,8 @@ export function initExperienceCreateMediaUpload() {
                     container = container.parentNode;
                 }
 
-                // 👇 Insert the wrapper at the adjusted range
                 range.insertNode(wrapper);
 
-                // 👇 Move caret after the inserted wrapper
                 range.setStartAfter(wrapper);
                 range.setEndAfter(wrapper);
                 const selection = window.getSelection();
@@ -236,7 +233,11 @@ export function initExperienceCreateMediaUpload() {
                             console.error('Upload failed:', error);
                         }
                         preview.removeChild(overlay);
+                    }).finally(() => {
+                        activeUploads.delete(mediaId);
                     });
+
+                activeUploads.set(mediaId, uploadPromise);
 
                 backgroundVideoUploads.set(mediaId, { promise: uploadPromise, controller });
             }
@@ -310,6 +311,25 @@ export function initExperienceCreateMediaUpload() {
     experienceCreateForm.addEventListener('submit', async (e) => {
         editorContent.value = editor.innerHTML;
         e.preventDefault();
+
+        if (activeUploads.size > 0) {
+            const errorToast = document.createElement('div');
+            errorToast.className = 'floating-error-toast';
+            errorToast.innerText = "Please wait: media files are still uploading.";
+
+            document.body.appendChild(errorToast);
+
+            requestAnimationFrame(() => {
+                errorToast.classList.add('show');
+            });
+
+            setTimeout(() => {
+                errorToast.classList.remove('show');
+                setTimeout(() => errorToast.remove(), 500);
+            }, 3000);
+
+            return;
+        }
 
         // Remove previous errors
         document.querySelectorAll('.form-error').forEach(el => el.remove());
