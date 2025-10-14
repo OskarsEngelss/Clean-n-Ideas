@@ -160,7 +160,6 @@ export function initExperienceCreateMediaUpload() {
                 const isImageFile = media.tagName.toLowerCase() === 'img';
                 const isVideoFile = media.tagName.toLowerCase() === 'video';
 
-                // Attempt to delete temp file if it exists
                 const tempPath = media.dataset.tempPath || media.src;
                 if (tempPath && tempPath.startsWith('/storage/temp/')) {
                     fetch('/delete-temp', {
@@ -218,7 +217,6 @@ export function initExperienceCreateMediaUpload() {
             } else {
                 media.src = URL.createObjectURL(file);
                 media.controls = true;
-                bindMediaDragEvents(media);
 
                 // start background upload
                 const controller = new AbortController();
@@ -226,6 +224,8 @@ export function initExperienceCreateMediaUpload() {
                     .then(tempPath => {
                         media.dataset.tempPath = tempPath;
                         preview.removeChild(overlay);
+                        
+                        bindMediaDragEvents(media);
                     }).catch(error => {
                         if (error.name === 'AbortError') {
                             console.log(`Upload for ${mediaId} aborted.`);
@@ -238,7 +238,6 @@ export function initExperienceCreateMediaUpload() {
                     });
 
                 activeUploads.set(mediaId, uploadPromise);
-
                 backgroundVideoUploads.set(mediaId, { promise: uploadPromise, controller });
             }
 
@@ -404,8 +403,8 @@ export function initExperienceCreateMediaUpload() {
                     // Auto-remove after 3 seconds
                     setTimeout(() => {
                         errorToast.classList.remove('show');
-                        setTimeout(() => errorToast.remove(), 500); // Wait for fade-out animation
-                    }, 30000);
+                        setTimeout(() => errorToast.remove(), 500);
+                    }, 3000);
                 } else {
                     console.error('Upload failed:', xhr.responseText);
                 }

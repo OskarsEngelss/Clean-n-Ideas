@@ -43,10 +43,8 @@ export function initSearch() {
                     container.appendChild(div);
                 });
 
-                // Update offset
                 button.dataset.offset = offset + data.experiences.items.length;
 
-                // Hide button if no more
                 if (!data.experiences.hasmore) button.style.display = 'none';
 
             } catch (err) {
@@ -75,10 +73,8 @@ export function initSearch() {
                     container.appendChild(a);
                 });
 
-                // Update offset
                 button.dataset.offset = offset + data.users.items.length;
 
-                // Hide button if no more
                 if (!data.users.hasmore) button.style.display = 'none';
 
             } catch (err) {

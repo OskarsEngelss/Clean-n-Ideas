@@ -1,5 +1,18 @@
 <x-main-layout title="Settings">
     <div class="one-grid">
+
+        @if ($errors->any())
+            <div class="floating-error-toast show" id="server-error-toast">
+                {{ $errors->first() }}
+            </div>
+        @endif
+
+        @if ($errors->userDeletion->any())
+            <div class="floating-error-toast show" id="server-error-toast">
+                {{ $errors->userDeletion->first() }}
+            </div>
+        @endif
+        
         <section class="settings-container">
             <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data" id="settings-form">
                 @csrf

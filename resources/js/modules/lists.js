@@ -43,16 +43,17 @@ export function initLists() {
     newListForm.addEventListener('submit', async function(e) {
         e.preventDefault();
 
-        const formData = new FormData(newListForm);
+        const formData = Object.fromEntries(new FormData(newListForm).entries());
 
         try {
             const response = await fetch(newListForm.action, {
                 method: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': csrfToken,
-                    'Accept': 'application/json'
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
                 },
-                body: formData
+                body: JSON.stringify(formData)
             });
 
             if (!response.ok) throw new Error("Network error");

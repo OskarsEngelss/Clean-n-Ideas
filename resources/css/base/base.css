@@ -124,7 +124,6 @@ footer {
     opacity: 0;
     transform: translateY(-10px);
     transition: opacity 0.4s ease, transform 0.4s ease;
-    white-space: pre-line; /* allows newlines */
     font-size: 1.2em;
     max-width: 320px;
     line-height: 1.5em;

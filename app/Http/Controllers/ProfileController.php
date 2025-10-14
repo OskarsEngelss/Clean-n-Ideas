@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\User;
+use App\Models\TutorialMedia;
 
 class ProfileController extends Controller
 {
@@ -36,19 +37,17 @@ class ProfileController extends Controller
 
         if ($request->filled('password')) {
             if (!\Illuminate\Support\Facades\Hash::check($request->current_password, $user->password)) {
-            return back()->withErrors(['current_password' => 'Current password is incorrect.']);
-        }
+                return back()->withErrors(['current_password' => 'Current password is incorrect.']);
+            }
 
-        // Optional: validate new password rules manually
-        $request->validate([
-            'password' => ['required', 'confirmed', \Illuminate\Validation\Rules\Password::defaults()],
-        ]);
+            $request->validate([
+                'password' => ['required', 'confirmed', \Illuminate\Validation\Rules\Password::defaults()],
+            ]);
 
             $user->password = \Illuminate\Support\Facades\Hash::make($request->password);
         }
 
         $user->save();
-
 
         return Redirect::route('profile.settings')->with('status', 'profile-updated');
     }
@@ -62,6 +61,15 @@ class ProfileController extends Controller
         ]);
 
         $user = $request->user();
+
+        if ($user->profile_picture) {
+            \Illuminate\Support\Facades\Storage::disk('public')->delete($user->profile_picture);
+        }
+
+        $mediaPaths = TutorialMedia::where('user_id', $user->id)->pluck('path')->toArray();
+        forEach($mediaPaths as $path) {
+            \Illuminate\Support\Facades\Storage::disk('public')->delete($path);
+        }
 
         Auth::logout();
 

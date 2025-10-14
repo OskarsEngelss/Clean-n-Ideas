@@ -24,6 +24,7 @@ import { initSearch } from './modules/search.js';
 import { initExtraUserExperienceLoad } from './modules/user/extraUserExperienceLoad.js';
 import { initExtraYourExperiencesLoad } from './modules/your-experiences/extraYourExperiencesLoad.js';
 import { initExtraUserFollowingLoad } from './modules/user/extraUserFollowingLoad.js';
+import { initPageRefreshErrorToast } from './modules/pageRefreshErrorToast.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     initBase();
@@ -63,6 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (document.querySelector('#settings-profile-picture-input')) {
         initSettings();
+        initPageRefreshErrorToast();
     }
 
     if (document.querySelector('#publish-experience-add-image-button')) {

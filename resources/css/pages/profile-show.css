@@ -56,6 +56,10 @@
 .follow-user-form > button:hover { 
     background-color: var(--accent-color-hover);
 }
+.follow-user-form > button:disabled {
+    cursor: not-allowed;
+    background-color: hsl(from var(--accent-color) h calc(s - 35) l);;
+}
 #profile-more-info-button {
     background-color: var(--secondary-accent-color);
 }

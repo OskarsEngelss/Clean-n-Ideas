@@ -28,7 +28,6 @@ test('Lietotājam ir iespējams izveidot jaunu ierakstu', function () {
         ->click('#lists-make-new-list-button')
         ->fill('name', 'Test list!')
         ->screenshot(filename: 'checkTestList')
-        ->debug()
         ->press('Create')
         ->press('.popup-close-button')
         

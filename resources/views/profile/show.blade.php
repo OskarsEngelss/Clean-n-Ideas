@@ -9,7 +9,7 @@
                     @if(Auth::user())
                         <form class="follow-user-form" method="POST" action="{{ route('follow.toggle', $user) }}">
                             @csrf
-                            <button type="submit">
+                            <button type="submit" @disabled(Auth::check() && Auth::user()->id == $user->id)>
                                 {{ auth()->user()->following->contains($user->id) ? 'Unfollow' : 'Follow' }}
                             </button>
                         </form>

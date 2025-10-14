@@ -18,7 +18,7 @@
 
         <!-- Scripts -->
         @vite('resources/css/pages/auth.css')
-        @vite('resources/js/app.js')
+        @vite('resources/js/modules/pageRefreshErrorToastAuth.js')
     </head>
     <body>
         <main>

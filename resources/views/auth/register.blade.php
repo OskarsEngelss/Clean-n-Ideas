@@ -1,6 +1,13 @@
 <x-auth-layout title="Register">
     <div class="login-register-form-container">
         <h1>Clean n Ideas</h1>
+
+        @if ($errors->any())
+            <div class="floating-error-toast show" id="server-error-toast">
+                {{ $errors->first() }}
+            </div>
+        @endif
+
         <form class="login-register-form" method="POST" action="{{ route('register') }}">
             @csrf
 
@@ -8,13 +15,6 @@
             @if (session('status'))
                 <span class="alert-inline alert-success">
                     {{ session('status') }}
-                </span>
-            @endif
-
-            <!-- Validation Errors -->
-            @if ($errors->any())
-                <span class="alert-inline alert-error">
-                    {{ $errors->first() }}
                 </span>
             @endif
         
