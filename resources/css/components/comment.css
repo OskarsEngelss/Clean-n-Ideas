@@ -13,6 +13,7 @@
 .experience-show-popup-comments-container {
     min-height: 300px;
     grid-area: comments-container;
+    overflow-y: auto;
 }
 #no-comments-message {
     height: 100%;
@@ -105,13 +106,9 @@
 #experience-show-comments-popup-form, .experience-show-comments-popup-form-denied > div {
     width: 100%;
     padding: 10px 25px;
-    position: sticky;
-    bottom: 0;
-    left: 0;
     background-color: var(--base-variant);
     box-sizing: border-box;
     box-shadow: 0 -5px 6px -1px rgba(0, 0, 0, 0.2);
-    margin-top: 7px;
 }
 #experience-show-comments-popup-form {
     grid-area: form-or-sign-in;
@@ -122,6 +119,8 @@
     "input"
     "emoji";
     row-gap: 7px;
+    z-index: 100;
+    position: relative;
 }
 #experience-show-comments-popup-button-container {
     grid-area: experience-show-comments-popup-button-container;
@@ -198,6 +197,7 @@ emoji-picker {
     bottom: 100%;
     left: 50%;
     transform: translateX(-50%);
+    z-index: 1000;
 }
 
 

@@ -297,6 +297,12 @@
 }
 
 
+
+.experience-show-comments-load-trigger {
+    height: 10px;
+}
+
+
 @media(max-width: 1415px) {
     .experience-show-options {
         top: 0px;

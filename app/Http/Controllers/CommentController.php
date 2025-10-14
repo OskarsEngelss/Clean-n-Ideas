@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Models\CommentLike;
+use App\Models\Experience;
 
 class CommentController extends Controller
 {
@@ -22,7 +23,7 @@ class CommentController extends Controller
             'parent_id' => $validated['parent_id'] ?? null,
         ]);
 
-        $comment->load('user', 'replies');
+        $comment->load('user', 'replies')->loadCount(['likes as likes_count', 'dislikes as dislikes_count']);
 
         if ($comment->parent_id) {
             $view = view('components.reply-component', ['reply' => $comment])->render();
@@ -78,5 +79,32 @@ class CommentController extends Controller
             'likes' => $likes,
             'dislikes' => $dislikes,
         ]);
+    }
+
+    public function experiencesCommentsLoadMore(Request $request, $slug) {
+        $page = (int) $request->get('page', 1);
+        $perPage = 8;
+        $skip = ($page - 1) * $perPage;
+
+        $experience = Experience::where('slug', $slug)->firstOrFail();
+
+        $comments = Comment::where('tutorial_id', $experience->id)
+                    ->whereNull('parent_id')
+                    ->with('replies.user')
+                    ->with('userReaction')
+                    ->withCount([
+                            'likes as likes_count',
+                            'dislikes as dislikes_count',
+                        ])
+                    ->latest()
+                    ->skip($skip)
+                    ->take($perPage)
+                    ->get();
+
+        if ($comments->isEmpty()) {
+            return response('', 200);
+        }
+
+        return view('partials._comments', compact('comments'));
     }
 }

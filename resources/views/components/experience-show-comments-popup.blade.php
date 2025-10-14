@@ -9,6 +9,7 @@
             @empty
                 <p id="no-comments-message">No comments available</p>
             @endforelse
+            <div class="experience-show-comments-load-trigger" data-experience-slug="{{ $experienceSlug }}"></div>
         </div>
         @if(Auth::user())
             <form action="{{ route('comment.store') }}" id="experience-show-comments-popup-form" method="POST">

@@ -25,6 +25,7 @@ import { initExtraUserExperienceLoad } from './modules/user/extraUserExperienceL
 import { initExtraYourExperiencesLoad } from './modules/your-experiences/extraYourExperiencesLoad.js';
 import { initExtraUserFollowingLoad } from './modules/user/extraUserFollowingLoad.js';
 import { initPageRefreshErrorToast } from './modules/pageRefreshErrorToast.js';
+import { initExperienceShowExtraCommentsLoad } from './modules/experienceShowExtraCommentsLoad.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     initBase();
@@ -52,6 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (document.querySelector('#experience-show-comments-popup-form')) {
         initExperienceShowCommentsForm();
+        initExperienceShowExtraCommentsLoad();
     }
 
     if (document.querySelector('#toggle-light-dark-mode')) {

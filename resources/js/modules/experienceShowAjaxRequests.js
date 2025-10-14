@@ -4,10 +4,12 @@ export function initExperienceShowAjaxRequests() {
 
     //AJAX for favourite button //AJAX for favourite button //AJAX for favourite button //AJAX for favourite button //AJAX for favourite button
     //AJAX for favourite button //AJAX for favourite button //AJAX for favourite button //AJAX for favourite button //AJAX for favourite button
-
     const favouriteButton = document.getElementById('experience-show-favourite-button');
+    if (favouriteButton.dataset.authCheck == "") return;
 
     favouriteButton.addEventListener('click', async () => {
+        if (favouriteButton.dataset.authCheck == "") return;
+
         const tutorialListId = favouriteButton.dataset.listId;
         const tutorialId = favouriteButton.dataset.tutorialId;
 
@@ -38,21 +40,11 @@ export function initExperienceShowAjaxRequests() {
             favouriteButton.classList.add('favourited-check');
             svg.innerHTML = `<path class="default" d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Z"/>`;
         }
-
-        // if (button.classList.contains('saved')) {
-        //     button.classList.remove('saved');
-        //     button.textContent = "Add";
-        // } else {
-        //     button.classList.add('saved');
-        //     button.textContent = "Remove";
-        // }
     })
 
 
-
     //AJAX for comments/reply posting //AJAX for comments/reply posting //AJAX for comments/reply posting //AJAX for comments/reply posting
     //AJAX for comments/reply posting //AJAX for comments/reply posting //AJAX for comments/reply posting //AJAX for comments/reply posting
-
     const experienceShowCommentsPopupForm = document.getElementById('experience-show-comments-popup-form');
 
     experienceShowCommentsPopupForm.addEventListener('submit', async (e) => {
@@ -79,7 +71,7 @@ export function initExperienceShowAjaxRequests() {
             const data = await response.json();
             console.log(data);
             insertCommentHtml(data.html, data.parent_id);
-            experienceShowCommentsPopupForm.reset(); // clear form
+            experienceShowCommentsPopupForm.reset();
 
             //Code to clear the input after a reply submission //Code to clear the input after a reply submission //Code to clear the input after a reply
             const input = document.getElementById('experience-show-comments-popup-input');
@@ -166,58 +158,54 @@ export function initExperienceShowAjaxRequests() {
 
     //Comment reaction form AJAX //Comment reaction form AJAX //Comment reaction form AJAX //Comment reaction form AJAX //Comment reaction form AJAX
     //Comment reaction form AJAX //Comment reaction form AJAX //Comment reaction form AJAX //Comment reaction form AJAX //Comment reaction form AJAX
+    document.querySelector('.experience-show-popup-comments-container').addEventListener('submit', async (e) => {
+        if (!e.target.classList.contains('experience-show-comment-reaction-form')) return;
 
-    document.querySelectorAll('.experience-show-comment-reaction-form').forEach(form => {
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
+        e.preventDefault();
+        const form = e.target;
+        const commentId = form.dataset.commentId;
+        const type = form.dataset.type;
+        const button = form.querySelector('button');
+        const otherType = type === 'like' ? 'dislike' : 'like';
+        const otherButton = document.querySelector(`.experience-show-comment-reaction-form[data-comment-id="${commentId}"][data-type="${otherType}"] button`);
 
-            const commentId = form.dataset.commentId;
-            const type = form.dataset.type;
-            const button = form.querySelector('button'); // clicked button
-            const otherType = type === 'like' ? 'dislike' : 'like';
-            const otherButton = document.querySelector(`.experience-show-comment-reaction-form[data-comment-id="${commentId}"][data-type="${otherType}"] button`);
+        try {
+            const response = await fetch(form.action, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken,
+                },
+                body: JSON.stringify({
+                    comment_id: commentId,
+                    type: type,
+                }),
+            });
 
-            try {
-                const response = await fetch(form.action, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': csrfToken,
-                    },
-                    body: JSON.stringify({
-                        comment_id: commentId,
-                        type: type,
-                    }),
-                });
+            if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+            const result = await response.json();
 
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
+            document.getElementById(`like-count-${commentId}`).textContent = result.likes;
+            document.getElementById(`dislike-count-${commentId}`).textContent = result.dislikes;
 
-                const result = await response.json();
-
-                document.getElementById(`like-count-${commentId}`).textContent = result.likes;
-                document.getElementById(`dislike-count-${commentId}`).textContent = result.dislikes;
-
-                if (result.status === 'added' || result.status === 'updated') {
-                    button.classList.add('active');
-                    if (otherButton) otherButton.classList.remove('active');
-                } else if (result.status === 'removed') {
-                    button.classList.remove('active');
-                }
-
-                console.log(`Reaction ${result.status}: ${type}`);
-            } catch (error) {
-                console.error('Error submitting reaction:', error);
+            if (result.status === 'added' || result.status === 'updated') {
+                button.classList.add('active');
+                if (otherButton) otherButton.classList.remove('active');
+            } else if (result.status === 'removed') {
+                button.classList.remove('active');
             }
-        });
+
+            console.log(`Reaction ${result.status}: ${type}`);
+        } catch (error) {
+            console.error('Error submitting reaction:', error);
+        }
     });
 
 
 
-    //Tutorial reaction form AJAX //Tutorial reaction form AJAX //Tutorial reaction form AJAX //Tutorial reaction form AJAX //Tutorial reaction form AJAX
-    //Tutorial reaction form AJAX //Tutorial reaction form AJAX //Tutorial reaction form AJAX //Tutorial reaction form AJAX //Tutorial reaction form AJAX
 
+    //Tutorial reaction form AJAX //Tutorial reaction form AJAX //Tutorial reaction form AJAX //Tutorial reaction form AJAX //Tutorial reaction form AJAX
+    //Tutorial reaction form AJAX //Tutorial reaction form AJAX //Tutorial reaction form AJAX //Tutorial reaction form AJAX //Tutorial reaction form AJAX
     document.querySelectorAll('.experience-show-tutorial-reaction-form').forEach(form => {
         form.addEventListener('submit', async e => {
             e.preventDefault();

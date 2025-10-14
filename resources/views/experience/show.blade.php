@@ -52,7 +52,7 @@
     <!-- Every Popup Component --> <!-- Every Popup Component --> <!-- Every Popup Component --> <!-- Every Popup Component -->
     <!-- Every Popup Component --> <!-- Every Popup Component --> <!-- Every Popup Component --> <!-- Every Popup Component -->
     <x-experience-show-description-popup :experience="$experience" />
-    <x-experience-show-comments-popup :experience="$experience" :comments="$comments" />
+    <x-experience-show-comments-popup :experience="$experience" :comments="$comments" :experienceSlug="$experience->slug"/>
     <x-experience-show-media-popup :experience="$experience" />
     <x-experience-show-links-popup :experience="$experience" />
     <x-experience-delete-popup :experience="$experience" />

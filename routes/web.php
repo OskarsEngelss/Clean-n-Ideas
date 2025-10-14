@@ -43,6 +43,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/comment/store', [CommentController::class, 'store'])->name('comment.store');
     Route::post('/comment/react', [CommentController::class, 'toggleReaction'])->name('comment.react');
+    Route::get('/experiences/{experience:slug}/comments/load-more', [CommentController::class, 'experiencesCommentsLoadMore'])->name('experience.commentsLoadMore');
 
 
     Route::get('/lists/{id}', [TutorialListController::class, 'index'])->name('list.index');

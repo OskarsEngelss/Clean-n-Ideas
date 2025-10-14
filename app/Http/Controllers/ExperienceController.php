@@ -257,6 +257,7 @@ class ExperienceController extends Controller
                         'dislikes as dislikes_count',
                     ])
                    ->latest()
+                   ->take(8)
                    ->get();
         
         if (Auth::check()) {

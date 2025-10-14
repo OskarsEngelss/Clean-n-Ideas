@@ -13,11 +13,13 @@ class ExperienceShowCommentsPopup extends Component
 {
     public $experience;
     public $comments;
+    public $experienceSlug;
 
-    public function __construct(Experience $experience, Collection  $comments)
+    public function __construct(Experience $experience, Collection  $comments, $experienceSlug)
     {
         $this->experience = $experience;
         $this->comments = $comments;
+        $this->experienceSlug = $experienceSlug;
     }
 
     /**
