@@ -11,6 +11,14 @@ export function initExperienceCreateMediaUpload() {
     const backgroundVideoUploads = new Map();
     const activeUploads = new Map();
 
+    window.addEventListener('beforeunload', async () => {
+        if (uploadedTempPaths.length === 0) return;
+
+        navigator.sendBeacon('/cleanup-temp', JSON.stringify({
+            paths: uploadedTempPaths
+        }));
+    });
+
 
     //Dragging media to tutorial input
     function handleImageDragging(event) {
@@ -137,6 +145,28 @@ export function initExperienceCreateMediaUpload() {
             const file = fileInput.files[0];
             if (!file) return;
 
+            const MAX_FILE_SIZE_MB = 200;
+            const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
+
+            if (file.size > MAX_FILE_SIZE_BYTES) {
+                const errorToast = document.createElement('div');
+                errorToast.className = 'floating-error-toast';
+                errorToast.innerText = `File too large. Maximum allowed size is ${MAX_FILE_SIZE_MB} MB.`;
+
+                document.body.appendChild(errorToast);
+
+                requestAnimationFrame(() => {
+                    errorToast.classList.add('show');
+                });
+
+                setTimeout(() => {
+                    errorToast.classList.remove('show');
+                    setTimeout(() => errorToast.remove(), 500);
+                }, 3000);
+
+                return;
+            }
+
             const preview = document.createElement('div');
             preview.className = "publish-experience-media-preview";
 
@@ -209,6 +239,7 @@ export function initExperienceCreateMediaUpload() {
                     body: formData
                 });
                 const data = await response.json();
+                uploadedTempPaths.push(data.tempPath);
                 media.src = data.tempPath;
                 media.dataset.tempPath = data.tempPath;
                 bindMediaDragEvents(media);
@@ -252,19 +283,22 @@ export function initExperienceCreateMediaUpload() {
     addImageButton.addEventListener('click', handleMediaUpload);
     addVideoButton.addEventListener('click', handleMediaUpload);
 
+    let uploadedTempPaths = [];
+
     async function uploadVideoInBackground(file, controller) {
         const formData = new FormData();
         formData.append('file', file);
 
         const response = await fetch('/upload-temp', {
             method: 'POST',
-            headers: { 'X-CSRF-TOKEN': csrfToken }, // Laravel CSRF token
+            headers: { 'X-CSRF-TOKEN': csrfToken },
             signal: controller.signal,
             body: formData
         });
 
         const data = await response.json();
-        return data.tempPath; // temp storage path from backend
+        uploadedTempPaths.push(data.tempPath);
+        return data.tempPath;
     }
 
 

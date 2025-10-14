@@ -73,7 +73,11 @@ class ExperienceController extends Controller
     }
 
     public function uploadTemp(Request $request) {
-        $request->validate(['file' => 'required|file|mimes:jpg,png,gif,mp4']);
+        $request->validate([
+            'file' => 'required|file|mimes:jpg,png,gif,mp4|max:307200',
+        ], [
+            'file.max' => 'The file cannot be larger than 300 MB.',
+        ]);
         $file = $request->file('file');
         $path = $file->store('temp', 'public');
         return response()->json(['tempPath' => "/storage/$path"]);
@@ -89,6 +93,25 @@ class ExperienceController extends Controller
         }
         return response()->json(['success' => false], 404);
     }
+    public function cleanupTemp(Request $request)
+{
+    // Get raw JSON body (since sendBeacon doesn’t set headers properly)
+    $raw = $request->getContent();
+    $data = json_decode($raw, true);
+
+    if (empty($data['paths']) || !is_array($data['paths'])) {
+        return response()->json(['message' => 'No valid paths provided'], 400);
+    }
+
+    foreach ($data['paths'] as $path) {
+        if (Str::startsWith($path, '/storage/temp/')) {
+            $relative = Str::after($path, '/storage/');
+            Storage::disk('public')->delete($relative);
+        }
+    }
+
+    return response()->noContent();
+}
 
     public function store(Request $request) {
         $validated = $request->validate([

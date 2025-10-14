@@ -35,6 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/experience/create', [ExperienceController::class, 'create'])->name('experience.create');
     Route::post('/upload-temp', [ExperienceController::class, 'uploadTemp']);
     Route::post('/delete-temp', [ExperienceController::class, 'deleteTemp']);
+    Route::post('/cleanup-temp', [ExperienceController::class, 'cleanupTemp']);
     Route::post('/experience/store', [ExperienceController::class, 'store'])->name('experience.store');
     Route::delete('/experience/{id}/delete', [ExperienceController::class, 'destroy'])->name('experience.destroy');
 
