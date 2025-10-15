@@ -331,9 +331,15 @@ export function initExperienceCreateMediaUpload() {
     if (oldTutorialContent && oldTutorialContent.value.trim() !== '') editor.innerHTML = oldTutorialContent.value;
 
     function togglePlaceholder() {
-        const html = editor.innerHTML.trim();
-        const isEmpty = html === '' || html === '<br>';
-        placeholder.style.display = isEmpty ? 'block' : 'none';
+        const hasContent = Array.from(editor.childNodes).some(node => {
+        // Text node with content
+        if (node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== '') return true;
+        // Element node that's not just <br>
+        if (node.nodeType === Node.ELEMENT_NODE && node.tagName !== 'BR') return true;
+        return false;
+    });
+
+    placeholder.style.display = hasContent ? 'none' : 'block';
     }
 
     togglePlaceholder();

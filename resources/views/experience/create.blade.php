@@ -15,7 +15,7 @@
         <div class="tutorial-input-container">
             <input type="hidden" id="old-tutorial-content" value="{{ old('tutorial') }}">
             <div id="tutorial-editor" class="tutorial-textarea default-input-style" contenteditable="true"></div>
-            <div id="editor-placeholder" class="editor-placeholder">Tutorial</div>
+            <div id="editor-placeholder" class="editor-placeholder">Tutorial (requires text, not just an image or video!)</div>
             <input type="hidden" name="tutorial" id="editorContent">
         </div>
         <div class="description-input-container">
