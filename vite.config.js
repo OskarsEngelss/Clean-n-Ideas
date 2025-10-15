@@ -8,7 +8,7 @@ export default defineConfig({
                 'resources/css/app.css',
                 'resources/js/app.js',
                 'resources/css/pages/auth.css',
-                'resources/js/modules/pageRefreshErrorToast.js',
+                'resources/js/modules/pageRefreshErrorToastAuth.js',
             ],
             refresh: true,
         }),
