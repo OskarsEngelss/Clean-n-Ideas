@@ -97,3 +97,15 @@
 #new-list-form button:hover {
     background-color: var(--agree-color-hover);
 }
+
+.lists-show-delete-list-button {
+    all: unset;
+    background-color: var(--disagree-color);
+    cursor: pointer;
+    padding: 7px 15px;
+    border-radius: 8px;
+    transition: 0.2s;
+}
+.lists-show-delete-list-button:hover {
+    background-color: var(--disagree-color-hover);
+}

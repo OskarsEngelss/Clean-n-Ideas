@@ -5,7 +5,7 @@
             <form action="{{ route('list.storeList') }}" method="POST" id="new-list-form"  data-tutorial-id="{{ $experienceId }}">
                 @csrf
 
-                <input id="list-name-input" name="name" placeholder="List name" class="default-input-style" />
+                <input id="list-name-input" name="name" placeholder="List name" class="default-input-style" required />
                 <label>
                     Public:
                     <input type="hidden" name="is_public" value="0">

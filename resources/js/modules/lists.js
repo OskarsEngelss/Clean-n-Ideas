@@ -56,6 +56,32 @@ export function initLists() {
                 body: JSON.stringify(formData)
             });
 
+            if (response.status === 422) {
+                const res = await response.json();
+                const errors = res.errors || {};
+
+                const errorMessages = Object.values(errors)
+                    .map(msgArr => msgArr[0])
+                    .join('\n');
+
+                const errorToast = document.createElement('div');
+                errorToast.className = 'floating-error-toast';
+                errorToast.innerText = errorMessages;
+
+                document.body.appendChild(errorToast);
+
+                requestAnimationFrame(() => {
+                    errorToast.classList.add('show');
+                });
+
+                setTimeout(() => {
+                    errorToast.classList.remove('show');
+                    setTimeout(() => errorToast.remove(), 500);
+                }, 3000);
+
+                return;
+            }
+
             if (!response.ok) throw new Error("Network error");
 
             const data = await response.text();

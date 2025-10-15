@@ -93,25 +93,23 @@ class ExperienceController extends Controller
         }
         return response()->json(['success' => false], 404);
     }
-    public function cleanupTemp(Request $request)
-{
-    // Get raw JSON body (since sendBeacon doesn’t set headers properly)
-    $raw = $request->getContent();
-    $data = json_decode($raw, true);
+    public function cleanupTemp(Request $request) {
+        $raw = $request->getContent();
+        $data = json_decode($raw, true);
 
-    if (empty($data['paths']) || !is_array($data['paths'])) {
-        return response()->json(['message' => 'No valid paths provided'], 400);
-    }
-
-    foreach ($data['paths'] as $path) {
-        if (Str::startsWith($path, '/storage/temp/')) {
-            $relative = Str::after($path, '/storage/');
-            Storage::disk('public')->delete($relative);
+        if (empty($data['paths']) || !is_array($data['paths'])) {
+            return response()->json(['message' => 'No valid paths provided'], 400);
         }
-    }
 
-    return response()->noContent();
-}
+        foreach ($data['paths'] as $path) {
+            if (Str::startsWith($path, '/storage/temp/')) {
+                $relative = Str::after($path, '/storage/');
+                Storage::disk('public')->delete($relative);
+            }
+        }
+
+        return response()->noContent();
+    }
 
     public function store(Request $request) {
         $validated = $request->validate([

@@ -62,6 +62,32 @@ export function initExperienceShowAjaxRequests() {
                 body: formData
             });
 
+            if (response.status === 422) {
+                const res = await response.json();
+                const errors = res.errors || {};
+
+                const errorMessages = Object.values(errors)
+                    .map(msgArr => msgArr[0])
+                    .join('\n');
+
+                const errorToast = document.createElement('div');
+                errorToast.className = 'floating-error-toast';
+                errorToast.innerText = errorMessages;
+
+                document.body.appendChild(errorToast);
+
+                requestAnimationFrame(() => {
+                    errorToast.classList.add('show');
+                });
+
+                setTimeout(() => {
+                    errorToast.classList.remove('show');
+                    setTimeout(() => errorToast.remove(), 500);
+                }, 3000);
+
+                return;
+            }
+
             if (!response.ok) {
                 const data = await response.json();
                 console.error(data);
@@ -155,7 +181,6 @@ export function initExperienceShowAjaxRequests() {
     }
 
 
-
     //Comment reaction form AJAX //Comment reaction form AJAX //Comment reaction form AJAX //Comment reaction form AJAX //Comment reaction form AJAX
     //Comment reaction form AJAX //Comment reaction form AJAX //Comment reaction form AJAX //Comment reaction form AJAX //Comment reaction form AJAX
     document.querySelector('.experience-show-popup-comments-container').addEventListener('submit', async (e) => {
@@ -200,8 +225,6 @@ export function initExperienceShowAjaxRequests() {
             console.error('Error submitting reaction:', error);
         }
     });
-
-
 
 
     //Tutorial reaction form AJAX //Tutorial reaction form AJAX //Tutorial reaction form AJAX //Tutorial reaction form AJAX //Tutorial reaction form AJAX
@@ -252,7 +275,6 @@ export function initExperienceShowAjaxRequests() {
             }
         });
     });
-
 
 
     //Save to tutorial list AJAX //Save to tutorial list AJAX //Save to tutorial list AJAX //Save to tutorial list AJAX //Save to tutorial list AJAX
@@ -317,6 +339,32 @@ export function initExperienceShowAjaxRequests() {
                 body: formData
             });
 
+            if (response.status === 422) {
+                const res = await response.json();
+                const errors = res.errors || {};
+
+                const errorMessages = Object.values(errors)
+                    .map(msgArr => msgArr[0])
+                    .join('\n');
+
+                const errorToast = document.createElement('div');
+                errorToast.className = 'floating-error-toast';
+                errorToast.innerText = errorMessages;
+
+                document.body.appendChild(errorToast);
+
+                requestAnimationFrame(() => {
+                    errorToast.classList.add('show');
+                });
+
+                setTimeout(() => {
+                    errorToast.classList.remove('show');
+                    setTimeout(() => errorToast.remove(), 500);
+                }, 3000);
+
+                return;
+            }
+
             if (!response.ok) throw new Error("Network error");
 
             const data = await response.text();
@@ -326,6 +374,7 @@ export function initExperienceShowAjaxRequests() {
                 return;
             }
 
+            if (listContainer.querySelector('p')) listContainer.querySelector('p').remove();
             listContainer.insertAdjacentHTML("afterbegin", data);
         } catch (error) {
             console.error("Error loading posts:", error);

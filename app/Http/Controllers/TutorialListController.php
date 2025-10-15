@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Auth;
 class TutorialListController extends Controller
 {
     public function index($id) {
+        if (auth()->id() !== (int)$id) {
+            return redirect()->back()->with('error', 'Unauthorized access.');
+        }
+        
         $user = User::find($id);
 
         $lists = $user->tutorialLists()
@@ -26,6 +30,11 @@ class TutorialListController extends Controller
     public function show($id, $list_id) {
         $user = User::find($id);
         $list = TutorialList::find($list_id);
+
+        if (!$list->is_public && auth()->id() !== $list->user_id) {
+            return redirect()->back()->with('error', 'Unauthorized access.');
+        }
+
         $experiences = $list->experiences()
                         ->latest()
                         ->take(8)
@@ -47,6 +56,8 @@ class TutorialListController extends Controller
             'is_favourite' => false,
             'is_public' => $validated['is_public'],
         ]);
+
+        $list->loadCount('tutorialListItems');
 
         if(!empty($validated['experience_id'])) {
             $experienceId = $validated['experience_id'];
@@ -160,5 +171,19 @@ class TutorialListController extends Controller
         }
 
         return view('partials._list-option-multiple', compact('lists', 'experienceId'));
+    }
+
+    public function destroy($id) {
+        $list = TutorialList::findOrFail($id);
+
+        if ($list->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $list->delete();
+
+        return redirect()
+            ->route('list.index', ['id' => auth()->id()])
+            ->with('success', 'List deleted successfully.');
     }
 }

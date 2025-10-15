@@ -12,7 +12,7 @@ class CommentController extends Controller
     public function store(Request $request) {
         $validated = $request->validate([
             'tutorial_id' => 'required|exists:experiences,id',
-            'content' => 'required|string',
+            'content' => 'required|string|max:300',
             'parent_id' => 'nullable|exists:comments,id',
         ]);
 

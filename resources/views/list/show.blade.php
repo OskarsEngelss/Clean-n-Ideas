@@ -21,6 +21,16 @@
         </section>
         <section class="options">
             <h2>{{ $list->name }}</h2>
+            @if(Auth::user()->id == $list->user_id)
+                <form action="{{ route('list.destroy', $list->id) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+
+                    <button class="lists-show-delete-list-button" type="submit" onclick="return confirm('Are you sure you want to delete this list? This can not be undone')">
+                        Delete list
+                    </button>
+                </form>
+            @endif
         </section>
     </div>
 </x-main-layout>

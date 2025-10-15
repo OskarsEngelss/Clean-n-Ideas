@@ -54,6 +54,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/lists/storeList', [TutorialListController::class, 'storeList'])->name('list.storeList');
     Route::post('/lists/storeTutorial', [TutorialListController::class, 'storeTutorial'])->name('list.storeTutorial');
+    Route::delete('/lists/{id}/delete', [TutorialListController::class, 'destroy'])->name('list.destroy');
 
     
     Route::get('/followers', [ProfileController::class, 'followers'])->name('followers');
