@@ -188,6 +188,8 @@
     width: 100%;
     border-radius: 8px;
     display: block;
+    -webkit-user-select: text;
+    user-select: text;
 }
 .publish-experience-media-preview-remove-button {
     all: unset;

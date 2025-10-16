@@ -28,9 +28,7 @@ export function initExperienceCreateMediaUpload() {
         const pointerEvent = isTouch ? event.touches[0] : event;
 
         const media = event.currentTarget;
-        media.setAttribute('draggable', 'false');
-        media.oncontextmenu = (e) => e.preventDefault();
-        
+
         const mediaId = media.dataset.mediaId || `media-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
 
         media.setAttribute('draggable', 'false');
@@ -209,6 +207,8 @@ export function initExperienceCreateMediaUpload() {
 
             const media = document.createElement(isImage ? 'img' : 'video');
             const mediaId = `media-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+            media.setAttribute('draggable', 'false');
+            media.oncontextmenu = (e) => e.preventDefault();
             media.setAttribute('data-media-id', mediaId);
 
             const removeButton = document.createElement('button');
