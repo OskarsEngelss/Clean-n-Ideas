@@ -202,7 +202,6 @@ export function initExperienceCreateMediaUpload() {
                     });
                 }
 
-                // Abort background video upload if it's in progress
                 if (isVideoFile && backgroundVideoUploads.has(mediaId)) {
                     const uploadEntry = backgroundVideoUploads.get(mediaId);
                     uploadEntry.controller.abort();
@@ -249,7 +248,6 @@ export function initExperienceCreateMediaUpload() {
                 media.src = URL.createObjectURL(file);
                 media.controls = true;
 
-                // start background upload
                 const controller = new AbortController();
                 const uploadPromise = uploadVideoInBackground(file, controller)
                     .then(tempPath => {
@@ -312,12 +310,11 @@ export function initExperienceCreateMediaUpload() {
             const range = selection.getRangeAt(0);
             let node = range.startContainer;
 
-            // Walk up to see if we are inside a wrapper span
             while (node && node !== editor) {
                 if (node.nodeType === Node.ELEMENT_NODE && node.classList.contains('tutorial-textarea-media-wrapper')) {
                     e.preventDefault();
                     node.remove();
-                    return; // stop after removing
+                    return;
                 }
                 node = node.parentNode;
             }
@@ -332,9 +329,7 @@ export function initExperienceCreateMediaUpload() {
 
     function togglePlaceholder() {
         const hasContent = Array.from(editor.childNodes).some(node => {
-        // Text node with content
         if (node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== '') return true;
-        // Element node that's not just <br>
         if (node.nodeType === Node.ELEMENT_NODE && node.tagName !== 'BR') return true;
         return false;
     });
@@ -370,7 +365,6 @@ export function initExperienceCreateMediaUpload() {
             return;
         }
 
-        // Remove previous errors
         document.querySelectorAll('.form-error').forEach(el => el.remove());
 
         const formData = new FormData(experienceCreateForm);
@@ -423,24 +417,20 @@ export function initExperienceCreateMediaUpload() {
                     const response = JSON.parse(xhr.responseText);
                     const errors = response.errors || {};
 
-                    // Combine all error messages into one string
                     const errorMessages = Object.values(errors)
                         .map(msgArr => msgArr[0])
                         .join('\n');
 
-                    // Create floating notification
                     const errorToast = document.createElement('div');
                     errorToast.className = 'floating-error-toast';
                     errorToast.innerText = errorMessages;
 
                     document.body.appendChild(errorToast);
 
-                    // Trigger fade-in
                     requestAnimationFrame(() => {
                         errorToast.classList.add('show');
                     });
 
-                    // Auto-remove after 3 seconds
                     setTimeout(() => {
                         errorToast.classList.remove('show');
                         setTimeout(() => errorToast.remove(), 500);

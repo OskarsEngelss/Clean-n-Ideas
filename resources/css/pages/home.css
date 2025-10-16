@@ -3,7 +3,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
     justify-content: center;
-    padding: 10px 20px;
+    padding: 10px 0px;
     box-sizing: border-box;
     row-gap: 10px;
 }

@@ -78,9 +78,6 @@
                 <div class="settings-profile-delete-password-confirm-container">
                     <p>Enter your password to confirm account deletion:</p>
                     <input class="default-input-style" placeholder="Current password" name="password" type="password" autocomplete="current-password" required>
-                    <!-- @error('password')
-                        <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
-                    @enderror -->
                 </div>
 
                 <div class="settings-delete-profile-button-container">
@@ -92,6 +89,7 @@
             </form>
         </div>
     @endpush
+
     @push('popup')
         <div id="settings-profile-picture-cropper-popup">
             <div class="settings-popups-close-container">
@@ -102,13 +100,13 @@
                 </button>
             </div>
             <div>
-                <div class="cropper-wrapper" style="position: relative; display: inline-block;">
+                <div class="cropper-wrapper">
                     <img id="cropper-image" src="" />
                     <div id="crop-box">
-                        <div class="resize-handle top-left" style="..."></div>
-                        <div class="resize-handle top-right" style="..."></div>
-                        <div class="resize-handle bottom-left" style="..."></div>
-                        <div class="resize-handle bottom-right" style="..."></div>
+                        <div class="resize-handle top-left"></div>
+                        <div class="resize-handle top-right"></div>
+                        <div class="resize-handle bottom-left"></div>
+                        <div class="resize-handle bottom-right"></div>
                     </div>
                 </div>
             </div>

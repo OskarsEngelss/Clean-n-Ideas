@@ -53,29 +53,47 @@ export function initSettings() {
     let isDragging = false;
     let startX, startY;
 
-    cropBox.addEventListener('mousedown', (e) => {
+    function handleDragStart(e) {
+        e.preventDefault?.();
+        const point = e.touches ? e.touches[0] : e;
+        const rect = cropBox.getBoundingClientRect();
+
         isDragging = true;
-        startX = e.offsetX;
-        startY = e.offsetY;
+        startX = point.clientX - rect.left;
+        startY = point.clientY - rect.top;
+    }
+    ['mousedown', 'touchstart'].forEach(eventType => {
+        cropBox.addEventListener(eventType, handleDragStart, { passive: false });
     });
 
-    document.addEventListener('mousemove', (e) => {
+
+    function handleDragMove(e) {
         if (!isDragging) return;
 
+        const point = e.touches ? e.touches[0] : e;
         const rect = cropperImage.getBoundingClientRect();
-        let left = e.clientX - rect.left - startX;
-        let top = e.clientY - rect.top - startY;
+
+        let left = point.clientX - rect.left - startX;
+        let top = point.clientY - rect.top - startY;
 
         left = Math.max(0, Math.min(left, cropperImage.clientWidth - cropBox.offsetWidth));
         top = Math.max(0, Math.min(top, cropperImage.clientHeight - cropBox.offsetHeight));
 
         cropBox.style.left = `${left}px`;
         cropBox.style.top = `${top}px`;
+    }
+    ['mousemove', 'touchmove'].forEach(eventType => {
+        document.addEventListener(eventType, handleDragMove, { passive: false });
     });
 
-    document.addEventListener('mouseup', () => {
-        isDragging = false;
+    
+    ['mouseup', 'touchend'].forEach(eventType => {
+        document.addEventListener(eventType, () => {
+            isDragging = false;
+        });
     });
+
+
 
     let isResizing = false;
     let resizeStartX, resizeStartY, startSize, startLeft, startTop;
@@ -83,26 +101,35 @@ export function initSettings() {
 
     const handles = cropBox.querySelectorAll('.resize-handle');
 
+    function handleResizeStart(e) {
+        e.preventDefault?.();
+        e.stopPropagation();
+        const point = e.touches ? e.touches[0] : e;
+
+        isResizing = true;
+        currentHandle = e.currentTarget.classList[1];
+        resizeStartX = point.clientX;
+        resizeStartY = point.clientY;
+        startSize = cropBox.offsetWidth;
+        startLeft = parseFloat(cropBox.style.left);
+        startTop = parseFloat(cropBox.style.top);
+    }
     handles.forEach(handle => {
-        handle.addEventListener('mousedown', (e) => {
-            e.stopPropagation();
-            isResizing = true;
-            currentHandle = handle.classList[1];
-            resizeStartX = e.clientX;
-            resizeStartY = e.clientY;
-            startSize = cropBox.offsetWidth;
-            startLeft = parseFloat(cropBox.style.left);
-            startTop = parseFloat(cropBox.style.top);
+        ['mousedown', 'touchstart'].forEach(eventType => {
+            handle.addEventListener(eventType, handleResizeStart, { passive: false });
         });
     });
 
-    document.addEventListener('mousemove', (e) => {
+
+
+    function handleResizeMove(e) {
         if (!isResizing) return;
 
+        const point = e.touches ? e.touches[0] : e;
         const imgRect = cropperImage.getBoundingClientRect();
 
-        const dx = e.clientX - resizeStartX;
-        const dy = e.clientY - resizeStartY;
+        const dx = point.clientX - resizeStartX;
+        const dy = point.clientY - resizeStartY;
         let delta = Math.max(dx, dy);
 
         let newSize;
@@ -133,23 +160,27 @@ export function initSettings() {
         }
 
         const minSize = 50;
-        const maxSize = Math.min(
-            imgRect.width - newLeft,
-            imgRect.height - newTop
-        );
-
+        const maxSize = Math.min(imgRect.width - newLeft, imgRect.height - newTop);
         newSize = Math.max(minSize, Math.min(newSize, maxSize));
 
         cropBox.style.width = `${newSize}px`;
         cropBox.style.height = `${newSize}px`;
         cropBox.style.left = `${newLeft}px`;
         cropBox.style.top = `${newTop}px`;
+    }
+    ['mousemove', 'touchmove'].forEach(eventType => {
+        document.addEventListener(eventType, handleResizeMove, { passive: false });
     });
 
-    document.addEventListener('mouseup', () => {
-        isResizing = false;
-        currentHandle = null;
+
+
+    ['mouseup', 'touchend'].forEach(eventType => {
+        document.addEventListener(eventType, () => {
+            isResizing = false;
+            currentHandle = null;
+        });
     });
+
 
     cropButton.addEventListener('click', () => {
         const canvas = document.createElement('canvas');
@@ -246,19 +277,4 @@ export function initSettings() {
 
         button.addEventListener('click', () => openPopup(popupElement));
     });
-
-
-    // let mouseDownStartedInsidePopup = false;
-    // popupOverlay.addEventListener('mousedown', (e) => {
-    //     // Check if click started *inside* the popup, not the overlay
-    //     mouseDownStartedInsidePopup = e.target !== popupOverlay;
-    // });
-    // popupOverlay.addEventListener('click', (event) => {
-    //     if (!mouseDownStartedInsidePopup || e.target === popupOverlay) {
-    //         closeActivePopup();
-    //     }
-
-    //     // Reset tracker
-    //     mouseDownStartedInsidePopup = false;
-    // });
 }

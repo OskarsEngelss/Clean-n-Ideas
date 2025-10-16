@@ -214,6 +214,10 @@
     max-width: 90%;
     max-height: 90%;
 }
+.cropper-wrapper {
+    position: relative;
+    display: inline-block;
+}
 #settings-profile-picture-cropper-popup > div:last-of-type {
     display: flex;
     justify-content: center;
@@ -234,7 +238,7 @@
 }
 #cropper-image {
     max-height: 600px;
-    width: auto;
+    max-width: 80vw;
     height: auto;
     display: block;
     margin: 0 auto;

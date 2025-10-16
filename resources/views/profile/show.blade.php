@@ -1,4 +1,4 @@
-<x-main-layout title="{{ auth()->user()->name }}">
+<x-main-layout title="{{ $user->name }}">
     <div class="whole-profile-container">
         <div class="profile-upper-grid">
             <div class="username-container">

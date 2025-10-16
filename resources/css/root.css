@@ -25,7 +25,7 @@
     --disagree-color-hover: hsl(from var(--disagree-color) h s calc(l + 10));
 
     --text-color: hsl(0, 0%, 0%);
-    --secondary-text-color: hsl(from var(--text-color) h s calc(l + 39));;
+    --secondary-text-color: hsl(from var(--text-color) h s calc(l + 39));
 
     --popup-background-color: hsl(0, 0%, 0%, 0.4);
     --indent-boxshadow-light: hsl(0, 0%, 95%);
