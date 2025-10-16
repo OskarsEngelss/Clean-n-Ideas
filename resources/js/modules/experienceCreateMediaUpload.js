@@ -22,115 +22,145 @@ export function initExperienceCreateMediaUpload() {
 
     //Dragging media to tutorial input
     function handleImageDragging(event) {
-        event.preventDefault();
+    event.preventDefault();
 
-        const isTouch = event.type.startsWith('touch');
-        const pointerEvent = isTouch ? event.touches[0] : event;
+    const isTouch = event.type.startsWith('touch');
+    const pointerEvent = isTouch ? event.touches[0] : event;
 
-        const media = event.currentTarget;
-        const mediaId = media.dataset.mediaId || `media-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+    const media = event.currentTarget;
+    const mediaId = media.dataset.mediaId || `media-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
 
-        const clone = media.cloneNode();
-        clone.classList = "media-clone dragging";
-        document.body.appendChild(clone);
+    media.setAttribute('draggable', 'false');
+    const restoreDragStart = media.ondragstart;
+    media.ondragstart = (e) => e.preventDefault();
 
-        moveAt(pointerEvent.pageX, pointerEvent.pageY);
+    const prevTouchAction = document.body.style.touchAction;
+    const prevUserSelect = document.body.style.userSelect;
+    document.body.style.touchAction = 'none';
+    document.body.style.userSelect = 'none';
 
-        function moveAt(pageX, pageY) {
-            clone.style.position = 'absolute';
-            clone.style.zIndex = '1000';
-            clone.style.left = pageX - clone.offsetWidth / 2 + 'px';
-            clone.style.top = pageY - clone.offsetHeight / 2 + 'px';
-        }
+    function preventContext(e) { e.preventDefault(); }
+    document.addEventListener('contextmenu', preventContext);
 
-        function insertMediaAtPosition(x, y) {
-            const targetElement = document.elementFromPoint(x, y);
-            const range = document.caretRangeFromPoint
-                ? document.caretRangeFromPoint(x, y)
-                : document.caretPositionFromPoint?.(x, y);
+    const clone = media.cloneNode(true);
+    clone.className = "media-clone dragging";
+    clone.style.pointerEvents = 'none';
+    clone.style.position = 'absolute';
+    clone.style.zIndex = '1000';
+    document.body.appendChild(clone);
 
-            if (range && editor.contains(targetElement)) {
-                const wrapper = document.createElement('span');
-                wrapper.classList = "tutorial-textarea-media-wrapper";
+    moveAt(pointerEvent.pageX, pointerEvent.pageY);
 
-                const insertedMediaRemoveButtonContainer = document.createElement('div');
-                insertedMediaRemoveButtonContainer.classList = "inserted-media-remove-button-container";
+    function moveAt(pageX, pageY) {
+        clone.style.left = (pageX - clone.offsetWidth / 2) + 'px';
+        clone.style.top = (pageY - clone.offsetHeight / 2) + 'px';
+    }
 
-                const insertedMedia = media.cloneNode();
-                insertedMedia.src = media.dataset.tempPath || media.src;
-                insertedMedia.classList = "inserted-media";
-                if (insertedMedia.tagName.toLowerCase() === 'video') {
-                    insertedMedia.controls = true;
+    function insertMediaAtPosition(x, y) {
+        const targetElement = document.elementFromPoint(x, y);
+        const range = document.caretRangeFromPoint
+            ? document.caretRangeFromPoint(x, y)
+            : document.caretPositionFromPoint?.(x, y);
+
+        if (range && editor.contains(targetElement)) {
+            const wrapper = document.createElement('span');
+            wrapper.className = "tutorial-textarea-media-wrapper";
+
+            const insertedMediaRemoveButtonContainer = document.createElement('div');
+            insertedMediaRemoveButtonContainer.className = "inserted-media-remove-button-container";
+
+            const insertedMedia = media.cloneNode(true);
+            insertedMedia.src = media.dataset.tempPath || media.src;
+            insertedMedia.className = "inserted-media";
+            if (insertedMedia.tagName.toLowerCase() === 'video') {
+                insertedMedia.controls = true;
+            }
+
+            const removeButton = document.createElement('button');
+            removeButton.type = 'button';
+            removeButton.className = 'publish-experience-media-preview-remove-button';
+            removeButton.innerHTML = `...svg...`;
+            removeButton.addEventListener('click', () => wrapper.remove());
+
+            insertedMediaRemoveButtonContainer.appendChild(insertedMedia);
+            insertedMediaRemoveButtonContainer.appendChild(removeButton);
+            wrapper.appendChild(insertedMediaRemoveButtonContainer);
+
+            let container = range.startContainer;
+            while (container && container !== editor) {
+                if (container.classList && container.classList.contains('tutorial-textarea-media-wrapper')) {
+                    range.setStartAfter(container);
+                    range.setEndAfter(container);
+                    break;
                 }
-
-                const removeButton = document.createElement('button');
-                removeButton.type = 'button';
-                removeButton.className = 'publish-experience-media-preview-remove-button';
-                removeButton.innerHTML = `
-                    <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="var(--text-color)">
-                        <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
-                    </svg>
-                `;
-                removeButton.addEventListener('click', () => wrapper.remove());
-
-                insertedMediaRemoveButtonContainer.appendChild(insertedMedia);
-                insertedMediaRemoveButtonContainer.appendChild(removeButton);
-                wrapper.appendChild(insertedMediaRemoveButtonContainer);
-
-                let container = range.startContainer;
-                while (container && container !== editor) {
-                    if (container.classList && container.classList.contains('tutorial-textarea-media-wrapper')) {
-                        range.setStartAfter(container);
-                        range.setEndAfter(container);
-                        break;
-                    }
-                    container = container.parentNode;
-                }
-
-                range.insertNode(wrapper);
-
-                range.setStartAfter(wrapper);
-                range.setEndAfter(wrapper);
-                const selection = window.getSelection();
-                selection.removeAllRanges();
-                selection.addRange(range);
-            }
-        }
-
-        if (isTouch) {
-            function onTouchMove(e) {
-                const touch = e.touches[0];
-                moveAt(touch.pageX, touch.pageY);
+                container = container.parentNode;
             }
 
-            function onTouchEnd(e) {
-                const touch = e.changedTouches[0];
-                insertMediaAtPosition(touch.clientX, touch.clientY);
+            range.insertNode(wrapper);
 
-                document.removeEventListener('touchmove', onTouchMove);
-                document.removeEventListener('touchend', onTouchEnd);
-                clone.remove();
-            }
-
-            document.addEventListener('touchmove', onTouchMove);
-            document.addEventListener('touchend', onTouchEnd);
-        } else {
-            function onMouseMove(e) {
-                moveAt(e.pageX, e.pageY);
-            }
-
-            function onMouseUp(e) {
-                document.removeEventListener('mousemove', onMouseMove);
-                document.removeEventListener('mouseup', onMouseUp);
-
-                insertMediaAtPosition(e.clientX, e.clientY);
-                clone.remove();
-            }
-
-            document.addEventListener('mousemove', onMouseMove);
-            document.addEventListener('mouseup', onMouseUp);
+            range.setStartAfter(wrapper);
+            range.setEndAfter(wrapper);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
         }
     }
+
+    function cleanup() {
+        document.body.style.touchAction = prevTouchAction;
+        document.body.style.userSelect = prevUserSelect;
+        document.removeEventListener('contextmenu', preventContext);
+
+        media.ondragstart = restoreDragStart;
+
+        if (clone && clone.parentNode) clone.parentNode.removeChild(clone);
+    }
+
+    if (isTouch) {
+        function onTouchMove(e) {
+            const touch = e.touches[0];
+            moveAt(touch.pageX, touch.pageY);
+
+            const margin = 50;
+            const scrollSpeed = 10;
+
+            if (touch.clientY < margin) {
+                window.scrollBy(0, -scrollSpeed);
+            } else if (touch.clientY > window.innerHeight - margin) {
+                window.scrollBy(0, scrollSpeed);
+            }
+        }
+
+        function onTouchEnd(e) {
+            const touch = e.changedTouches[0];
+            insertMediaAtPosition(touch.clientX, touch.clientY);
+
+            document.removeEventListener('touchmove', onTouchMove, { passive: false });
+            document.removeEventListener('touchend', onTouchEnd);
+            cleanup();
+        }
+
+        document.addEventListener('touchmove', onTouchMove, { passive: false });
+        document.addEventListener('touchend', onTouchEnd);
+    } else {
+        function onMouseMove(e) {
+            e.preventDefault();
+            moveAt(e.pageX, e.pageY);
+        }
+
+        function onMouseUp(e) {
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
+
+            insertMediaAtPosition(e.clientX, e.clientY);
+            cleanup();
+        }
+
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+    }
+}
+
 
 
     const handleMediaUpload = (event) => {
@@ -246,7 +276,7 @@ export function initExperienceCreateMediaUpload() {
                 preview.removeChild(overlay);
             } else {
                 media.src = URL.createObjectURL(file);
-                media.controls = true;
+                media.controls = false;
 
                 const controller = new AbortController();
                 const uploadPromise = uploadVideoInBackground(file, controller)
