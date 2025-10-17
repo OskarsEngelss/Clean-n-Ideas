@@ -182,7 +182,7 @@ export function initExperienceCreateMediaUpload() {
             const file = fileInput.files[0];
             if (!file) return;
 
-            const MAX_FILE_SIZE_MB = 200;
+            const MAX_FILE_SIZE_MB = 300;
             const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
 
             if (file.size > MAX_FILE_SIZE_BYTES) {
