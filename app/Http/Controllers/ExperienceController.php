@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Experience;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use App\Models\Experience;
 use App\Models\TutorialList;
 use App\Models\TutorialListItem;
 use App\Models\Comment;
@@ -300,14 +300,6 @@ class ExperienceController extends Controller
         }
 
         return view('experience.show', compact('experience', 'followersCount', 'favourited', 'comments', 'lists', 'favouritesListId'));
-    }
-
-    public function edit($id) {
-        // Return a view to edit the resource
-    }
-
-    public function update(Request $request, $id) {
-        // Handle update logic
     }
 
     public function destroy(Request $request, $id) {

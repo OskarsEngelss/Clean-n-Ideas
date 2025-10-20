@@ -100,36 +100,6 @@ class TutorialListController extends Controller
         }
     }
 
-    public function favouriteStore(Request $request) {
-        $user = Auth::user();
-
-        $favouritesList = $user->tutorialLists()->firstOrCreate(
-            ['is_favourite' => true],
-            ['name' => 'Favourites', 'is_public' => false]
-        );
-
-        $existing = TutorialListItem::where('tutorial_list_id', $favouritesList->id)
-            ->where('tutorial_id', $request->experience_id)
-            ->first();
-
-        $favourited = false;
-
-        if ($existing) {
-            $existing->delete();
-        } else {
-            TutorialListItem::create([
-                'tutorial_list_id' => $favouritesList->id,
-                'tutorial_id' => $request->experience_id,
-            ]);
-            $favourited = true;
-        }
-
-        return response()->json([
-            'success' => true,
-            'favourited' => $favourited,
-        ]);
-    }
-
     public function listsLoadMore(Request $request) {
         $page = (int) $request->get('page', 1);
         $perPage = 8;
