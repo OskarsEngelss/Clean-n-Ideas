@@ -8,7 +8,7 @@ use App\Models\TutorialOutsideLink;
 use App\Models\User;
 use App\Models\TutorialList;
 
-test('Lietotājam ir meklēt pamācības pēc nosaukuma, kategorijas un/vai apraksta, kā arī lietotājus pēc vārda un apraksta', function () {
+test('Lietotājs spēj meklēt pamācības pēc nosaukuma, kategorijas un/vai apraksta, kā arī lietotājus pēc vārda un apraksta', function () {
     Event::fake();
 
     Storage::disk('public')->makeDirectory('uploads');

@@ -23,24 +23,31 @@ class ExperienceController extends Controller
     }
     
     public function loadMore(Request $request) {
+        // Iegūst pašreizējo "lapu" no pieprasījuma. Pēc noklusējuma lapas numurs ir viens
         $page = (int) $request->get('page', 1);
+
+        // Pamācību skaits, ko iegūs papildus
         $perPage = 18;
+
+        // Cik ierakstus izlaist, lai sāktu no pareizās lapas
         $skip = ($page - 1) * $perPage;
 
+        // Iegūst pamācības kopā ar to publicētāja datiem
         $experiences = Experience::with('user')
-            ->where('visibility', 'Public')
-            ->latest()
-            ->skip($skip)
-            ->take($perPage)
-            ->get();
+            ->where('visibility', 'Public') // tikai publiskos ierakstus
+            ->latest() // sakārto pamācības pēc to publicēšanas datuma, dilstošā secībā
+            ->skip($skip) // izlaiž tik ierakstus, cik iepriekš nolēma ar $skip
+            ->take($perPage) // iegūst tik ierakstus, cik iepriekš nolēma ar $perPage
+            ->get(); // iegūst vēlamās pamācības
 
+        // Ja nav nevienas pamācības, atgriež tukšu atbildi
         if ($experiences->isEmpty()) {
             return response('', 200);
         }
 
+        // Atgriež Blade skata daļu kopā ar iegūtajām pamācībām
         return view('partials._experience', compact('experiences'));
     }
-
 
     public function yourExperiences() {
         $experiences = auth()->user()->experiences()
@@ -73,13 +80,25 @@ class ExperienceController extends Controller
     }
 
     public function uploadTemp(Request $request) {
+        // Pārbauda, vai pieprasījumā ir faila lauks, un vai fails atbilst noteiktiem nosacījumiem:
+        // - obligāts ('required')
+        // - ir fails ('file')
+        // - atļautie formāti: jpg, png, gif, mp4 ('mimes')
+        // - maksimālais izmērs 300 MB ('max:307200' – kilobaitos)
         $request->validate([
             'file' => 'required|file|mimes:jpg,png,gif,mp4|max:307200',
         ], [
+            // Ziņojums gadījumam, ja fails pārsniedz 300 MB
             'file.max' => 'The file cannot be larger than 300 MB.',
         ]);
+
+        // Iegūst augšupielādēto failu no pieprasījuma
         $file = $request->file('file');
+
+        // Saglabā failu pagaidu mapē 'temp' publiskajā diska vietā
         $path = $file->store('temp', 'public');
+
+        // Atgriež JSON atbildi ar faila pagaidu ceļu
         return response()->json(['tempPath' => "/storage/$path"]);
     }
     public function deleteTemp(Request $request) {

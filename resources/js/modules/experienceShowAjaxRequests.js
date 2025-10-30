@@ -50,16 +50,20 @@ export function initExperienceShowAjaxRequests() {
     experienceShowCommentsPopupForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        const formData = new FormData(experienceShowCommentsPopupForm);
+        const commentData = {
+            tutorial_id: experienceShowCommentsPopupForm.tutorial_id.value,
+            parent_id: experienceShowCommentsPopupForm.parent_id.value,
+            content: experienceShowCommentsPopupForm.content.value,
+        };
 
         try {
             const response = await fetch(experienceShowCommentsPopupForm.action, {
                 method: 'POST',
                 headers: {
-                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': csrfToken
                 },
-                body: formData
+                body: JSON.stringify(commentData)
             });
 
             if (response.status === 422) {

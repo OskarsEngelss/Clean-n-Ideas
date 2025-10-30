@@ -43,7 +43,7 @@ class CommentController extends Controller
             'type' => 'required|in:like,dislike',
         ]);
 
-        $userId = auth()->id(); // Assumes you're using Laravel Auth
+        $userId = auth()->id();
         $commentId = $validated['comment_id'];
         $type = $validated['type'];
 
@@ -52,7 +52,6 @@ class CommentController extends Controller
             ->first();
 
         if (!$existing) {
-            // No prior reaction → create new
             CommentLike::create([
                 'comment_id' => $commentId,
                 'user_id' => $userId,
@@ -60,17 +59,14 @@ class CommentController extends Controller
             ]);
             $status = 'added';
         } elseif ($existing->type === $type) {
-            // Same reaction clicked again → remove
             $existing->delete();
             $status = 'removed';
         } else {
-            // Opposite reaction → update
             $existing->type = $type;
             $existing->save();
             $status = 'updated';
         }
 
-        // Optional: Return counts for frontend
         $likes = CommentLike::where('comment_id', $commentId)->where('type', 'like')->count();
         $dislikes = CommentLike::where('comment_id', $commentId)->where('type', 'dislike')->count();
 

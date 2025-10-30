@@ -21,7 +21,7 @@
         </section>
         <section class="options">
             <h2>{{ $list->name }}</h2>
-            @if(Auth::user()->id == $list->user_id)
+            @if(Auth::user()->id == $list->user_id && !$list->is_favourite)
                 <form action="{{ route('list.destroy', $list->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
