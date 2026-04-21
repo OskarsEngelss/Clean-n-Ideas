@@ -61,9 +61,20 @@ export function initExperienceCreateMediaUpload() {
 
         function insertMediaAtPosition(x, y) {
             const targetElement = document.elementFromPoint(x, y);
-            const range = document.caretRangeFromPoint
-                ? document.caretRangeFromPoint(x, y)
-                : document.caretPositionFromPoint?.(x, y);
+            
+            let range;
+            if (document.caretRangeFromPoint) {
+                // Versija priekš Chrome, Edge, Safari
+                range = document.caretRangeFromPoint(x, y);
+            } else if (document.caretPositionFromPoint) {
+                // Versija priekš Firefox: pārvērš CaretPosition uz izmantojamo range
+                const position = document.caretPositionFromPoint(x, y);
+                if (position) {
+                    range = document.createRange();
+                    range.setStart(position.offsetNode, position.offset);
+                    range.collapse(true);
+                }
+            }
 
             if (range && editor.contains(targetElement)) {
                 const wrapper = document.createElement('span');
