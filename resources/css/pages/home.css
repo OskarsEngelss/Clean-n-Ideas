@@ -11,3 +11,119 @@
     display: flex;
     justify-content: center;
 }
+
+
+/* vvvvvvvv Welcome popup vvvvvvvv */
+/* vvvvvvvv Welcome popup vvvvvvvv */
+
+/* ---- Popup layout ---- */
+#home-welcome-popup {
+    display: none;
+    background-color: var(--base-color);
+    position: fixed;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -25%);
+    width: min(800px, 95%);
+    overflow-y: auto;
+    border-radius: 8px;
+    font-size: 1em;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 15px;
+}
+.home-welcome-popup-content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    padding-top: 8px;
+    
+}
+
+/* ---- Popup title and description ---- */
+.home-welcome-popup-content h2 {
+    text-align: center;
+    font-size: 2.1em;
+}
+.home-welcome-popup-description {
+    padding: 0px 15px;
+    text-align: center;
+    font-size: 1.3em;
+    margin-bottom: 5px;
+}
+
+
+/* ---- Popup image ---- */
+.home-welcome-popup-image {
+    display: block;
+    margin: 0 auto;       /* Keep it centered */
+    max-height: 50vh;    /* Slightly smaller to ensure buttons fit too */
+    width: auto;         /* MUST have this so height can dictate width */
+    max-width: 100%;     /* Prevent it from bleeding out the sides */
+    object-fit: contain; /* Keeps the tutorial screenshots from distorting */
+    flex-shrink: 0;
+}
+
+
+
+/* ---- Popup image navigation ---- */
+.home-welcome-popup-navigation {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+.home-welcome-popup-navigation button {
+    all: unset;
+    width: 100%;
+    padding: 5px 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.2s;
+    -webkit-user-select: none;
+    user-select: none;
+}
+#next-tutorial-btn {
+    background-color: hsl(from var(--accent-color) h s l / 0.4);
+}
+#prev-tutorial-btn {
+    background-color: hsl(from var(--fourth-accent-color) h s l / 0.4);
+}
+#next-tutorial-btn:hover {
+    background-color: hsl(from var(--accent-color-hover) h s l / 0.4);
+}
+#prev-tutorial-btn:hover {
+    background-color: hsl(from var(--fourth-accent-color-hover) h s l / 0.4);
+}
+
+
+
+
+
+
+/* ---- Popup close buttons ---- */
+.home-welcome-popup-close-buttons {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    width: 100%;
+}
+.home-welcome-popup-close-buttons button {
+    all: unset;
+    width: 100%;
+    padding: 5px 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.2s;
+}
+#close-welcome-btn {
+    text-align: center;
+    background-color: hsl(from var(--disagree-color) h s l / 0.4);
+    font-size: 1.2em;
+}
+#close-welcome-btn:hover {
+    background-color: var(--disagree-color-hover);
+}

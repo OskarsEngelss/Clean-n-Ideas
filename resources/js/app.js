@@ -26,6 +26,7 @@ import { initExtraYourExperiencesLoad } from './modules/your-experiences/extraYo
 import { initExtraUserFollowingLoad } from './modules/user/extraUserFollowingLoad.js';
 import { initPageRefreshErrorToast } from './modules/pageRefreshErrorToast.js';
 import { initExperienceShowExtraCommentsLoad } from './modules/experienceShowExtraCommentsLoad.js';
+import { initHomeWelcomePopup } from './modules/home/homeWelcomePopup.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     initBase();
@@ -95,5 +96,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (document.querySelector('.followers')) {
         initExtraUserFollowingLoad();
+    }
+
+    if (document.querySelector('#home-welcome-popup')) {
+        initHomeWelcomePopup();
     }
 });
