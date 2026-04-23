@@ -1,3 +1,7 @@
+/**
+ * Nodrošina pamācību bezgalīgo ritināšanu (infinite scroll) sākumlapā.
+ */
+
 export function initExtraExperienceLoad() {
     const postContainer = document.querySelector(".home-container");
     const trigger = document.querySelector('footer');

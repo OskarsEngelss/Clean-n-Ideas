@@ -1,3 +1,11 @@
+/**
+ * Inicializē vietnes bāzes funkcionalitāti (base), kas ir kopīga visām lapām.
+ * * Šis modulis atbild par:
+ * 1. Tumšā režīma (darkmode) stāvokļa pārbaudi un ielādi no localStorage.
+ * 2. Sānu izvēlnes (sidebar) atvēršanu un aizvēršanu.
+ * 3. Meklēšanas joslas (search bar) pārslēgšanu mobilajās ierīcēs.
+ */
+
 export function initBase() {
     let darkmode = localStorage.getItem('darkmode');
     const enableDarkmode = () => {

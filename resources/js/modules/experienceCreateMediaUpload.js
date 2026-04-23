@@ -1,3 +1,9 @@
+/**
+ * Pārvalda mediju failu (attēlu un video) augšupielādi jaunas pamācības izveidei.
+ * * Atbild par failu vilkšanu un nomešanu (drag and drop), priekšskatījumu 
+ * rādīšanu un progresīvu augšupielādi ar progresa joslu.
+ */
+
 export function initExperienceCreateMediaUpload() {
     //CSRF TOKEN!!!!
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');

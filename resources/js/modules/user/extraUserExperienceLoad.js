@@ -1,3 +1,8 @@
+/**
+ * Nodrošina dinamisku pamācību (experiences) ielādi konkrēta lietotāja profila lapā.
+ * * Automātiski ielādē nākamos ierakstus, kad lietotājs ritina (scroll) lapu uz leju.
+ */
+
 export function initExtraUserExperienceLoad() {
     const postContainer = document.querySelector(".profile-experience-container");
     const trigger = document.getElementById("user-load-more-trigger");

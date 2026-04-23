@@ -1,3 +1,9 @@
+/**
+ * Inicializē lietotāja profila papildinformācijas uznirstošo logu (popup).
+ * * Nodrošina loga atvēršanu un aizvēršanu, nospiežot uz informācijas pogas, 
+ * aizvēršanas ikonas vai noklikšķinot ārpus loga (overlay).
+ */
+
 export function initProfilePopup() {
     const moreInfoButton = document.getElementById('profile-more-info-button');
     const popupOverlay = document.querySelector('.popup-overlay');

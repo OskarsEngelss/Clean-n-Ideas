@@ -1,3 +1,9 @@
+/**
+ * Pārvalda visus uznirstošos logus (popups) pamācības skatīšanas lapā.
+ * * Kontrolē logu atvēršanu, aizvēršanu un atbilžu (replies) redzamības 
+ * pārslēgšanu komentāru sadaļā.
+ */
+
 export function initExperienceShowPopups() {
     const popupOverlay = document.querySelector('.popup-overlay');
 

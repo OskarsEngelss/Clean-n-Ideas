@@ -1,3 +1,9 @@
+/**
+ * Pārvalda komentāru un atbilžu (reply) rakstīšanas formu.
+ * * Kontrolē ievades lauka izmēru, pogu parādīšanu un sagatavo formu 
+ * atbildes sūtīšanai konkrētam komentāram.
+ */
+
 export function initExperienceShowCommentsForm() {
     const popup = document.getElementById('experience-show-comments-popup');
     const input = document.getElementById('experience-show-comments-popup-input');

@@ -1,3 +1,7 @@
+/**
+ * Pārvalda papildus ierakstu ielādi sadaļā "Tavas pamācības" (Your Experiences).
+ */
+
 export function initExtraYourExperiencesLoad() {
     const postContainer = document.querySelector(".your-experiences-content");
     const trigger = document.querySelector("footer");

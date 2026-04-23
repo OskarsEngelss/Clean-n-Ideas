@@ -9,6 +9,11 @@ use App\Models\Experience;
 
 class CommentController extends Controller
 {
+    /**
+     * Saglabā jaunu komentāru vai atbildi datubāzē.
+     * * Šī funkcija validē ienākošos datus, piesaista autorizēto lietotāju
+     * un atgriež noformētu HTML komponenti (component) JSON formātā priekš AJAX pieprasījumiem.
+     */
     public function store(Request $request) {
         $validated = $request->validate([
             'tutorial_id' => 'required|exists:experiences,id',
@@ -37,6 +42,15 @@ class CommentController extends Controller
         ]);
     }
 
+
+    /**
+     * Pievieno, noņem vai maina reakciju (like/dislike) komentāram.
+     * * Šī funkcija pārbauda vai lietotājs jau ir reaģējis uz komentāru un veic attiecīgo darbību:
+     * - Ja reakcijas nav, tā tiek izveidota (added).
+     * - Ja lietotājs spiež uz tās pašas reakcijas, tā tiek dzēsta (removed).
+     * - Ja lietotājs maina izvēli, tips tiek atjaunināts (updated).
+     * Atgriež jauno reakciju skaitu JSON formātā.
+     */
     public function toggleReaction(Request $request) {
         $validated = $request->validate([
             'comment_id' => 'required|integer|exists:comments,id',
@@ -77,6 +91,14 @@ class CommentController extends Controller
         ]);
     }
 
+
+    /**
+     * Ielādē papildus komentārus (comments) konkrētajā pamācībā (experience).
+     * * Funkcija izmanto pagināciju (pagination), lai izlaistu jau redzamos komentārus,
+     * un tad paņem nākamos astoņus. Tiek ielādētas arī atbildes (replies), 
+     * lietotāju dati (user) un reakciju skaits (likes/dislikes count).
+     * Atgriež tikai HTML skatu (view) ar komentāriem.
+     */
     public function experiencesCommentsLoadMore(Request $request, $slug) {
         $page = (int) $request->get('page', 1);
         $perPage = 8;

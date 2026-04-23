@@ -1,3 +1,12 @@
+/**
+ * Galvenais JavaScript fails, kas apvieno un inicializē visus sistēmas moduļus.
+ * * Darbības princips:
+ * 1. Uzstāda bāzes rīkus (Alpine.js, Axios).
+ * 2. Izmantojot DOMContentLoaded, pārbauda konkrētu elementu (ID vai klašu) eksistenci lapā.
+ * 3. Aktivizē tikai tos moduļus, kas nepieciešami pašreizējai lapai (piemēram, meklēšanu, 
+ * komentāru formu vai pamācību (experience) izveides rīkus).
+ */
+
 import './bootstrap';
 
 import Alpine from 'alpinejs';

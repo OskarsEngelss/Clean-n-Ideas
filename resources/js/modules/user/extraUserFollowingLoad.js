@@ -1,3 +1,8 @@
+/**
+ * Nodrošina dinamisku sekošanas saraksta (following) ielādi.
+ * * Izmanto IntersectionObserver, lai ielādētu papildus profilus kuriem lietotājs seko, bez lapas pārlādes.
+ */
+
 export function initExtraUserFollowingLoad() {
     const postContainer = document.querySelector(".followers");
     const trigger = document.querySelector("footer");

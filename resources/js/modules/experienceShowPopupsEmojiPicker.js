@@ -1,3 +1,9 @@
+/**
+ * Inicializē emocijzīmju (emoji) izvēlni komentāru sadaļai.
+ * * Nodrošina izvēlnes atvēršanu un emocijzīmju ievietošanu teksta laukā 
+ * tieši kursora pozīcijā.
+ */
+
 export function initExperienceShowPopupsEmojiPicker() {
     const input = document.getElementById('experience-show-comments-popup-input');
     const picker = document.getElementById('experience-show-comments-popup-emoji-picker');

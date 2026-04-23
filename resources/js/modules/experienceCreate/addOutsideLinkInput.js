@@ -1,3 +1,9 @@
+/**
+ * Pārvalda ārējo saišu (links) pievienošanu pamācības izveides procesā.
+ * * Veic saišu validāciju, vizuālu attēlošanu sarakstā un dinamisku slēpto 
+ * ievades lauku (hidden inputs) pievienošanu galvenajai formai.
+ */
+
 export function initAddOutsideLinkInput() {
     const addOutsideLinkInput = document.getElementById('add-outside-link-input');
     const addOutsideLinkButton = document.getElementById('add-outside-link-button');

@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Auth;
 
 class TutorialListController extends Controller
 {
+    /**
+     * Parāda autorizētā lietotāja izveidotos pamācību sarakstus (tutorial lists).
+     */
     public function index($id) {
         if (auth()->id() !== (int)$id) {
             return redirect()->back()->with('error', 'Unauthorized access.');
@@ -27,6 +30,9 @@ class TutorialListController extends Controller
         return view('list.index', compact('lists'));
     }
 
+    /**
+     * Parāda konkrētu sarakstu un visas tajā pievienotās pamācības (experiences).
+     */
     public function show($id, $list_id) {
         $user = User::find($id);
         $list = TutorialList::find($list_id);
@@ -43,6 +49,9 @@ class TutorialListController extends Controller
         return view('list.show', compact('list', 'experiences'));
     }
 
+    /**
+     * Izveido jaunu pamācību sarakstu (list) un, ja norādīts, uzreiz pievieno tam pamācību.
+     */
     public function storeList(Request $request) {
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -73,6 +82,9 @@ class TutorialListController extends Controller
         return view('partials._list', compact('list'));
     }
 
+    /**
+     * Pievieno pamācību sarakstam vai izņem to no tā (toggle), ja tā jau tur atrodas.
+     */
     public function storeTutorial(Request $request) {
         $validated = $request->validate([
             'tutorial_list_id' => ['required', 'exists:tutorial_lists,id'],
@@ -100,6 +112,9 @@ class TutorialListController extends Controller
         }
     }
 
+    /**
+     * Papildus ielādē lietotāja sarakstus (lists) priekš galvenās sarakstu lapas, izmantojot bezgalīgo ritināšanu (infinite scroll).
+     */
     public function listsLoadMore(Request $request) {
         $page = (int) $request->get('page', 1);
         $perPage = 8;
@@ -119,6 +134,9 @@ class TutorialListController extends Controller
         return view('partials._list-multiple', compact('lists'));
     }
 
+    /**
+     * Papildus ielādē lietotāja sarakstus (lists) priekš izvēlnes, kurā pievieno pamācību sarakstam.
+     */
     public function experiencesListsLoadMore(Request $request, $slug) {
         $page = (int) $request->get('page', 1);
 
@@ -143,6 +161,9 @@ class TutorialListController extends Controller
         return view('partials._list-option-multiple', compact('lists', 'experienceId'));
     }
 
+    /**
+     * pilnībā izdzēš pamācību sarakstu (list).
+     */
     public function destroy($id) {
         $list = TutorialList::findOrFail($id);
 

@@ -9,9 +9,14 @@ use App\Models\User;
 
 class SearchController extends Controller
 {
+    /**
+     * Veic globālo meklēšanu (search) sistēmā, atlasot un kārtojot pamācības (experiences) un lietotājus pēc atbilstības ranga (relevance rank).
+     * * Funkcija izmanto punktu sistēmu (scoring), lai noteiktu precīzākos rezultātus, 
+     * un ar "Load More Experiences" vai "Load More Users" pogu iespējams ielādet papildus pamācību vai lietotāju rezultātus attiecīgi.
+     */
     public function search(Request $request) {
         $query = $request->input('q');
-        $offset = $request->input('offset', null); // default 0
+        $offset = $request->input('offset', null);
 
         $stopWords = [
             'a', 'an', 'and', 'are', 'as', 'at', 'be', 'by', 'for',
@@ -22,7 +27,7 @@ class SearchController extends Controller
         $terms = array_filter(explode(' ', strtolower($query)));
         $importantTerms = array_filter($terms, fn($word) => !in_array($word, $stopWords) && strlen($word) > 1);
 
-        // Experiences (public only)
+        // Pamācibas (tikai publiskās)
         $experiences = Experience::where('visibility', 'Public')->get()->map(function ($exp) use ($terms, $importantTerms) {
             $score = 0;
             foreach ($importantTerms as $term) {
@@ -42,7 +47,7 @@ class SearchController extends Controller
         ->sortByDesc('search_score')
         ->values();
 
-        // Users
+        // Lietotāji
         $users = User::all()->map(function ($user) use ($terms, $importantTerms) {
             $score = 0;
             foreach ($importantTerms as $term) {
@@ -61,7 +66,6 @@ class SearchController extends Controller
         ->sortByDesc('search_score')
         ->values();
 
-        // Slice results based on offset
         if ($offset !== null) {
             $type = request('type');
 
@@ -105,7 +109,6 @@ class SearchController extends Controller
                 ]);
             }
 
-            // fallback if type missing
             return response()->json(['error' => 'Invalid or missing type'], 400);
         }
 

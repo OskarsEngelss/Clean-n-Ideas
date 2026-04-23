@@ -1,3 +1,9 @@
+/**
+ * Inicializē uznirstošos logus pamācības izveides (create) procesā.
+ * * Nodrošina kategoriju vai citu opciju izvēli, kur izvēlētā vērtība 
+ * tiek automātiski ievietota atbilstošajā ievades laukā.
+ */
+
 export function initExperienceCreatePopups() {
     const popupOverlay = document.querySelector('.popup-overlay');
 

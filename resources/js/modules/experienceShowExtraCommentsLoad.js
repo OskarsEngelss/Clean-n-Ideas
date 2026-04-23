@@ -1,3 +1,9 @@
+/**
+ * Nodrošina dinamisku papildus komentāru ielādi.
+ * * Izmanto IntersectionObserver, lai automātiski ielādētu nākamos komentārus, 
+ * kad lietotājs sasniedz saraksta beigas.
+ */
+
 export function initExperienceShowExtraCommentsLoad() {
     const postContainer = document.querySelector(".experience-show-comments-load-trigger");
     const trigger = document.querySelector(".experience-show-comments-load-trigger");

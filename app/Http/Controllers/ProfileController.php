@@ -14,7 +14,7 @@ use App\Models\TutorialMedia;
 class ProfileController extends Controller
 {
     /**
-     * Update the user's profile information.
+     * Atjaunina lietotāja profila informāciju, apstrādājot e-pasta maiņu, profila attēla augšupielādi un paroles atjaunošanu.
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse {
         $user = $request->user();
@@ -53,7 +53,7 @@ class ProfileController extends Controller
     }
 
     /**
-     * Delete the user's account.
+     * Dzēš lietotāja kontu, pirms tam notīrot visus saistītos failus, pamācību medijus (experience media) un pārtraucot sesiju.
      */
     public function destroy(Request $request): RedirectResponse {
         $request->validateWithBag('userDeletion', [
@@ -81,6 +81,10 @@ class ProfileController extends Controller
         return Redirect::to('/');
     }
 
+
+    /**
+     * Parāda lietotāja publisko profilu ar tā jaunākajām publiskajām pamācībām (experiences).
+     */
     public function show(User $user) {
         $experiences = $user->experiences()
             ->where('visibility', 'Public')
@@ -94,6 +98,9 @@ class ProfileController extends Controller
             'experiences' => $experiences,
         ]);
     }
+    /**
+     * Papildus ielādē lietotāja publiskās pamācības (experiences) profila lapā, izmantojot bezgalīgo ritināšanu (infinite scroll).
+     */
     public function loadMoreExperiences(User $user, Request $request) {
         $page = (int) $request->get('page', 1);
         $perPage = 9;
@@ -113,6 +120,10 @@ class ProfileController extends Controller
         return view('partials._experience', compact('experiences'));
     }
 
+
+    /**
+     * Parāda autorizētā lietotāja personīgo sekošanas (following) sarakstu. (Saraksts ar profiliem kuriem lietotājs seko)
+     */
     public function followers() {
         $following = Auth::user()
                     ->following()
@@ -122,6 +133,9 @@ class ProfileController extends Controller
 
         return view('followers', compact('following'));
     }
+    /**
+     * Papildus ielādē profilus kuriem autorizētais lietotājs seko.
+     */
     public function followersLoadMore(Request $request) {
         $page = (int) $request->get('page', 1);
         $perPage = 8;
@@ -141,6 +155,9 @@ class ProfileController extends Controller
         return view('partials._following', compact('following'));
     }
 
+    /**
+     * Pievieno vai noņem sekošanu (follow/unfollow) citam lietotājam.
+     */
     public function toggleFollow(User $user) {
         $authUser = auth()->user();
 
@@ -159,6 +176,9 @@ class ProfileController extends Controller
         return back();
     }
 
+    /**
+     * Atver lietotāja profila iestatījumu (settings) lapu.
+     */
     public function settings() {
         $user = Auth::user();
         return view('profile.settings', compact('user'));

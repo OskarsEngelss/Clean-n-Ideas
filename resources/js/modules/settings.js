@@ -1,3 +1,11 @@
+/**
+ * Inicializē lietotāja iestatījumu (settings) lapas funkcionalitāti.
+ * * Šis modulis atbild par:
+ * 1. Profila attēla augšupielādi un interaktīvu apgriešanu (cropping) pirms saglabāšanas.
+ * 2. Formas izmaiņu monitorēšanu, lai parādītu vai paslēptu "Saglabāt/Atcelt" pogas.
+ * 3. Uznirstošo logu (popups) pārvaldību iestatījumu sadaļā.
+ */
+
 export function initSettings() {
     const profilePictureInput = document.getElementById('settings-profile-picture-input');
     const profilePicturePreview = document.getElementById('settings-profile-picture');

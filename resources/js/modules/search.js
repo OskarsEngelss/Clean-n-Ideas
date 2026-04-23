@@ -1,4 +1,9 @@
-// public/js/search.js
+/**
+ * Pārvalda meklēšanas rezultātu lapas funkcionalitāti un papildus datu ielādi.
+ * * Izmantojot AJAX (fetch) pieprasījumus, ļauj lietotājam ielādēt papildus 
+ * rezultātus gan pamācībām (experiences), gan lietotājiem (users), neatsvaidzinot lapu.
+ */
+
 export function initSearch() {
     const searchResultsContainer = document.getElementById('search-results');
     const params = new URLSearchParams(window.location.search);

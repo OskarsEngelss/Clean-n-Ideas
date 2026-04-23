@@ -1,3 +1,9 @@
+/**
+ * Apstrādā dažādus AJAX pieprasījumus pamācības lapā.
+ * * Atbild par pamācības pievienošanu favorītiem un dinamisku lietotāja 
+ * sarakstu (lists) ielādi uznirstošajā izvēlnē.
+ */
+
 export function initExperienceShowAjaxRequests() {
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 

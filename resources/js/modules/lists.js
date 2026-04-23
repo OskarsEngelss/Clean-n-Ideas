@@ -1,3 +1,11 @@
+/**
+ * Inicializē pamācību sarakstu (lists) pārvaldību.
+ * * Šis modulis atbild par:
+ * 1. Jaunu sarakstu izveidi, izmantojot AJAX pieprasījumus.
+ * 2. Dinamisku sarakstu papildināšanu (infinite scroll), izmantojot IntersectionObserver.
+ * 3. Uznirstošo logu (popups) atvēršanu sarakstu sadaļā.
+ */
+
 export function initLists() {
     const popupOverlay = document.querySelector('.popup-overlay');
 

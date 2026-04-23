@@ -17,11 +17,17 @@ use App\Models\TutorialOutsideLink;
 
 class ExperienceController extends Controller
 {
+    /**
+     * Sagatavo un parāda sākumlapu (home) ar jaunākajām publiskajām pieredzēm, jeb pamācībām (experiences).
+     */
     public function index() {
         $experiences = Experience::with('user')->where('visibility', 'Public')->latest()->take(18)->get();
         return view('home', compact('experiences'));
     }
     
+    /**
+     * Ielādē papildus publiskās pamācības (experiences) priekš bezgalīgās ritināšanas (infinite scroll).
+     */
     public function loadMore(Request $request) {
         // Iegūst pašreizējo "lapu" no pieprasījuma. Pēc noklusējuma lapas numurs ir viens
         $page = (int) $request->get('page', 1);
@@ -49,6 +55,10 @@ class ExperienceController extends Controller
         return view('partials._experience', compact('experiences'));
     }
 
+
+    /**
+     * Atver lapu ar autorizētā lietotāja personīgajām pamācībām (experiences).
+     */
     public function yourExperiences() {
         $experiences = auth()->user()->experiences()
                         ->latest()
@@ -57,6 +67,10 @@ class ExperienceController extends Controller
 
         return view('your-experiences', compact('experiences'));
     }
+    /**
+     * Ielādē papildus lietotāja personīgās pamācības (experiences) AJAX pieprasījumiem (load more),
+     * kas nodrošina bezgalīgo ritināšanu (infinite scroll).
+     */
     public function yourExperiencesLoadMore(Request $request) {
         $page = (int) $request->get('page', 1);
         $perPage = 8;
@@ -75,10 +89,18 @@ class ExperienceController extends Controller
         return view('partials._experience', compact('experiences'));
     }
 
+
+    /**
+     * Atver jaunas pamācības (experience) izveides lapu.
+     */
     public function create() {
         return view('experience.create');
     }
 
+
+    /**
+     * Augšupielādē failu pagaidu mapē (temp storage) pirms pamācības (experience) saglabāšanas.
+     */
     public function uploadTemp(Request $request) {
         // Pārbauda, vai pieprasījumā ir faila lauks, un vai fails atbilst noteiktiem nosacījumiem:
         // - obligāts ('required')
@@ -101,10 +123,12 @@ class ExperienceController extends Controller
         // Atgriež JSON atbildi ar faila pagaidu ceļu
         return response()->json(['tempPath' => "/storage/$path"]);
     }
+    /**
+     * Izdzēš konkrētu pagaidu failu (temporary file) no servera.
+     */
     public function deleteTemp(Request $request) {
         $path = $request->input('path');
 
-        // Remove "/storage/" prefix to match disk path
         $diskPath = str_replace('/storage/', '', $path);
         if (Storage::disk('public')->exists($diskPath)) {
             Storage::disk('public')->delete($diskPath);
@@ -112,6 +136,9 @@ class ExperienceController extends Controller
         }
         return response()->json(['success' => false], 404);
     }
+    /**
+     * Veic vairāku pagaidu failu masīva tīrīšanu (cleanup), lai serverī nepaliktu neizmantoti dati.
+     */
     public function cleanupTemp(Request $request) {
         $raw = $request->getContent();
         $data = json_decode($raw, true);
@@ -130,6 +157,10 @@ class ExperienceController extends Controller
         return response()->noContent();
     }
 
+
+    /**
+     * Validē un saglabā jaunu pamācību (experience), apstrādājot teksta saturu un pārvietojot pagaidu failus uz pastāvīgo krātuvi.
+     */
     public function store(Request $request) {
         $validated = $request->validate([
             'title' => 'required|string|max:70',
@@ -273,6 +304,9 @@ class ExperienceController extends Controller
         ]);
     }
 
+    /**
+     * Parāda konkrētu pamācību (experience), ielādējot tās mediju failus, saites, komentārus un lietotāja saglabātos sarakstus.
+     */
     public function show(Experience $experience) {
         if ($experience->visibility === 'Private' && $experience->user_id !== auth()->id()) {
             return back();
@@ -321,6 +355,9 @@ class ExperienceController extends Controller
         return view('experience.show', compact('experience', 'followersCount', 'favourited', 'comments', 'lists', 'favouritesListId'));
     }
 
+    /**
+     * Izdzēš pamācību (experience) un ar to saistītos failus (media) pēc nosaukuma apstiprināšanas.
+     */
     public function destroy(Request $request, $id) {
         $experience = Experience::with('media')->findOrFail($id);
 
@@ -343,6 +380,9 @@ class ExperienceController extends Controller
         return redirect()->route('home')->with('success', 'Experience deleted successfully.');
     }
 
+    /**
+     * Pievieno, noņem vai maina lietotāja reakciju (like/dislike) pamācībai (experience).
+     */
     public function toggleReaction(Request $request) {
         if (!auth()->check()) {
             return response()->json(['message' => 'You must be logged in'], 401);

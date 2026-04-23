@@ -1,3 +1,9 @@
+/**
+ * Inicializē sākumlapas "Welcome" uznirstošo logu ar pamācību slaidrādi.
+ * * Pārbauda localStorage, lai nerādītu logu atkārtoti, ja lietotājs to ir aizvēris, 
+ * un pielāgo attēlus un to izmērus atkarībā no ekrāna platuma (responsive).
+ */
+
 export function initHomeWelcomePopup() {
     const isPopupDisabled = localStorage.getItem('welcomePopupDisabled') === 'true';
     if (isPopupDisabled) return;

@@ -1,3 +1,9 @@
+/**
+ * Kontrolē vietnes gaišā un tumšā režīma pārslēgšanu (light/dark mode).
+ * * Ļauj lietotājam mainīt režīmu un saglabā lietotāja preferenci, izmantojot 
+ * pārlūkprogrammas lokālo atmiņu (localStorage).
+ */
+
 export function initLightDarkMode() {
     let darkmode = localStorage.getItem('darkmode');
     const lightDarkModeSwitch = document.getElementById('toggle-light-dark-mode');
