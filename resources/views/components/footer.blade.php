@@ -1,3 +1,3 @@
 <footer>
-    © 2025 Clean N Ideas — All rights reserved
+    © 2026 Clean N Ideas — All rights reserved
 </footer>

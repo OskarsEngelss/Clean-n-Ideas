@@ -4,6 +4,8 @@
     font-family: "Onest";
     color: var(--text-color);
 }
+
+/* Ķermeņa stils */
 body {
     min-height: 100vh;
     display: grid;
@@ -15,9 +17,12 @@ body {
     "sidebar footer";
     background-color: var(--base-color);
 }
+
 main {
     grid-area: main;
 }
+
+/* Kājenes stils */
 footer {
     grid-area: footer;
     background-color: var(--base-color-original);

@@ -1,5 +1,4 @@
 <?php
-
 use Database\Seeders\ExperienceSeeder;
 use Illuminate\Support\Facades\Event;
 use App\Models\Experience;
@@ -9,10 +8,12 @@ use App\Models\User;
 use App\Models\TutorialList;
 
 test('Lietotājam ir iespējams ievietot pamācību savu mīļāko sarakstā', function () {
+    // 1. Sagatavošanās: tiek simulēti notikumi un izveidota direktorija failiem
     Event::fake();
-
     Storage::disk('public')->makeDirectory('uploads');
 
+    // 2. Testa lietotāja un saraksta izveide
+    // Tiek izveidots lietotājs "Computer Tester" un automātiski radīts saraksts "Favourites"
     $user = User::factory()->computerTester()->create();
     TutorialList::create([
         'user_id' => $user->id,
@@ -21,6 +22,8 @@ test('Lietotājam ir iespējams ievietot pamācību savu mīļāko sarakstā', f
         'is_public' => false,
     ]);
 
+    // Masīvs ar testa pamācībām
+    // Katrai pamācībai ir pievienoti mediju faili (attēli/video) un ārējās saites
     $experiences = [
         [
             'title' => 'The best technique to washing clothes!!!',
@@ -95,8 +98,14 @@ test('Lietotājam ir iespējams ievietot pamācību savu mīļāko sarakstā', f
         ],
     ];
 
+    // 3. Datu apstrāde un saglabāšana datubāzē
     foreach ($experiences as $data) {
         $mediaRecords = [];
+
+        // Cikls, kas apstrādā mediju failus:
+        // - Pārbauda, vai fails eksistē seeder mapē
+        // - Piešķir unikālu nosaukumu (UUID) un iekopē "public" diskā
+        // - Atjauno ceļu pamācības HTML saturā
         foreach ($data['media'] as $m) {
             $srcPath = database_path('seeders/uploads/' . $m['file']);
 
@@ -115,6 +124,7 @@ test('Lietotājam ir iespējams ievietot pamācību savu mīļāko sarakstā', f
             $data['tutorial'] = str_replace($m['file'], basename($dest), $data['tutorial']);
         }
 
+        // Pamācības ieraksta izveide
         $experience = $user->experiences()->create([
             'title' => $data['title'],
             'category' => $data['category'],
@@ -125,6 +135,7 @@ test('Lietotājam ir iespējams ievietot pamācību savu mīļāko sarakstā', f
             'thumbnail' => 'images/defaults/' . mb_strtolower($data['category'], 'UTF-8') . '-default-thumbnail.webp',
         ]);
 
+        // Piesaista mediju failus un ārējās saites konkrētajai pamācībai
         foreach ($mediaRecords as $m) {
             TutorialMedia::create([
                 'tutorial_id' => $experience->id,
@@ -142,17 +153,26 @@ test('Lietotājam ir iespējams ievietot pamācību savu mīļāko sarakstā', f
         }
     }
 
+    // 4. Testa izpilde (Pārlūkprogrammas simulācija)
     $page = visit('/');
 
-    $page->click('.sign-in-button')
+   $page->click('.sign-in-button')               // Atver pieslēgšanās logu
         ->assertSee('Sign in')
-        ->fill('email', 'computertester@gmail.com')
+        ->fill('email', 'computertester@gmail.com') // Ievada datus
         ->fill('password', 'password')
-        ->click('.submit-button')
+        ->click('.submit-button')                // Pieslēdzas sistēmai
         ->screenshot(filename: 'after-loggin')
+        
+        // Atver konkrēto pamācību par auto tīrīšanu
         ->click('Glovebox cleaning - simple - quick - effective - get over it')
+        
+        // Noklikšķina uz pogas, lai pievienotu mīļākajiem sarakstiem
         ->click('#experience-show-favourite-button')
+        
+        // Pāriet uz sarakstu sadaļu, lai pārbaudītu rezultātu
         ->click('Favourites')
         ->screenshot(filename: 'after-clicking-favourites')
+        
+        // Pārbauda, vai pamācība ir redzama mīļāko sarakstā
         ->assertSee('Glovebox');
 });

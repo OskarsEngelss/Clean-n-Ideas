@@ -1,3 +1,7 @@
+/** 
+ * Šis fails satur CSS mainīgos, kas tiek izmantoti visā vietnē. 
+ * Mainīgie ļauj viegli pielāgot krāsas un stilu gan gaišajam, gan tumšajam režīmam. 
+ */
 :root {
     --base-color-original: hsl(from var(--base-color) h s calc(l - 3));;
     --base-color: hsl(0, 0%, 93%);
@@ -34,6 +38,7 @@
     --progress-bar-mold-color: hsl(0, 0%, 78%);
 }
 
+/* Tumšā režīma krāsas */
 .darkmode {
     --base-color-original: hsl(from var(--base-color) h s calc(l - 2));;
     --base-color: hsl(0, 0%, 15%);
